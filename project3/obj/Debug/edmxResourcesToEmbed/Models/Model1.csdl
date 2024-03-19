@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbauctionsystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AboutU">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Auction">
+    <Key>
+      <PropertyRef Name="au_ID" />
+    </Key>
+    <Property Name="au_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameAu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="em_ID" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__Auction__em_ID__5CD6CB2B" FromRole="Auction" ToRole="Employee" />
+    <NavigationProperty Name="REL_Pro_Au" Relationship="Self.FK__REL_Pro_A__au_ID__6D0D32F4" FromRole="Auction" ToRole="REL_Pro_Au" />
+  </EntityType>
+  <EntityType Name="Bid">
+    <Key>
+      <PropertyRef Name="bid_ID" />
+    </Key>
+    <Property Name="bid_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="cus_ID" Type="Int32" />
+    <Property Name="pro_ID" Type="Int32" />
+    <Property Name="au_ID" Type="Int32" />
+    <NavigationProperty Name="REL_Pro_Au" Relationship="Self.FK__Bids__5EBF139D" FromRole="Bids" ToRole="REL_Pro_Au" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Bids__cus_ID__5FB337D6" FromRole="Bids" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="cat_ID" />
+    </Key>
+    <Property Name="cat_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameCat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Parent_ID" Type="Int32" />
+    <Property Name="Characteristic" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category1" Relationship="Self.FK__Category__Parent__5DCAEF64" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.FK__Category__Parent__5DCAEF64" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Products" Relationship="Self.REL_Pro_Cat" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="cus_ID" />
+    </Key>
+    <Property Name="cus_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Surplus" Type="Double" />
+    <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bids" Relationship="Self.FK__Bids__cus_ID__5FB337D6" FromRole="Customer" ToRole="Bids" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK__Messages__cus_ID__619B8048" FromRole="Customer" ToRole="Messages" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__cus_ID__6383C8BA" FromRole="Customer" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__cus_ID__6477ECF3" FromRole="Customer" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="em_ID" />
+    </Key>
+    <Property Name="em_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Sex" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Auctions" Relationship="Self.FK__Auction__em_ID__5CD6CB2B" FromRole="Employee" ToRole="Auction" />
+    <NavigationProperty Name="Groups" Relationship="Self.REL_Em_Gru" FromRole="Employee" ToRole="Groups" />
+  </EntityType>
+  <EntityType Name="Function">
+    <Key>
+      <PropertyRef Name="fu_ID" />
+    </Key>
+    <Property Name="fu_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameFu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FunctionDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Groups" Relationship="Self.REL_Fu_Gru" FromRole="Functions" ToRole="Groups" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="gru_ID" />
+    </Key>
+    <Property Name="gru_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameGr" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GroupDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employees" Relationship="Self.REL_Em_Gru" FromRole="Groups" ToRole="Employee" />
+    <NavigationProperty Name="Functions" Relationship="Self.REL_Fu_Gru" FromRole="Groups" ToRole="Functions" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="im_ID" />
+    </Key>
+    <Property Name="im_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Img" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pro_ID" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Images__pro_ID__60A75C0F" FromRole="Images" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="me_ID" />
+    </Key>
+    <Property Name="me_ID" Type="Int32" Nullable="false" />
+    <Property Name="NameMe" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Message1" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="DateTime" Precision="3" />
+    <Property Name="cus_ID" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Messages__cus_ID__619B8048" FromRole="Messages" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="no_ID" />
+    </Key>
+    <Property Name="no_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Time" Type="DateTime" Precision="3" />
+    <Property Name="NoDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.REL_Or_Me" FromRole="Notifications" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="or_ID" />
+    </Key>
+    <Property Name="or_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MoreInformation" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="cus_ID" Type="Int32" />
+    <Property Name="pro_ID" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__cus_ID__6383C8BA" FromRole="Orders" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Orders__pro_ID__628FA481" FromRole="Orders" ToRole="Product" />
+    <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__or_ID__66603565" FromRole="Orders" ToRole="Rating" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__or_ID__70DDC3D8" FromRole="Orders" ToRole="Review" />
+    <NavigationProperty Name="Notifications" Relationship="Self.REL_Or_Me" FromRole="Orders" ToRole="Notifications" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="pro_ID" />
+    </Key>
+    <Property Name="pro_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NamePro" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartingPrice" Type="Double" Nullable="false" />
+    <Property Name="StepPrice" Type="Double" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="cus_ID" Type="Int32" />
+    <Property Name="MoreInformation" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="sta_ID" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Product__cus_ID__6477ECF3" FromRole="Product" ToRole="Customer" />
+    <NavigationProperty Name="Images" Relationship="Self.FK__Images__pro_ID__60A75C0F" FromRole="Product" ToRole="Images" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__pro_ID__628FA481" FromRole="Product" ToRole="Orders" />
+    <NavigationProperty Name="Status" Relationship="Self.FK__Product__sta_ID__656C112C" FromRole="Product" ToRole="Status" />
+    <NavigationProperty Name="REL_Pro_Au" Relationship="Self.FK__REL_Pro_A__pro_I__6E01572D" FromRole="Product" ToRole="REL_Pro_Au" />
+    <NavigationProperty Name="Categories" Relationship="Self.REL_Pro_Cat" FromRole="Product" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="ra_ID" />
+    </Key>
+    <Property Name="ra_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Star" Type="Int32" />
+    <Property Name="or_ID" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="Self.FK__Rating__or_ID__66603565" FromRole="Rating" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="REL_Pro_Au">
+    <Key>
+      <PropertyRef Name="pro_ID" />
+      <PropertyRef Name="au_ID" />
+    </Key>
+    <Property Name="pro_ID" Type="Int32" Nullable="false" />
+    <Property Name="au_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Auction" Relationship="Self.FK__REL_Pro_A__au_ID__6D0D32F4" FromRole="REL_Pro_Au" ToRole="Auction" />
+    <NavigationProperty Name="Bids" Relationship="Self.FK__Bids__5EBF139D" FromRole="REL_Pro_Au" ToRole="Bids" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__REL_Pro_A__pro_I__6E01572D" FromRole="REL_Pro_Au" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="re_ID" />
+    </Key>
+    <Property Name="re_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Star" Type="Int32" Nullable="false" />
+    <Property Name="Review1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="or_ID" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="Self.FK__Review__or_ID__70DDC3D8" FromRole="Review" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="sta_ID" />
+    </Key>
+    <Property Name="sta_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusDetails" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NameSta" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__sta_ID__656C112C" FromRole="Status" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__Auction__em_ID__5CD6CB2B">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="em_ID" />
+      </Principal>
+      <Dependent Role="Auction">
+        <PropertyRef Name="em_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REL_Pro_A__au_ID__6D0D32F4">
+    <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+    <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Auction">
+        <PropertyRef Name="au_ID" />
+      </Principal>
+      <Dependent Role="REL_Pro_Au">
+        <PropertyRef Name="au_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Bids__5EBF139D">
+    <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="0..1" />
+    <End Role="Bids" Type="Self.Bid" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="REL_Pro_Au">
+        <PropertyRef Name="pro_ID" />
+        <PropertyRef Name="au_ID" />
+      </Principal>
+      <Dependent Role="Bids">
+        <PropertyRef Name="pro_ID" />
+        <PropertyRef Name="au_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Bids__cus_ID__5FB337D6">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Bids" Type="Self.Bid" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Bids">
+        <PropertyRef Name="cus_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Category__Parent__5DCAEF64">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="cat_ID" />
+      </Principal>
+      <Dependent Role="Category1">
+        <PropertyRef Name="Parent_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__cus_ID__619B8048">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="cus_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__cus_ID__6383C8BA">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="cus_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__cus_ID__6477ECF3">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="cus_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Images__pro_ID__60A75C0F">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Images" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="pro_ID" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="pro_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__pro_ID__628FA481">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="pro_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="pro_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Rating__or_ID__66603565">
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="or_ID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="or_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__or_ID__70DDC3D8">
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="or_ID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="or_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__sta_ID__656C112C">
+    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="sta_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="sta_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REL_Pro_A__pro_I__6E01572D">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="pro_ID" />
+      </Principal>
+      <Dependent Role="REL_Pro_Au">
+        <PropertyRef Name="pro_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REL_Em_Gru">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+  </Association>
+  <Association Name="REL_Fu_Gru">
+    <End Role="Functions" Type="Self.Function" Multiplicity="*" />
+    <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+  </Association>
+  <Association Name="REL_Or_Me">
+    <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+  </Association>
+  <Association Name="REL_Pro_Cat">
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="dbauctionsystemEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AboutUs" EntityType="Self.AboutU" />
+    <EntitySet Name="Auctions" EntityType="Self.Auction" />
+    <EntitySet Name="Bids" EntityType="Self.Bid" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Functions" EntityType="Self.Function" />
+    <EntitySet Name="Groups" EntityType="Self.Group" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Notifications" EntityType="Self.Notification" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Ratings" EntityType="Self.Rating" />
+    <EntitySet Name="REL_Pro_Au" EntityType="Self.REL_Pro_Au" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <AssociationSet Name="FK__Auction__em_ID__5CD6CB2B" Association="Self.FK__Auction__em_ID__5CD6CB2B">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Auction" EntitySet="Auctions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REL_Pro_A__au_ID__6D0D32F4" Association="Self.FK__REL_Pro_A__au_ID__6D0D32F4">
+      <End Role="Auction" EntitySet="Auctions" />
+      <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Bids__5EBF139D" Association="Self.FK__Bids__5EBF139D">
+      <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
+      <End Role="Bids" EntitySet="Bids" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Bids__cus_ID__5FB337D6" Association="Self.FK__Bids__cus_ID__5FB337D6">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Bids" EntitySet="Bids" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Category__Parent__5DCAEF64" Association="Self.FK__Category__Parent__5DCAEF64">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Category1" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__cus_ID__619B8048" Association="Self.FK__Messages__cus_ID__619B8048">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__cus_ID__6383C8BA" Association="Self.FK__Orders__cus_ID__6383C8BA">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__cus_ID__6477ECF3" Association="Self.FK__Product__cus_ID__6477ECF3">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Images__pro_ID__60A75C0F" Association="Self.FK__Images__pro_ID__60A75C0F">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__pro_ID__628FA481" Association="Self.FK__Orders__pro_ID__628FA481">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Rating__or_ID__66603565" Association="Self.FK__Rating__or_ID__66603565">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__or_ID__70DDC3D8" Association="Self.FK__Review__or_ID__70DDC3D8">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__sta_ID__656C112C" Association="Self.FK__Product__sta_ID__656C112C">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REL_Pro_A__pro_I__6E01572D" Association="Self.FK__REL_Pro_A__pro_I__6E01572D">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
+    </AssociationSet>
+    <AssociationSet Name="REL_Em_Gru" Association="Self.REL_Em_Gru">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="REL_Fu_Gru" Association="Self.REL_Fu_Gru">
+      <End Role="Functions" EntitySet="Functions" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="REL_Or_Me" Association="Self.REL_Or_Me">
+      <End Role="Notifications" EntitySet="Notifications" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="REL_Pro_Cat" Association="Self.REL_Pro_Cat">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

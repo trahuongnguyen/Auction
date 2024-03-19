@@ -1,0 +1,88 @@
+﻿@model IEnumerable<project3.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NamePro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StepPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoreInformation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status.StatusDetails)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamePro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StepPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceivedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoreInformation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.StatusDetails)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pro_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pro_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pro_ID })
+        </td>
+    </tr>
+}
+
+</table>

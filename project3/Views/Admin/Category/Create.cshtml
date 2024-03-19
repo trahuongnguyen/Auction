@@ -1,0 +1,40 @@
+﻿@model project3.Models.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>Create</h2>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Create Category</h6>
+                @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-floating mb-3">
+                        <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput"
+                               placeholder="name@example.com">
+                        <label for="floatingInput">Category Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        @Html.DropDownListFor(m => m.Parent_ID, (SelectList) ViewBag.Parent_ID, "selected", new { @class = "form-select bg-gray border-0" })
+                        <label for="floatingSelect">Choose Parent Category</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingPassword"
+                               placeholder="Description">
+                        <label for="floatingPassword">Description</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control bg-gray border-0" type="file" name="Image">
+                        <label for="floatingSelect">Image</label>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Create</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
