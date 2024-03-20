@@ -1,4 +1,5 @@
-﻿@model IEnumerable<project3.Models.Category>
+﻿
+@model IEnumerable<project3.Models.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -10,52 +11,61 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table text-start align-middle table-hover mb-0 table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NameCat)
+            NameCat
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Characteristic)
+            Characteristic
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Image)
+            Image
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category2.NameCat)
+            Parent
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameCat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Characteristic)
-        </td>
-        <td>
-            @if(Model!=null && item.Image != null && item.Image.Length > 0)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameCat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Characteristic)
+            </td>
+            <td>
+                @if (Model != null && item.Image != null && item.Image.Length > 0)
                 {
-                    <img src="data:image; base64, @System.Convert.ToBase64String(item.Image)" width="80" height="80"/>
+                    <img src="data:image; base64, @System.Convert.ToBase64String(item.Image)" width="80px" height="80px" />
                 }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category2.NameCat)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cat_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cat_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cat_ID })
-        </td>
-    </tr>
-}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category2.NameCat)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.cat_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.cat_ID })
+            </td>
+        </tr>
+    }
 
 </table>
+@*<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.PageNumber?"page-item active":"page-item") me-3">
+            <a class="page-link" href="@Url.Action("Index", new{pi = i})">@i</a>
+        </li>
+
+    }
+</ul>*@

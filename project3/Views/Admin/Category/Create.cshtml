@@ -14,28 +14,28 @@
                 @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="form-floating mb-3">
-                        <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput"
-                               placeholder="Category Name">
-                        <label for="floatingInput">Category Name</label>
-                        @Html.ValidationMessageFor(model => model.NameCat, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-floating mb-3">
-                        @Html.DropDownListFor(m => m.Parent_ID, (SelectList)ViewBag.Parent, "selected", new { @class = "form-select bg-gray border-0" })
-                        <label for="floatingSelect">Choose Parent Category</label>
-                        @Html.ValidationMessageFor(model => model.Parent_ID, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingPassword"
-                               placeholder="Description">
-                        <label for="floatingPassword">Description</label>
-                        @Html.ValidationMessageFor(model => model.Characteristic, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control bg-gray border-0" type="file" name="Image">
-                        <label for="floatingSelect">Image</label>
-                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput"
+                       >
+                <label for="floatingInput">Category Name</label>
+                @Html.ValidationMessageFor(model => model.NameCat, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.DropDownListFor(m => m.Parent_ID, (SelectList)ViewBag.Parent, "selected", new { @class = "form-select bg-gray border-0" })
+                <label for="floatingSelect">Choose Parent Category</label>
+                @Html.ValidationMessageFor(model => model.Parent_ID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingPassword"
+                       >
+                <label for="floatingPassword">Description</label>
+                @Html.ValidationMessageFor(model => model.Characteristic, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control bg-gray border-0" type="file" name="Image">
+                <label for="floatingSelect">Image</label>
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
                     <button type="submit" class="btn btn-dark">Create</button>
                 }
             </div>

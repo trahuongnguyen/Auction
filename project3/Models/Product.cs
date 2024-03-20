@@ -18,7 +18,6 @@ namespace project3.Models
         public Product()
         {
             this.Images = new HashSet<Image>();
-            this.Ratings = new HashSet<Rating>();
             this.REL_Pro_Au = new HashSet<REL_Pro_Au>();
             this.Reviews = new HashSet<Review>();
             this.Orders = new HashSet<Order>();
@@ -42,8 +41,6 @@ namespace project3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Images { get; set; }
         public virtual Status Status { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REL_Pro_Au> REL_Pro_Au { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

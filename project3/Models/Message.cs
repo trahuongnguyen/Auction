@@ -15,7 +15,6 @@ namespace project3.Models
     public partial class Message
     {
         public int me_ID { get; set; }
-        public string NameMe { get; set; }
         public string Message1 { get; set; }
         public System.DateTime Time { get; set; }
         public Nullable<int> cus_ID { get; set; }
