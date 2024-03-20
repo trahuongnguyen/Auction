@@ -47,11 +47,6 @@ namespace project3.Admin.Controllers
                             ModelState.AddModelError("Image", "Please choose file type .png or .jpg");
                             return View(category);
                         }
-                        if (Image.ContentLength > 300*100000)
-                        {
-                            ModelState.AddModelError("Image", "This File is out of 300KB");
-                            return View(category);
-                        }
                         try
                         {
                             using (var binaryReader = new BinaryReader(Image.InputStream))

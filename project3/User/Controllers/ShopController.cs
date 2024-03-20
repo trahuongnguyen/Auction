@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using project3.Models;
 
 namespace project3.User.Controllers
@@ -16,18 +17,38 @@ namespace project3.User.Controllers
 
         // GET: Shop
         [Route("[section]/[contronller]/[action]/{cat_ID}")]
-        public ActionResult Index()
+        public ActionResult Index(int? pi)
         {
-            if (HttpContext.Request.QueryString["cat_ID"].ToString() != null)
+            int PageNumber = pi ?? 1;
+            int PageSize = 12;
+            List<Product> products = db.Products.Include(p => p.Customer).Include(p => p.Status).ToList();
+            if (HttpContext.Request.Params !=null)
             {
-                int catID = Int32.Parse(RouteData.Values["cat_ID"].ToString());
-                Category ca = db.Categories.Where(c => c.cat_ID == catID).FirstOrDefault();
-                var products = ca.Products.ToList();
-                return View(products);
+                int cat_ID = Request.Params["cat_ID"].ToString() != null ? Int32.Parse(Request.Params["cat_ID"].ToString()) : 0;
+                if(cat_ID > 0)
+                {
+                    Category ca = db.Categories.Where(c => c.cat_ID == cat_ID).FirstOrDefault();
+                    if (ca != null)
+                    {
+                        products = ca.Products.ToList();
+                    }
+                }
+
+                int au_ID = Request.Params["cat_ID"].ToString() != null ? Int32.Parse(Request.Params["cat_ID"].ToString()) : 0;
+                if (au_ID > 0)
+                {
+                    Auction auction = db.Auctions.Where(a=>a.au_ID == au_ID).FirstOrDefault();
+                    if (auction != null)
+                    {
+                        products = new List<Product>();
+                        foreach (var item in auction.REL_Pro_Au)
+                        {
+                            products.Add(item.Product);
+                        }
+                    }
+                }
             }
-            
-            //  var products = db.Products.Include(p => p.Customer).Include(p => p.Status);
-            return View();
+            return View(products.ToPagedList(PageNumber, PageSize));
         }
 
         // GET: Shop/Details/5
