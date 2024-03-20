@@ -13,7 +13,7 @@ namespace project3.User.Controllers.User
 {
     public class ProductsController : Controller
     {
-        private dbauctionsystemEntities2 db = new dbauctionsystemEntities2();
+        private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
         // GET: Products
         public ActionResult Index()
@@ -49,7 +49,7 @@ namespace project3.User.Controllers.User
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pro_ID,NamePro,StartingPrice,StepPrice,StartTime,EndTime,ReceivedDate,Description,cus_ID,MoreInformation,sta_ID")] Product product, IEnumerable<HttpPostedFileBase> Images)
+        public ActionResult Create([Bind(Include = "pro_ID,NamePro,StartingPrice,StepPrice,StartTime,EndTime,ReceivedDate,Description,cus_ID,MoreInformation,sta_ID")] Product product, IEnumerable<HttpPostedFileBase> Images, List<int> cat_IDs)
         {
             if (ModelState.IsValid)
             {
@@ -69,24 +69,35 @@ namespace project3.User.Controllers.User
                                 ModelState.AddModelError("Image", "This File is out of 300KB");
                                 return View(product);
                             }
-                            db.Products.Add(product);
-                            db.SaveChanges();
-                            Product product1 = db.Products.FirstOrDefault(p=>p.pro_ID == db.Products.Max(pro=>pro.pro_ID));
-
-                            try
+                        }
+                    }
+                    foreach (var item in cat_IDs)
+                    {
+                        Category category = db.Categories.FirstOrDefault(c=> c.cat_ID == item);
+                        product.Categories.Add(category);
+                    }
+                    product.ReceivedDate = DateTime.Now;
+                    
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    Product product1 = db.Products.FirstOrDefault(p => p.pro_ID == db.Products.Max(pro => pro.pro_ID));
+                    foreach (var item in Images)
+                    {
+                        try
+                        {
+                            using (var binaryReader = new BinaryReader(item.InputStream))
                             {
-                                using (var binaryReader = new BinaryReader(item.InputStream))
-                                {
-                                    Image imgs = new Image();
-                                    imgs.Img = binaryReader.ReadBytes(item.ContentLength);
-                                    imgs.pro_ID = product1.pro_ID;
-                                }
+                                Image imgs = new Image();
+                                imgs.Img = binaryReader.ReadBytes(item.ContentLength);
+                                imgs.pro_ID = product1.pro_ID;
+                                db.Images.Add(imgs);
+                                db.SaveChanges();
                             }
-                            catch (Exception)
-                            {
+                        }
+                        catch (Exception)
+                        {
 
-                                throw;
-                            }
+                            throw;
                         }
                     }
                 }
@@ -94,7 +105,7 @@ namespace project3.User.Controllers.User
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cat_ID = new SelectList(db.Categories, "cat_ID", "NameCat");
+            ViewBag.cat_ID = new SelectList(db.Categories, "cat_ID", "NameCat", product.Categories);
             return View(product);
         }
 

@@ -16,8 +16,8 @@ namespace project3.Models
     {
         public int ra_ID { get; set; }
         public Nullable<int> Star { get; set; }
-        public Nullable<int> or_ID { get; set; }
+        public Nullable<int> pro_ID { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace project3.Admin.Controllers
 {
     public class CategoryController : Controller
     {
-        private dbauctionsystemEntities2 db = new dbauctionsystemEntities2();
+        private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
         // GET: Category
         public ActionResult Index()
@@ -40,7 +40,7 @@ namespace project3.Admin.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
-            ViewBag.Parent_ID = new SelectList(db.Categories.ToList(), "cat_ID", "NameCat");
+            ViewBag.Parent = new SelectList(db.Categories.ToList(), "cat_ID", "NameCat");
             return View();
         }
 
@@ -78,12 +78,13 @@ namespace project3.Admin.Controllers
                         throw;
                     }
                 }
+                category.Status = 1;
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Parent_ID = new SelectList(db.Categories.ToList(), "cat_ID", "NameCat", category.Parent_ID);
+            ViewBag.Parent_ID = new SelectList(db.Categories, "cat_ID", "NameCat", category.Parent_ID);
             return View(category);
         }
 

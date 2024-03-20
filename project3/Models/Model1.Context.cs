@@ -13,10 +13,10 @@ namespace project3.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class dbauctionsystemEntities2 : DbContext
+    public partial class dbauctionsystemEntities : DbContext
     {
-        public dbauctionsystemEntities2()
-            : base("name=dbauctionsystemEntities2")
+        public dbauctionsystemEntities()
+            : base("name=dbauctionsystemEntities")
         {
         }
     

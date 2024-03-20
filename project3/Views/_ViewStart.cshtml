@@ -1,12 +1,15 @@
 ﻿@{
-    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.Params["section"]);
-    switch (CurrentControllerName)
-    {
-        case "Admin":
-            Layout = "~/Views/Shared/_Layout1.cshtml";
-            break;
-        default:
-            Layout = "~/Views/Shared/_Layout.cshtml";
-            break;
-    }
+        string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.Params["section"]);
+        switch (CurrentControllerName)
+        {
+            case "Admin":
+                Layout = "~/Views/Shared/_Layout1.cshtml";
+                break;
+            default:
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                break;
+        };
+
+    project3.Models.dbauctionsystemEntities db = new project3.Models.dbauctionsystemEntities();
+    List<project3.Models.Category> categories;
 }

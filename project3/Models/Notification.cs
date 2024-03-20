@@ -17,15 +17,19 @@ namespace project3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Notification()
         {
-            this.Orders = new HashSet<Order>();
+            this.Products = new HashSet<Product>();
         }
     
         public int no_ID { get; set; }
         public string NameNo { get; set; }
-        public Nullable<System.DateTime> Time { get; set; }
+        public System.DateTime Time { get; set; }
         public string NoDetails { get; set; }
+        public Nullable<int> SellCus { get; set; }
+        public Nullable<int> BuyCus { get; set; }
     
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
