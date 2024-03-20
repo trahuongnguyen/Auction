@@ -25,7 +25,6 @@ namespace project3.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AboutU> AboutUs { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<Bid> Bids { get; set; }
         public virtual DbSet<Category> Categories { get; set; }

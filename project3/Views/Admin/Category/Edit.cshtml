@@ -5,12 +5,10 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Category</h4>
         <hr />
@@ -20,41 +18,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NameCat, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NameCat, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput"
+                       value="@Model.NameCat">
+                <label for="floatingInput">Category Name</label>
                 @Html.ValidationMessageFor(model => model.NameCat, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Parent_ID, "Parent_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Parent_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Parent_ID, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-floating mb-3">
+            @Html.DropDownListFor(m => m.Parent_ID, (SelectList)ViewBag.Parent, "selected", new { @class = "form-select bg-gray border-0" })
+            <label for="floatingSelect">Choose Parent Category</label>
+            @Html.ValidationMessageFor(model => model.Parent_ID, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Characteristic, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Characteristic, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingInput" value="@Model.Characteristic"
+                       >
+                <label for="floatingInput">Description</label>
                 @Html.ValidationMessageFor(model => model.Characteristic, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-floating mb-3">
+            <input class="form-control bg-gray border-0" type="file" name="Image">
+            <label for="floatingSelect">Image</label>
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">

@@ -18,6 +18,7 @@ namespace project3.User.Controllers.User
         // GET: Products
         public ActionResult Index()
         {
+             
             var products = db.Products.Include(p => p.Customer).Include(p => p.Status);
             return View(products.ToList());
         }
