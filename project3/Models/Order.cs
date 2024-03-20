@@ -17,23 +17,15 @@ namespace project3.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.Ratings = new HashSet<Rating>();
-            this.Reviews = new HashSet<Review>();
-            this.Notifications = new HashSet<Notification>();
+            this.Products = new HashSet<Product>();
         }
     
         public int or_ID { get; set; }
         public string MoreInformation { get; set; }
         public Nullable<int> cus_ID { get; set; }
-        public Nullable<int> pro_ID { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rating> Ratings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace project3.Models
         public Nullable<int> Parent_ID { get; set; }
         public string Characteristic { get; set; }
         public byte[] Image { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }

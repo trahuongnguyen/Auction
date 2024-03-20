@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
 <!-- Carousel Start -->
@@ -31,6 +33,34 @@
                             </div>
                         </div>
                     </div>
+                   @* @{
+                        List<project3.Models.Product> products = new List<project3.Models.Product>();
+                        foreach (project3.Models.REL_Pro_Au item in ViewBag.Autions.ElementAt(0).REL_Pro_Au)
+                        {
+                            products.Add(item.Product);
+                        }
+                        foreach (project3.Models.Product item1 in products)
+                        {
+
+                            <div class="carousel-item position-relative active" style="height: 430px;">
+                                <img class="position-absolute w-100 h-100" src="data:image; base64, @System.Convert.ToBase64String(item1.Images.ElementAt(0).Img)" style="object-fit: cover;">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+                                            @item1.NamePro
+                                        </h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
+                                           @item1.Description
+                                        </p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                           href="#">Bid Now</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    }*@
                     <div class="carousel-item position-relative" style="height: 430px;">
                         <img class="position-absolute w-100 h-100" src="~/Images/img/about.jpg" style="object-fit: cover;">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
@@ -125,162 +155,178 @@
         <span class="bg-secondary pr-3">Categories</span>
     </h2>
     <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-9.jpg" alt="">
+        @* <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-9.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Toy & Games</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Toy & Games</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>*@
+        @foreach (var item in ViewBag.Categories)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="data:image; base64,@System.Convert.ToBase64String(item.Image)" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>@item.NameCat</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-2.jpg" alt="">
+                </a>
+            </div>
+        }
+        @*<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-2.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Electronics, AV & Cameras</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Electronics, AV & Cameras</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-3.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Watches</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-3.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-4.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Computers</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Watches</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-5.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Automobiles</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-4.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-6.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Antiques</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Computers</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-7.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Property</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-5.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-8.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Musical instrument</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Automobiles</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Women's Dresses</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-6.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-10.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Man's Dresses</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Antiques</h6>
-                        <small class="text-body">100 Products</small>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-11.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Baby's Dresses</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-7.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="~/Images/img/cat-12.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Books & Magazines</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
                     </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Property</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-8.jpg" alt="">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Musical instrument</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-1.jpg" alt="">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Women's Dresses</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-10.jpg" alt="">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Man's Dresses</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-11.jpg" alt="">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Baby's Dresses</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
-                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="~/Images/img/cat-12.jpg" alt="">
-                    </div>
-                    <div class="flex-fill pl-3">
-                        <h6>Books & Magazines</h6>
-                        <small class="text-body">100 Products</small>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>*@
     </div>
 </div>
 <!-- Categories End -->
@@ -345,6 +391,7 @@
 </div>
 <!-- Products End -->
 <!-- Products Start -->
+
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Auctions</span>
@@ -376,11 +423,79 @@
                         <small>(99)</small>
                     </div>
                     <div>
-                        <p>00:00:00</p>
+                        <p>
+
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+        @foreach (project3.Models.Product item in ViewBag.Products)
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                 $(document).ready(function () {
+                     var targetDateTime = new Date("@item.StartTime.ToString()");
+
+                     var timer = setInterval(function () {
+                         var currentDate = new Date();
+                         var difference = targetDateTime - currentDate;
+
+
+                         var days = Math.floor(difference % (1000 * 60 * 60 * 24 *30) / (1000 * 60 * 60 * 24));
+                         var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                         var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                         var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                         $("#countdown").html(days + "d " + hours + "h " + minutes + "m " + seconds + "s");
+                         $("#now").html(currentDate);
+
+                         if (difference < 0) {
+                             clearInterval(timer);
+                             $("#countdown").html("Countdown finished");
+                         }
+                     }, 1000);
+                 });
+            </script>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+
+                        <img class="img-fluid w-100" src="data:image; base64, @System.Convert.ToBase64String(item.Images.ElementAt(0).Img)" />
+
+                        @*<img class="img-fluid w-100" src="@item.i" alt="">*@
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href=""> <h4>@item.NamePro</h4></a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>$@item.StartingPrice</h5>
+                            <h6 class="text-muted ml-2"><del>$@item.StepPrice</del></h6>
+                        </div>
+                        @* <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>*@
+                        <div>
+                            <p>
+                                <div id="countdown"></div>
+                                <div id="now"></div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
@@ -593,6 +708,21 @@
                 </div>
             </div>
         </div>
+        @* @foreach (project3.Models.Auction item in ViewBag.Autions)
+            {
+                <div class="col-md-6">
+                    <div class="product-offer mb-30" style="height: 300px;">
+                        <img class="img-fluid" src="data:image; base64, @System.Convert.ToBase64String(item.REL_Pro_Au.ElementAt(0).Product.Images.ElementAt(0).Img)" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">Save 20%</h6>
+                            <h3 class="text-white mb-3">@item.NameAu</h3>
+                            <a href="" class="btn btn-primary">Bid Now</a>
+                        </div>
+                    </div>
+                </div>
+
+            }*@
+
         <div class="col-md-6">
             <div class="product-offer mb-30" style="height: 300px;">
                 <img class="img-fluid" src="~/Images/img/offer-4.jpg" alt="">
