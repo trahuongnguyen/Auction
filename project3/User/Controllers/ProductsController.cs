@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using project3.Models;
 
 namespace project3.User.Controllers.User
@@ -16,11 +17,12 @@ namespace project3.User.Controllers.User
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? pi)
         {
-             
+            int PageNumber = pi ?? 1;
+            int PageSize = 12;
             var products = db.Products.Include(p => p.Customer).Include(p => p.Status);
-            return View(products.ToList());
+            return View(products.ToPagedList(PageNumber, PageSize));
         }
 
         // GET: Products/Details/5
@@ -63,11 +65,6 @@ namespace project3.User.Controllers.User
                             if (!Path.GetExtension(item.FileName).ToLower().Equals(".png") && !Path.GetExtension(item.FileName).ToLower().Equals(".jpg"))
                             {
                                 ModelState.AddModelError("Image", "Please choose file type .png or .jpg");
-                                return View(product);
-                            }
-                            if (item.ContentLength > 300000)
-                            {
-                                ModelState.AddModelError("Image", "This File is out of 300KB");
                                 return View(product);
                             }
                         }
