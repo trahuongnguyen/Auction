@@ -16,7 +16,7 @@ namespace project3.User.Controllers
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
         // GET: Shop
-        [Route("[section]/[contronller]/[action]/{cat_ID}")]
+        //[Route("[section]/[contronller]/[action]/{cat_ID}")]
         public ActionResult Index(int? pi)
         {
             int PageNumber = pi ?? 1;
@@ -24,26 +24,32 @@ namespace project3.User.Controllers
             List<Product> products = db.Products.Include(p => p.Customer).Include(p => p.Status).ToList();
             if (HttpContext.Request.Params !=null)
             {
-                int cat_ID = Request.Params["cat_ID"].ToString() != null ? Int32.Parse(Request.Params["cat_ID"].ToString()) : 0;
-                if(cat_ID > 0)
+                if (Request.Params["cat_ID"] != null)
                 {
-                    Category ca = db.Categories.Where(c => c.cat_ID == cat_ID).FirstOrDefault();
-                    if (ca != null)
+                    int cat_ID = Request.Params["cat_ID"].ToString() != null ? Int32.Parse(Request.Params["cat_ID"].ToString()) : 0;
+                    if (cat_ID > 0)
                     {
-                        products = ca.Products.ToList();
+                        Category ca = db.Categories.Where(c => c.cat_ID == cat_ID).FirstOrDefault();
+                        if (ca != null)
+                        {
+                            products = ca.Products.ToList();
+                        }
                     }
                 }
 
-                int au_ID = Request.Params["cat_ID"].ToString() != null ? Int32.Parse(Request.Params["cat_ID"].ToString()) : 0;
-                if (au_ID > 0)
+                if (Request.Params["au_ID"] != null)
                 {
-                    Auction auction = db.Auctions.Where(a=>a.au_ID == au_ID).FirstOrDefault();
-                    if (auction != null)
+                    int au_ID = Request.Params["au_ID"].ToString() != null ? Int32.Parse(Request.Params["au_ID"].ToString()) : 0;
+                    if (au_ID > 0)
                     {
-                        products = new List<Product>();
-                        foreach (var item in auction.REL_Pro_Au)
+                        Auction auction = db.Auctions.Where(a => a.au_ID == au_ID).FirstOrDefault();
+                        if (auction != null)
                         {
-                            products.Add(item.Product);
+                            products = new List<Product>();
+                            foreach (var item in auction.REL_Pro_Au)
+                            {
+                                products.Add(item.Product);
+                            }
                         }
                     }
                 }

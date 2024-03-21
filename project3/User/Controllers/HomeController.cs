@@ -27,5 +27,25 @@ namespace project3.User.Controllers
             }*/
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection form)
+        {
+            string name = form["name"];
+            if (!string.IsNullOrEmpty(name))
+            {
+                Customer customer = db.Customers.FirstOrDefault(c=>c.UserName.Equals(name));
+                if (customer != null)
+                {
+                    string password = form["password"];
+                    if(!string.IsNullOrEmpty(password) && customer.Password.Equals(password))
+                    {
+                        HttpContext.Session.Add("user", customer);
+                        return View();
+                    }
+                }
+            }
+            return RedirectToAction("~/");
+        }
     }
 }
