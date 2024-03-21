@@ -31,6 +31,12 @@ namespace project3
                 defaults: new { section = "Admin", controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "project3.Admin.Controllers" }
             );
+            routes.MapRoute(
+                name: "LoginUser",
+                url: "{section}/{controller}/{action}/{id}",
+                defaults: new { section = "User", controller = "Home", action = "Login", id = UrlParameter.Optional },
+                namespaces: new string[] { "project3.User.Controllers" }
+            );
         }
     }
 }
