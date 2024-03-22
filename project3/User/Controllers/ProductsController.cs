@@ -75,7 +75,7 @@ namespace project3.User.Controllers.User
                         product.Categories.Add(category);
                     }
                     product.ReceivedDate = DateTime.Now;
-                    
+                    product.sta_ID = 1;
                     db.Products.Add(product);
                     db.SaveChanges();
                     Product product1 = db.Products.FirstOrDefault(p => p.pro_ID == db.Products.Max(pro => pro.pro_ID));

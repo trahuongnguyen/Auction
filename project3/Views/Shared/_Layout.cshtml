@@ -123,31 +123,34 @@
     </div>
     <!-- Popup form -->
     <!-- login -->
-    @using (Html.BeginRouteForm("LoginUser", FormMethod.Post))
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
     {
-        <div class="wrapper-login wrapper modal-login hidden" style="position: fixed;">
+
+        @Html.AntiForgeryToken()
+        <div class="wrapper-login wrapper modal-login" style="position: fixed;">
             <div class="container-login main-login main">
                 <div class="row-login row">
                     <div class="col-md-6-login col-md-6 side-image-login side-image">
                         <a class="logo-login" href="~/"><img class="logo-text" src="~/Images/img/logo.png" alt=""></a>
                     </div>
                     <div class="col-md-6-login col-md-6 right-login right">
-                        <button class="close-modal close-modal-login">&times;</button>
+                        <p class="close-modal close-modal-login">&times;</p>
                         <div class="input-box-login input-box m-auto">
 
                             <h1>Login</h1>
 
                             <div class="input-field-login input-field">
-                                <input type="text" class="input-login input" name="name" id="name">
+                                <input type="text" class="input-login input" name="UserName" id="Password">
+                                @Html.ValidationMessage("UserName", "", new { @class = "text-danger" })
                                 <label for="name">Username</label>
                             </div>
                             <div class="input-field-login input-field">
-                                <input type="password" class="input-login input" name="password" id="password">
+                                <input type="password" class="input-login input" name="Password" id="Password">
                                 <label for="password">Password</label>
                             </div>
 
                             <div class="input-field-login input-field">
-                                <input type="submit" class="submit-login submit" name="submit" id="submit" value="Sign In">
+                                <input type="submit" class="submit-login submit" name="submit" id="submit" value="Submit">
                             </div>
                             <!-- <div class="signup-login signup">
                                 <span>Have an account? <a class="show-modal-link">Sign Up here</a></span>
@@ -163,58 +166,94 @@
     }
 
 
+
     <!-- register -->
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+        
+        @Html.AntiForgeryToken()
+        <div class="wrapper wrapper-login modal-login hidden" style="position: fixed;">
+            <div class="container container-login main main-login">
+                <div class="row row-login">
+                    <div class="col-md-6 col-md-6-login side-image side-image-login">
+                        <a href="~/"><img class="logo-text" src="~/Images/img/logo.png" alt=""></a>
 
-    <div class="wrapper wrapper-login modal-login hidden" style="position: fixed;">
-        <div class="container container-login main main-login">
-            <div class="row row-login">
-                <div class="col-md-6 col-md-6-login side-image side-image-login">
-                    <a href="~/"><img class="logo-text" src="~/Images/img/logo.png" alt=""></a>
+                    </div>
+                    <div class="col-md-6 col-md-6-login right right-login">
+                        <div class="input-box input-box-login m-auto">
+                            <p class="close-modal close-modal-login">&times;</p>
+                            <h1>Register</h1>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="FirstName" id="Password">
+                                @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
+                                <label for="name">FirstName</label>
+                                @*@Html.ValidationMessage(cus.FirstName, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="LastName">
+                                @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
+                                <label for="name">LastName</label>
+                                @*@Html.ValidationMessage(cus.LastName, "", new { @class = "text-danger" })*@
 
-                </div>
-                <div class="col-md-6 col-md-6-login right right-login">
-                    <div class="input-box input-box-login m-auto">
-                        <button class="close-modal close-modal-login">&times;</button>
-                        <h1>Register</h1>
-                        <div class="input-field input-field-login">
-                            <input type="text" class="input input-login" name="name" id="name"
-                                   placeholder="Enter your Username">
-                            <label for="name">Username</label>
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="UserName" id="Password">
+                                @*@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })*@
+                                <label for="name">Username</label>
+                                @*@Html.ValidationMessage(cus.UserName, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="Password" id="Password">
+                                @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                                <label for="password">Password</label>
+                                @*@Html.ValidationMessage(cus.Password, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="email" class="input-login input" name="Email" id="Password">
+                                @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                                <label for="email">Email</label>
+                                @*@Html.ValidationMessage(cus.Email, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="PhoneNumber" id="Password">
+                                @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
+                                <label for="phone">Phone</label>
+                                @*@Html.ValidationMessage(cus.PhoneNumber, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="text" class="input-login input" name="Address" id="Password">
+                                @*@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })*@
+                                <label for="address">Address</label>
+                                @*@Html.ValidationMessage(cus.Address, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field">
+                                <label for="address">Gender</label>
+                                <input type="radio" name="Sex" value="Male"> Male
+                                <input type="radio" name="Sex" value="Female"> Female
+                                <input type="radio" name="Sex" value="Other"> Other
+                                @*@Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })*@
+                                @*@Html.ValidationMessage(cus.Sex, "", new { @class = "text-danger" })*@
+
+                            </div>
+                            <div class="input-field input-field-login">
+                                <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up">
+                            </div>
+                            <!-- <div class="signup signup-login">
+                            <span><a class="show-modal-link" >Sign In here</a></span>
+                            </div> -->
                         </div>
-                        <div class="input-field input-field-login">
-                            <input type="password" class="input input-login" name="password" id="password"
-                                   placeholder="Enter Your Password">
-                            <label for="password">Password</label>
-                        </div>
-                        <div class="input-field input-field-login">
-                            <input type="text" class="input input-login" name="email" id="email"
-                                   placeholder="Enter Your Email">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field input-field-login">
-                            <input type="text" class="input input-login" name="phone" id="phone"
-                                   placeholder="Enter Your Phone Number">
-                            <label for="phone">Phone</label>
-                        </div>
-                        <div class="input-field input-field-login">
-                            <input type="text" class="input input-login" name="address" id="address"
-                                   placeholder="Enter Your Address">
-                            <label for="address">Address</label>
-                        </div>
-                        <div class="input-field input-field-login">
-                            <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up">
-                        </div>
-                        <!-- <div class="signup signup-login">
-                        <span><a class="show-modal-link" >Sign In here</a></span>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 
-
-    <div class="overlay hidden" style="position: fixed;"></div>
+    <div class="overlay" style="position: fixed;"></div>
 
     <!-- <div class="overlay hidden"></div> -->
     <!-- Topbar End -->

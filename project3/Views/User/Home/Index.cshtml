@@ -435,7 +435,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                  $(document).ready(function () {
-                     var targetDateTime = new Date("@item.StartTime.ToString()");
+                     var targetDateTime = new Date("@item.EndTime.ToString()");
 
                      var timer = setInterval(function () {
                          var currentDate = new Date();

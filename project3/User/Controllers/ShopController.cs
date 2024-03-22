@@ -14,14 +14,14 @@ namespace project3.User.Controllers
     public class ShopController : Controller
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
-
+        
         // GET: Shop
         //[Route("[section]/[contronller]/[action]/{cat_ID}")]
         public ActionResult Index(int? pi)
         {
             int PageNumber = pi ?? 1;
             int PageSize = 12;
-            List<Product> products = db.Products.Include(p => p.Customer).Include(p => p.Status).ToList();
+            List<Product> products = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.sta_ID == 4).ToList();
             if (HttpContext.Request.Params !=null)
             {
                 if (Request.Params["cat_ID"] != null)
@@ -32,7 +32,7 @@ namespace project3.User.Controllers
                         Category ca = db.Categories.Where(c => c.cat_ID == cat_ID).FirstOrDefault();
                         if (ca != null)
                         {
-                            products = ca.Products.ToList();
+                            products = ca.Products.Where(p => p.sta_ID == 4).ToList();
                         }
                     }
                 }

@@ -11,7 +11,9 @@ namespace project3.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +24,23 @@ namespace project3.Models
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
         }
-    
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int cus_ID { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Sex { get; set; }
+        [Required]
         public string Address { get; set; }
+        //[RegularExpression("^\\+(?:[0-9] ?){6,14}[0-9]$")]
         public string PhoneNumber { get; set; }
+        //[RegularExpression("^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$")]
         public string Email { get; set; }
         public Nullable<double> Surplus { get; set; }
         public int Status { get; set; }
