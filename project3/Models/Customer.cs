@@ -12,6 +12,7 @@ namespace project3.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Customer
     {
@@ -22,8 +23,8 @@ namespace project3.Models
             this.Messages = new HashSet<Message>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
-        }   
-        
+        }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int cus_ID { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -37,9 +38,9 @@ namespace project3.Models
         public string Sex { get; set; }
         [Required]
         public string Address { get; set; }
-        [RegularExpression("^\\+(?:[0-9] ?){6,14}[0-9]$")]
+        //[RegularExpression("^\\+(?:[0-9] ?){6,14}[0-9]$")]
         public string PhoneNumber { get; set; }
-        [RegularExpression("^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$")]
+        //[RegularExpression("^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})$")]
         public string Email { get; set; }
         public Nullable<double> Surplus { get; set; }
         public int Status { get; set; }
