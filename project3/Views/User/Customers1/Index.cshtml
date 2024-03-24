@@ -1,0 +1,397 @@
+﻿@model IEnumerable<project3.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Profile -->
+<script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slidesName = document.getElementsByClassName("mySlideContent");
+            let content = document.getElementsByClassName("mySlideName");
+            if (n > slidesName.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slidesName.length }
+            for (i = 0; i < slidesName.length; i++) {
+                slidesName[i].style.display = "none";
+            }
+            for (i = 0; i < content.length; i++) {
+                content[i].className = content[i].className.replace(" active", "");
+            }
+            slidesName[slideIndex - 1].style.display = "block";
+            content[slideIndex - 1].className += " active";
+        }
+</script>
+<div class="container">
+    <div class="container row">
+        <div class="col-3">
+            <div class="side-content">
+                <div class="profile-img">
+                    <img class="auction-avatar__img mr-4" src="~/Images/img/about.jpg" alt="">
+                    <div class="miwGmI">
+                        <div class="mC1Llc">thuhuyen</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rhmIbk">
+                <div class="stardust-dropdown stardust-dropdown--open">
+                    <div class="stardust-dropdown__item-header">
+                        <a class="+1U02e" href="#">
+                            <div class="bfikuD">
+                                <img src="https://down-vn.img.susercontent.com/file/ba61750a46794d8847c3f463c5e71cc4">
+                            </div>
+                            <div class="DlL0zX"><span class="adF7Xs">My Account</span></div>
+                        </a>
+                    </div>
+                    <div class="stardust-dropdown__item-body stardust-dropdown__item-body--open"
+                         style="opacity: 1;"></div>
+                    <div class="Yu7gVR">
+                        <a class="FEE-3D tH0d6d" class="mySlidesName"
+                           onclick="currentSlide(1)"><span class="qyt-aY">Profile</span></a>
+                        <a class="FEE-3D" class="mySlidesName" onclick="currentSlide(2)">
+                            <span class="qyt-aY">
+                                Change
+                                Password
+                            </span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="stardust-dropdown">
+                <div class="stardust-dropdown__item-header">
+                    <a class="+1U02e" href="#">
+                        <div class="bfikuD">
+                            <img src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078">
+                        </div>
+                        <div class="DlL0zX " class="mySlidesName" onclick="currentSlide(3)">
+                            <span class="adF7Xs">Order</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="stardust-dropdown__item-body" style="opacity: 0;">
+                    <div class="Yu7gVR"></div>
+                </div>
+            </div>
+            <div class="stardust-dropdown">
+                <div class="stardust-dropdown__item-header">
+                    <a class="+1U02e" href="#">
+                        <div class="bfikuD">
+                            <img src="https://down-vn.img.susercontent.com/file/e10a43b53ec8605f4829da5618e0717c">
+                        </div>
+                        <div class="DlL0zX" class="mySlidesName" onclick="currentSlide(4)">
+                            <span class="adF7Xs">Notification</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="xMDeox">
+                <div class="Hvae38" role="main">
+                    <div style="display: contents;">
+                        <div class="utB99K mySlideContent" style="display: block;">
+                            <div class="SFztPl">
+                                <h1 class="BVrKV_">My profile</h1>
+                                <div class="QcW5xy">Manage profile information to secure your account</div>
+                            </div>
+                            <div class="RCnc9v">
+                                <div class="HrBg9Q">
+                                    <form>
+                                        <table class="bQkdAY">
+                                            <tr>
+                                                <td class="f1ZOv_"><label>User Name</label></td>
+                                                <td class="o6L4e0">
+                                                    <div class="e_Vt__">
+                                                        <div class="PBfYlq">thuhuyen</div><button class="clo49Q"
+                                                                                                  fdprocessedid="hipnqo"></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Name</label></td>
+                                                <td class="o6L4e0">
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text" placeholder=""
+                                                                   class="kKnR04" value="huyen" fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Email</label></td>
+                                                <td class="o6L4e0">
+                                                   
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text" placeholder=""
+                                                                   class="kKnR04" value="th*************gmail.com"
+                                                                   fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>PhoneNumber</label></td>
+                                                <td class="o6L4e0">                                                  
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text" placeholder=""
+                                                                   class="kKnR04" value="*********"
+                                                                   fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Address</label></td>
+                                                <td class="o6L4e0">
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text" placeholder=""
+                                                                   class="kKnR04" value="hà nội"
+                                                                   fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Gender</label></td>
+                                                <td class="o6L4e0">
+                                                    <input type="radio" name="sex">Male </input>
+                                                    <input type="radio" name="sex">female </input>
+                                                    <input type="radio" name="sex">Other </input>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Day of birth</label></td>
+                                                <td class="o6L4e0">
+                                                    <input type="datetime-local">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label></label></td>
+                                                <td class="o6L4e0">
+                                                    <button type="button"
+                                                            class="btn btn-solid-primary-profile btn--m btn--inline"
+                                                            aria-disabled="false" fdprocessedid="jw0kcd">
+                                                        Save
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- change Password -->
+                        <div class="utB99K mySlideContent" style="display: none;">
+                            <div class="SFztPl">
+                                <h1 class="BVrKV_">Change Password</h1>
+                                <div class="QcW5xy">Manage profile information to secure your account</div>
+                            </div>
+                            <div class="RCnc9v">
+                                <div class="HrBg9Q">
+                                    <form>
+                                        <table class="bQkdAY">
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Old pasword</label></td>
+                                                <td class="o6L4e0">
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text"
+                                                                   placeholder="Enter old password" class="kKnR04"
+                                                                   value="" fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>New password</label></td>
+                                                <td class="o6L4e0">
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text"
+                                                                   placeholder="Enter new password" class="kKnR04"
+                                                                   value="" fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label>Confirm new password</label></td>
+                                                <td class="o6L4e0">
+                                                    <div>
+                                                        <div class="NGoa5Z">
+                                                            <input type="text"
+                                                                   placeholder="Enter new password" class="kKnR04"
+                                                                   value="" fdprocessedid="86i4jw">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="f1ZOv_"><label></label></td>
+                                                <td class="o6L4e0">
+                                                    <button type="button"
+                                                            class="btn btn-solid-primary-profile btn--m btn--inline"
+                                                            aria-disabled="false" fdprocessedid="jw0kcd">
+                                                        Save
+                                                        change
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- order -->
+                        <div class=" mySlideContent" style="display: none;">
+                            <table class="table table-light table-borderless table-hover text-center mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Products</th>
+                                        <th>Price</th>
+                                        <th>Time Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle">
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="~/Images/img/product-1.jpg" alt=""
+                                                 style="width: 50px;"> Product Name
+                                        </td>
+                                        <td class="align-middle">$150</td>
+                                        <td class="align-middle">
+                                            2024.03.08 (Fri) 06:20
+                                        </td>
+                                        <td class="align-middle">Successfully</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="~/Images/img/product-2.jpg" alt=""
+                                                 style="width: 50px;"> Product Name
+                                        </td>
+                                        <td class="align-middle">$150</td>
+                                        <td class="align-middle">
+                                            2024.03.08 (Fri) 06:20
+                                        </td>
+                                        <td class="align-middle">Unsuccessfully</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="~/Images/img/product-3.jpg" alt=""
+                                                 style="width: 50px;"> Product Name
+                                        </td>
+                                        <td class="align-middle">$150</td>
+                                        <td class="align-middle">
+                                            2024.03.08 (Fri) 06:20
+                                        </td>
+                                        <td class="align-middle">Successfully</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="~/Images/img/product-4.jpg" alt=""
+                                                 style="width: 50px;"> Product Name
+                                        </td>
+                                        <td class="align-middle">$150</td>
+                                        <td class="align-middle">
+                                            2024.03.08 (Fri) 06:20
+                                        </td>
+                                        <td class="align-middle">Unsuccessfully</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="~/Images/img/product-1.jpg" alt=""
+                                                 style="width: 50px;"> Product Name
+                                        </td>
+                                        <td class="align-middle">$150</td>
+                                        <td class="align-middle">
+                                            2024.03.08 (Fri) 06:20
+                                        </td>
+                                        <td class="align-middle">Successfully</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- notification -->
+                        <div class="utB99K mySlideContent pb-3" style="display: none;">
+                            <div class="SFztPl">
+                                <h1 class="BVrKV_">Notification</h1>
+                                <div class="QcW5xy">Manage profile information to secure your account</div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3 ">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                     style="width: 40px; height: 40px;">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                     style="width: 40px; height: 40px;">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                     style="width: 40px; height: 40px;">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-3">
+                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                     style="width: 40px; height: 40px;">
+                                <div class="w-100 ml-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Jhon Doe</h6>
+                                        <small>15 minutes ago</small>
+                                    </div>
+                                    <span>Short message goes here...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
