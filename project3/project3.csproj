@@ -398,11 +398,9 @@
     <Content Include="Views\User\Home\Index.cshtml" />
     <Content Include="Scripts\lib\owlcarousel\LICENSE" />
     <Content Include="Scripts\mail\contact.php" />
-    <Content Include="Views\User\Products\Create.cshtml" />
-    <Content Include="Views\User\Products\Interest.cshtml" />
     <Content Include="Views\User\Products\Details.cshtml" />
     <Content Include="Views\User\Products\Edit.cshtml" />
-    <Content Include="Views\User\Products\Index.cshtml" />
+    <Content Include="Views\User\Shop\Sell_products.cshtml" />
     <Content Include="Views\User\Shop\Create.cshtml" />
     <Content Include="Views\User\Shop\Delete.cshtml" />
     <Content Include="Views\User\Shop\Details.cshtml" />
@@ -412,21 +410,12 @@
     <Content Include="Views\Admin\Category\Delete.cshtml" />
     <Content Include="Views\Admin\Category\Edit.cshtml" />
     <Content Include="Views\Admin\Category\Index.cshtml" />
-    <Content Include="Views\User\Customers\Create.cshtml" />
     <Content Include="Views\User\Customers\Delete.cshtml" />
-    <Content Include="Views\User\Customers\Details.cshtml" />
+    <Content Include="Views\User\Customers\Your_buying.cshtml" />
     <Content Include="Views\User\Customers\Edit.cshtml" />
     <Content Include="Views\User\Customers\Index.cshtml" />
-    <Content Include="Views\User\Bids\Create.cshtml" />
-    <Content Include="Views\User\Bids\Delete.cshtml" />
-    <Content Include="Views\User\Bids\Details.cshtml" />
-    <Content Include="Views\User\Bids\Edit.cshtml" />
-    <Content Include="Views\User\Bids\Index.cshtml" />
-    <Content Include="Views\User\Reviews\Create.cshtml" />
-    <Content Include="Views\User\Reviews\Delete.cshtml" />
-    <Content Include="Views\User\Reviews\Details.cshtml" />
-    <Content Include="Views\User\Reviews\Edit.cshtml" />
-    <Content Include="Views\User\Reviews\Index.cshtml" />
+    <Content Include="Views\User\Customers\History.cshtml" />
+    <Content Include="Views\User\Customers\Reviews.cshtml" />
     <Content Include="Views\Admin\Account\ChangePassword.cshtml" />
     <Content Include="Views\Admin\Account\Details.cshtml" />
     <Content Include="Views\Admin\Account\Login.cshtml" />
@@ -448,6 +437,8 @@
     <Content Include="Views\Admin\Products\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Admin\Home\Index.cshtml" />
+    <Content Include="Views\User\Customers\Selling.cshtml" />
+    <Content Include="Views\User\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
