@@ -11,7 +11,7 @@ using project3.Models;
 
 namespace project3.User.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : BaseController
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 

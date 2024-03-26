@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace project3.Admin.Controllers
+namespace project3.User.Controllers
 {
     public class BaseController : Controller
     {
@@ -12,15 +12,14 @@ namespace project3.Admin.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session["uName"] == null)
+            if (Session["cus"] == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary(new { Controller = "Account", Action = "Login" })
+                    new System.Web.Routing.RouteValueDictionary(new { Controller = "Home", Action = "Index" })
                 );
             }
 
             base.OnActionExecuting(filterContext);
         }
     }
-
 }
