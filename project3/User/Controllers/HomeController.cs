@@ -94,8 +94,6 @@ namespace project3.User.Controllers
                 return View("Index", form);
             }
             Customer customer = new Customer();
-            customer.FirstName = form["FirstName"].ToString();
-            customer.LastName = form["LastName"].ToString();
             customer.UserName = form["UserName"].ToString();
             customer.Email = form["Email"].ToString();
             customer.Address = form["Address"].ToString();
