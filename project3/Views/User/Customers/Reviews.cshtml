@@ -333,10 +333,10 @@
                                     <div class="tab-pane fade" id="tab-pane-3">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h4 class="mb-4">1 review for "Product Name"</h4>
+                                                <h4 class="mb-4">@ViewBag.Reviews.Count() review for "Product Name"</h4>
                                                 <div class="media mb-4">
                                                     @*<img src="data:image; base64, @System.Convert.ToBase64String(Model.Customer.img)" alt="Image" class="img-fluid mr-3 mt-1"
-                                                        style="width: 45px;">*@
+        style="width: 45px;">*@
                                                     <div class="media-body">
                                                         <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
                                                         <div class="text-primary mb-2">
@@ -352,6 +352,58 @@
                                                             ipsum.
                                                         </p>
                                                     </div>
+                                                    <script>
+                                                        var $stars = $(".rate")
+
+                                                        $stars.click(function () {
+                                                            var $star = $(this);
+                                                            if ($star.hasClass('fas')) {
+                                                                // if current clicked star is checked
+                                                                if ($star.next().hasClass('fas')) {
+                                                                    // check if next star is also checked
+                                                                    $star.nextAll().removeClass('fas');            // if next is then disable all following
+                                                                    $star.nextAll().addClass('far');
+                                                                } else {
+                                                                    $star.nextAll().andSelf().removeClass('fas');  // if not then disable self and all after (shouldn't need all after, but just in case)
+                                                                    $star.nextAll().andSelf().addClass('far');
+                                                                }
+                                                                $star.prevAll().addClass('fas'); // check all before
+                                                                $star.prevAll().removeClass('far');
+
+                                                                // if you just want to remove all stars on click of an already checked box, remove the above 2 lines and just ue the below:
+                                                                // $stars.removeClass('checked');
+                                                            } else {
+                                                                $star.nextAll().removeClass('fas'); // remove checked from all following the clicked
+                                                                $star.nextAll().addClass('far');
+                                                                $star.prevAll().andSelf().addClass('fas'); // add checked to this and all previous
+                                                                $star.prevAll().andSelf().removeClass('fas');
+                                                            }
+
+                                                            var starselect = $stars.index($star) + 1; // get current star rating
+                                                            $(".review-star").attr("value", starselect);
+                                                            /*console.log(starselect);*/
+                                                        });
+                                                    </script>
+                                                    @foreach (project3.Models.Review item in ViewBag.Reviews)
+                                                    {
+                                                        <div class="media-body">
+                                                            <h6>@item.REL_Or_Pro.Product.Customer.UserName</h6>
+                                                            <div class="text-primary mb-2">
+                                                                @for (int i = 0; i < 5; i++)
+                                                                {
+                                                                    <i class="@(i<item.Star?"fas fa-star":"far fa-sta")"></i>
+                                                                }
+
+                                                                @*<i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                                <i class="far fa-star"></i>*@
+                                                            </div>
+                                                            <p>
+                                                                @item.Review1
+                                                            </p>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -363,11 +415,12 @@
                                                 <div class="d-flex my-3">
                                                     <p class="mb-0 mr-2">Your Rating * :</p>
                                                     <div class="text-primary">
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
+                                                        <input type="number" name="star" class="review-star" />
+                                                        <i class="far fa-star rate"></i>
+                                                        <i class="far fa-star rate"></i>
+                                                        <i class="far fa-star rate"></i>
+                                                        <i class="far fa-star rate"></i>
+                                                        <i class="far fa-star rate"></i>
                                                     </div>
                                                 </div>
                                                 <form>
