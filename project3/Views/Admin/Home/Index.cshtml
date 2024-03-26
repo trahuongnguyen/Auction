@@ -1,4 +1,9 @@
-﻿
+﻿@{
+    if (Session["uName"] == null)
+    {
+        Response.Redirect("~/Admin/Account/Login");
+    }
+}
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout1.cshtml";

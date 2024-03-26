@@ -1,0 +1,75 @@
+﻿@model project3.Models.Employee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/stylelogin.css" rel="stylesheet">
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <section class="form-02-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="_lk_de">
+                            <div class="form-03-main">
+                                <div class="logo">
+                                    <img src="~/Images/Admin/img/userloginadmin.png">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="uname" class="form-control _ge_de_ol" placeholder="Enter UserName" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" name="pass" class="form-control _ge_de_ol" placeholder="Enter Password" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="checkbox form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="">
+                                        <label class="form-check-label" for="">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="~/Admin/Account/Register">Not a member? Register</a>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-grid gap-2 col-2 mx-auto">
+                                        <input type="submit" value="Login" class="btn btn-outline-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+
+    }
+</body>
+</html>

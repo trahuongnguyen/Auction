@@ -9,11 +9,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using project3.Models;
-
+using PagedList;
 
 namespace project3.Admin.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
@@ -21,9 +21,9 @@ namespace project3.Admin.Controllers
         {
             int PageNumber = pi ?? 1;
             int PageSize = 5;
-            var categories = db.Categories.Include(c => c.Category2);
-            //List<Category> query = db.Categories.OrderBy(c => c.cat_ID).Include(c => c.Category2).Skip(10).Take(10).ToList();
-            return View(categories.ToList());
+           // var categories = db.Category.Include(c => c.Category2);
+            var category = db.Categories.Include(c=>c.Category2).ToList();
+            return View(category.ToPagedList(PageNumber, PageSize));
         }
 
         public ActionResult Create()
@@ -45,6 +45,11 @@ namespace project3.Admin.Controllers
                         if (!Path.GetExtension(Image.FileName).ToLower().Equals(".png") && !Path.GetExtension(Image.FileName).ToLower().Equals(".jpg"))
                         {
                             ModelState.AddModelError("Image", "Please choose file type .png or .jpg");
+                            return View(category);
+                        }
+                        if (Image.ContentLength > 300000)
+                        {
+                            ModelState.AddModelError("Image", "This File is out of 300KB");
                             return View(category);
                         }
                         try

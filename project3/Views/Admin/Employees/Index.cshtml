@@ -1,0 +1,156 @@
+﻿@using PagedList;
+@model IPagedList<project3.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="text-center p-4">
+        <h1>Employee Information</h1>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-gray text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Employee Waiting For Approval</h6>
+        </div>
+        @using (Html.BeginForm("Inspect", "Employees", FormMethod.Post))
+        {
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-hover mb-0 table-striped">
+                    <thead>
+                        <tr class="text-primary">
+                            <th scope="col"></th>
+                            <th scope="col">FirstName</th>
+                            <th scope="col">LastName</th>
+                            <th scope="col">UserName</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">PhoneNumber</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (ViewBag.em != null)
+                        {
+                            foreach (project3.Models.Employee item in ViewBag.em)
+                            {
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox" name="emID" value="@item.em_ID">
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    </td>
+                                    <td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="form-group">
+                <div class="d-grid gap-2 col-2 mx-auto mt-5">
+                    <input type="submit" value="Inspect" class="btn btn-outline-success" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-gray text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">The List Of Employee</h6>
+        </div>
+        <div class="table text-start align-middle table-hover mb-0 table-striped">
+            <table class="table text-start align-middle table-hover mb-0 table-striped">
+                <thead>
+                    <tr class="text-primary">
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Sex</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">PhoneNumber</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (project3.Models.Employee item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sex)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.em_ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.em_ID })
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="@(i == Model.PageNumber?"page-item active":"page-item") me-3">
+                        <a class="page-link" href="@Url.Action("Index", new{pi = i})">@i</a>
+                    </li>
+
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
