@@ -6,11 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using project3.Admin.Controllers;
 using project3.Models;
 
 namespace project3.User.Controllers
 {
-    public class BidsController : Controller
+    public class BidsController : BaseController
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
