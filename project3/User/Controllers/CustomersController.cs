@@ -21,21 +21,6 @@ namespace project3.User.Controllers
             return View(db.Customers.FirstOrDefault(c=>c.cus_ID == Int32.Parse(Session["cus"].ToString())));
         }
 
-        // GET: Customers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
-
         public ActionResult History()
         {
             return View(db.Bids.Where(b=>b.cus_ID == Int32.Parse(Session["cus"].ToString())));
@@ -46,7 +31,7 @@ namespace project3.User.Controllers
             return View(db.Products.Where(p=>p.cus_ID == Int32.Parse(Session["cus"].ToString())));
         }
 
-        public ActionResult Review()
+        public ActionResult Reviews()
         {
             return View();
         }
@@ -118,62 +103,6 @@ namespace project3.User.Controllers
             return View(product);
         }
 
-        // GET: Customers/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
-
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cus_ID,FirstName,LastName,UserName,Password,Sex,Address,PhoneNumber,Email,Surplus,Status")] Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
-
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
