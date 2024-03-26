@@ -58,6 +58,14 @@ namespace project3.User.Controllers
             return View(products.ToPagedList(PageNumber, PageSize));
         }
 
+        public ActionResult Sell_products(int? pi)
+        {
+            int PageNumber = pi ?? 1;
+            int PageSize = 12;
+            var products = db.Products.Include(p => p.Customer).Include(p => p.Status);
+            return View(products.ToPagedList(PageNumber, PageSize));
+        }
+
         // GET: Shop/Details/5
         public ActionResult Details(int? id)
         {

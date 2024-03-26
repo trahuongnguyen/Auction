@@ -17,8 +17,7 @@ namespace project3.Models
         public int me_ID { get; set; }
         public string Message1 { get; set; }
         public System.DateTime Time { get; set; }
-        public Nullable<int> cus_ID { get; set; }
-    
-        public virtual Customer Customer { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

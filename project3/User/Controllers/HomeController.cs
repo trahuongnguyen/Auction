@@ -134,5 +134,33 @@ namespace project3.User.Controllers
             return Crypto.HashPassword(password);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Contact(FormCollection form)
+        {
+            if (string.IsNullOrEmpty(form["name"].ToString()) || string.IsNullOrEmpty(form["email"].ToString()) || string.IsNullOrEmpty(form["subject"].ToString()) || string.IsNullOrEmpty(form["Message1"].ToString()))
+            {
+                ModelState.AddModelError("", "Please enter full of information");
+                return View("Contact", form);
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Please enter full of information");
+                return View("Contact", form);
+            }
+            Message mess = db.Messages.FirstOrDefault(m => m.Message1.Equals(form["Message1"], StringComparison.OrdinalIgnoreCase));
+            if (mess != null)
+            {
+                ModelState.AddModelError("Message1", "Do not spam content message");
+                return View("Contact", form);
+            }
+            Message message = new Message();
+            message.Message1 = form["Message1"].ToString();
+            mess.Time = DateTime.Now;
+            db.Messages.Add(message);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Shop");
+        }
+
     }
 }

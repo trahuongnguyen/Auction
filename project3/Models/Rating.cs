@@ -17,7 +17,12 @@ namespace project3.Models
         public int ra_ID { get; set; }
         public Nullable<int> Star { get; set; }
         public Nullable<int> pro_ID { get; set; }
+        public Nullable<int> or_ID { get; set; }
+        public Nullable<int> sent_cus { get; set; }
+        public Nullable<int> received_cus { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
+        public virtual REL_Or_Pro REL_Or_Pro { get; set; }
     }
 }
