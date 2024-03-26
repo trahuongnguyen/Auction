@@ -10,7 +10,7 @@ using project3.Models;
 
 namespace project3.User.Controllers
 {
-    public class Customers1Controller : Controller
+    public class CustomersController : Controller
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
