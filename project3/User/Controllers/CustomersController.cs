@@ -10,17 +10,17 @@ using project3.Models;
 
 namespace project3.User.Controllers
 {
-    public class CustomersController : Controller
+    public class Customers1Controller : Controller
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
-        // GET: Customers
+        // GET: Customers1
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
-        // GET: Customers/Details/5
+        // GET: Customers1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,13 +35,13 @@ namespace project3.User.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Create
+        // GET: Customers1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Customers1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -58,7 +58,7 @@ namespace project3.User.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Customers1/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace project3.User.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Customers1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,7 +89,7 @@ namespace project3.User.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Customers1/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +104,7 @@ namespace project3.User.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Customers1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

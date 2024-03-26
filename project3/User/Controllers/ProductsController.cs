@@ -41,7 +41,7 @@ namespace project3.User.Controllers.User
         }
 
         // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult Selling()
         {
             ViewBag.cat_ID = new SelectList(db.Categories, "cat_ID", "NameCat");
             return View();
@@ -52,7 +52,7 @@ namespace project3.User.Controllers.User
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pro_ID,NamePro,StartingPrice,StepPrice,StartTime,EndTime,ReceivedDate,Description,cus_ID,MoreInformation,sta_ID")] Product product, IEnumerable<HttpPostedFileBase> Images, List<int> cat_IDs)
+        public ActionResult Selling([Bind(Include = "pro_ID,NamePro,StartingPrice,StepPrice,StartTime,EndTime,ReceivedDate,Description,cus_ID,MoreInformation,sta_ID")] Product product, IEnumerable<HttpPostedFileBase> Images, List<int> cat_IDs)
         {
             if (ModelState.IsValid)
             {

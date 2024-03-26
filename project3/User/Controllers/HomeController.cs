@@ -17,9 +17,9 @@ namespace project3.User.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Categories = db.Categories.Where(c=>c.Status==1).ToList();
             ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
-            ViewBag.Autions = db.Auctions.ToList();
+            ViewBag.Autions = db.Auctions.Where(a=>a.EndTime > DateTime.Now).ToList();
 
             /*Product product = new Product();
             product.Images.ElementAt(0);*/
