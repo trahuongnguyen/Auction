@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -132,8 +135,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Controllers\AccountController.cs" />
+    <Compile Include="Admin\Controllers\AuctionsController.cs" />
+    <Compile Include="Admin\Controllers\BaseController.cs" />
     <Compile Include="Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Admin\Controllers\CustomersController.cs" />
+    <Compile Include="Admin\Controllers\DAOController.cs" />
+    <Compile Include="Admin\Controllers\EmployeesController.cs" />
+    <Compile Include="Admin\Controllers\ProductsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Admin\Controllers\HomeController.cs" />
@@ -149,6 +160,7 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerStar.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -241,14 +253,19 @@
     <Content Include="Content\css\style-login.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\css\stylelogin.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Admin\img\auction1.png" />
+    <Content Include="Images\Admin\img\bg-01.jpg" />
     <Content Include="Images\Admin\img\logo.png" />
     <Content Include="Images\Admin\img\testimonial-1.jpg" />
     <Content Include="Images\Admin\img\testimonial-2.jpg" />
     <Content Include="Images\Admin\img\user.jpg" />
+    <Content Include="Images\Admin\img\user.png" />
+    <Content Include="Images\Admin\img\userloginadmin.png" />
     <Content Include="Images\img\about-us.jpg" />
     <Content Include="Images\img\about.jpg" />
     <Content Include="Images\img\about1.jpg" />
@@ -378,8 +395,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Admin\Home\Index.cshtml" />
     <Content Include="Views\User\Home\Index.cshtml" />
     <Content Include="Scripts\lib\owlcarousel\LICENSE" />
     <Content Include="Scripts\mail\contact.php" />
@@ -393,10 +408,6 @@
     <Content Include="Views\User\Shop\Details.cshtml" />
     <Content Include="Views\User\Shop\Edit.cshtml" />
     <Content Include="Views\User\Shop\Index.cshtml" />
-    <Content Include="Views\Admin\Category\Create.cshtml" />
-    <Content Include="Views\Admin\Category\Delete.cshtml" />
-    <Content Include="Views\Admin\Category\Edit.cshtml" />
-    <Content Include="Views\Admin\Category\Index.cshtml" />
     <Content Include="Views\User\Customers1\Create.cshtml" />
     <Content Include="Views\User\Customers1\Delete.cshtml" />
     <Content Include="Views\User\Customers1\Details.cshtml" />
@@ -412,6 +423,27 @@
     <Content Include="Views\User\Reviews\Details.cshtml" />
     <Content Include="Views\User\Reviews\Edit.cshtml" />
     <Content Include="Views\User\Reviews\Index.cshtml" />
+    <Content Include="Views\Admin\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\Account\Details.cshtml" />
+    <Content Include="Views\Admin\Account\Login.cshtml" />
+    <Content Include="Views\Admin\Account\Register.cshtml" />
+    <Content Include="Views\Admin\Auctions\Create.cshtml" />
+    <Content Include="Views\Admin\Auctions\Delete.cshtml" />
+    <Content Include="Views\Admin\Auctions\Details.cshtml" />
+    <Content Include="Views\Admin\Auctions\Edit.cshtml" />
+    <Content Include="Views\Admin\Auctions\Index.cshtml" />
+    <Content Include="Views\Admin\Category\Create.cshtml" />
+    <Content Include="Views\Admin\Category\Delete.cshtml" />
+    <Content Include="Views\Admin\Category\Edit.cshtml" />
+    <Content Include="Views\Admin\Category\Index.cshtml" />
+    <Content Include="Views\Admin\Customers\Delete.cshtml" />
+    <Content Include="Views\Admin\Customers\Index.cshtml" />
+    <Content Include="Views\Admin\Employees\Delete.cshtml" />
+    <Content Include="Views\Admin\Employees\Index.cshtml" />
+    <Content Include="Views\Admin\Products\Details.cshtml" />
+    <Content Include="Views\Admin\Products\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Admin\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
