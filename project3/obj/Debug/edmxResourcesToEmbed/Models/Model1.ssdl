@@ -8,6 +8,7 @@
     <Property Name="NameAu" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="StartTime" Type="datetime" Nullable="false" />
     <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Stastus" Type="int" Nullable="false" />
     <Property Name="em_ID" Type="int" />
   </EntityType>
   <EntityType Name="Bids">
@@ -37,8 +38,7 @@
       <PropertyRef Name="cus_ID" />
     </Key>
     <Property Name="cus_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Img" Type="varbinary(max)" />
     <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="Sex" Type="nvarchar" MaxLength="10" Nullable="false" />
@@ -94,7 +94,8 @@
     <Property Name="me_ID" Type="int" Nullable="false" />
     <Property Name="Message" Type="nvarchar" MaxLength="300" Nullable="false" />
     <Property Name="Time" Type="datetime" Nullable="false" />
-    <Property Name="cus_ID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <EntityType Name="Notifications">
     <Key>
@@ -139,6 +140,9 @@
     <Property Name="ra_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Star" Type="int" />
     <Property Name="pro_ID" Type="int" />
+    <Property Name="or_ID" Type="int" />
+    <Property Name="sent_cus" Type="int" />
+    <Property Name="received_cus" Type="int" />
   </EntityType>
   <EntityType Name="REL_Em_Gru">
     <Key>
@@ -196,6 +200,7 @@
     <Property Name="Star" Type="int" Nullable="false" />
     <Property Name="Review" Type="nvarchar" MaxLength="500" />
     <Property Name="pro_ID" Type="int" />
+    <Property Name="or_ID" Type="int" />
   </EntityType>
   <EntityType Name="Status">
     <Key>
@@ -205,7 +210,7 @@
     <Property Name="StatusDetails" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NameSta" Type="nvarchar" MaxLength="30" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Auction__em_ID__5FB337D6">
+  <Association Name="FK__Auction__em_ID__60A75C0F">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
     <ReferentialConstraint>
@@ -217,7 +222,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Bids__60A75C0F">
+  <Association Name="FK__Bids__619B8048">
     <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="0..1" />
     <End Role="Bids" Type="Self.Bids" Multiplicity="*" />
     <ReferentialConstraint>
@@ -231,7 +236,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Bids__cus_ID__619B8048">
+  <Association Name="FK__Bids__cus_ID__628FA481">
     <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
     <End Role="Bids" Type="Self.Bids" Multiplicity="*" />
     <ReferentialConstraint>
@@ -243,7 +248,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Category__Parent__74AE54BC">
+  <Association Name="FK__Category__Parent__76969D2E">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Category1" Type="Self.Category" Multiplicity="*" />
     <ReferentialConstraint>
@@ -255,7 +260,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Images__pro_ID__628FA481">
+  <Association Name="FK__Images__pro_ID__6383C8BA">
     <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
     <End Role="Images" Type="Self.Images" Multiplicity="*" />
     <ReferentialConstraint>
@@ -264,18 +269,6 @@
       </Principal>
       <Dependent Role="Images">
         <PropertyRef Name="pro_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Messages__cus_ID__6383C8BA">
-    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customer">
-        <PropertyRef Name="cus_ID" />
-      </Principal>
-      <Dependent Role="Messages">
-        <PropertyRef Name="cus_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -315,19 +308,45 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Rating__pro_ID__6754599E">
-    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+  <Association Name="FK__Rating__6754599E">
+    <End Role="REL_Or_Pro" Type="Self.REL_Or_Pro" Multiplicity="0..1" />
     <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Orders">
+      <Principal Role="REL_Or_Pro">
         <PropertyRef Name="or_ID" />
+        <PropertyRef Name="pro_ID" />
       </Principal>
       <Dependent Role="Rating">
+        <PropertyRef Name="or_ID" />
         <PropertyRef Name="pro_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Em_Gr__em_ID__693CA210">
+  <Association Name="FK__Rating__received__693CA210">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="received_cus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Rating__sent_cus__68487DD7">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cus_ID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="sent_cus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REL_Em_Gr__em_ID__6B24EA82">
     <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
     <End Role="REL_Em_Gru" Type="Self.REL_Em_Gru" Multiplicity="*" />
     <ReferentialConstraint>
@@ -339,7 +358,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Em_Gr__gru_I__68487DD7">
+  <Association Name="FK__REL_Em_Gr__gru_I__6A30C649">
     <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
     <End Role="REL_Em_Gru" Type="Self.REL_Em_Gru" Multiplicity="*" />
     <ReferentialConstraint>
@@ -351,7 +370,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Fu_Gr__fu_ID__6B24EA82">
+  <Association Name="FK__REL_Fu_Gr__fu_ID__6D0D32F4">
     <End Role="Functions" Type="Self.Functions" Multiplicity="1" />
     <End Role="REL_Fu_Gru" Type="Self.REL_Fu_Gru" Multiplicity="*" />
     <ReferentialConstraint>
@@ -363,7 +382,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Fu_Gr__gru_I__6A30C649">
+  <Association Name="FK__REL_Fu_Gr__gru_I__6C190EBB">
     <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
     <End Role="REL_Fu_Gru" Type="Self.REL_Fu_Gru" Multiplicity="*" />
     <ReferentialConstraint>
@@ -375,7 +394,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Or_Pr__or_ID__6E01572D">
+  <Association Name="FK__REL_Or_Pr__or_ID__6FE99F9F">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
     <End Role="REL_Or_Pro" Type="Self.REL_Or_Pro" Multiplicity="*" />
     <ReferentialConstraint>
@@ -387,7 +406,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Or_Pr__pro_I__6EF57B66">
+  <Association Name="FK__REL_Or_Pr__pro_I__70DDC3D8">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="REL_Or_Pro" Type="Self.REL_Or_Pro" Multiplicity="*" />
     <ReferentialConstraint>
@@ -399,7 +418,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_A__au_ID__6FE99F9F">
+  <Association Name="FK__REL_Pro_A__au_ID__71D1E811">
     <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
     <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="*" />
     <ReferentialConstraint>
@@ -411,7 +430,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_A__pro_I__70DDC3D8">
+  <Association Name="FK__REL_Pro_A__pro_I__72C60C4A">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="REL_Pro_Au" Type="Self.REL_Pro_Au" Multiplicity="*" />
     <ReferentialConstraint>
@@ -423,7 +442,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_C__cat_I__71D1E811">
+  <Association Name="FK__REL_Pro_C__cat_I__73BA3083">
     <End Role="Category" Type="Self.Category" Multiplicity="1" />
     <End Role="REL_Pro_Cat" Type="Self.REL_Pro_Cat" Multiplicity="*" />
     <ReferentialConstraint>
@@ -435,7 +454,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_C__pro_I__72C60C4A">
+  <Association Name="FK__REL_Pro_C__pro_I__74AE54BC">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="REL_Pro_Cat" Type="Self.REL_Pro_Cat" Multiplicity="*" />
     <ReferentialConstraint>
@@ -447,7 +466,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_N__no_ID__6C190EBB">
+  <Association Name="FK__REL_Pro_N__no_ID__6E01572D">
     <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
     <End Role="REL_Pro_No" Type="Self.REL_Pro_No" Multiplicity="*" />
     <ReferentialConstraint>
@@ -459,7 +478,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__REL_Pro_N__pro_I__6D0D32F4">
+  <Association Name="FK__REL_Pro_N__pro_I__6EF57B66">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="REL_Pro_No" Type="Self.REL_Pro_No" Multiplicity="*" />
     <ReferentialConstraint>
@@ -471,14 +490,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Review__pro_ID__73BA3083">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+  <Association Name="FK__Review__75A278F5">
+    <End Role="REL_Or_Pro" Type="Self.REL_Or_Pro" Multiplicity="0..1" />
     <End Role="Review" Type="Self.Review" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Product">
+      <Principal Role="REL_Or_Pro">
+        <PropertyRef Name="or_ID" />
         <PropertyRef Name="pro_ID" />
       </Principal>
       <Dependent Role="Review">
+        <PropertyRef Name="or_ID" />
         <PropertyRef Name="pro_ID" />
       </Dependent>
     </ReferentialConstraint>
@@ -505,29 +526,25 @@
     <EntitySet Name="REL_Pro_No" EntityType="Self.REL_Pro_No" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Auction__em_ID__5FB337D6" Association="Self.FK__Auction__em_ID__5FB337D6">
+    <AssociationSet Name="FK__Auction__em_ID__60A75C0F" Association="Self.FK__Auction__em_ID__60A75C0F">
       <End Role="Employee" EntitySet="Employee" />
       <End Role="Auction" EntitySet="Auction" />
     </AssociationSet>
-    <AssociationSet Name="FK__Bids__60A75C0F" Association="Self.FK__Bids__60A75C0F">
+    <AssociationSet Name="FK__Bids__619B8048" Association="Self.FK__Bids__619B8048">
       <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
       <End Role="Bids" EntitySet="Bids" />
     </AssociationSet>
-    <AssociationSet Name="FK__Bids__cus_ID__619B8048" Association="Self.FK__Bids__cus_ID__619B8048">
+    <AssociationSet Name="FK__Bids__cus_ID__628FA481" Association="Self.FK__Bids__cus_ID__628FA481">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Bids" EntitySet="Bids" />
     </AssociationSet>
-    <AssociationSet Name="FK__Category__Parent__74AE54BC" Association="Self.FK__Category__Parent__74AE54BC">
+    <AssociationSet Name="FK__Category__Parent__76969D2E" Association="Self.FK__Category__Parent__76969D2E">
       <End Role="Category" EntitySet="Category" />
       <End Role="Category1" EntitySet="Category" />
     </AssociationSet>
-    <AssociationSet Name="FK__Images__pro_ID__628FA481" Association="Self.FK__Images__pro_ID__628FA481">
+    <AssociationSet Name="FK__Images__pro_ID__6383C8BA" Association="Self.FK__Images__pro_ID__6383C8BA">
       <End Role="Product" EntitySet="Product" />
       <End Role="Images" EntitySet="Images" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Messages__cus_ID__6383C8BA" Association="Self.FK__Messages__cus_ID__6383C8BA">
-      <End Role="Customer" EntitySet="Customer" />
-      <End Role="Messages" EntitySet="Messages" />
     </AssociationSet>
     <AssociationSet Name="FK__Orders__cus_ID__6477ECF3" Association="Self.FK__Orders__cus_ID__6477ECF3">
       <End Role="Customer" EntitySet="Customer" />
@@ -541,60 +558,68 @@
       <End Role="Status" EntitySet="Status" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK__Rating__pro_ID__6754599E" Association="Self.FK__Rating__pro_ID__6754599E">
-      <End Role="Orders" EntitySet="Orders" />
+    <AssociationSet Name="FK__Rating__6754599E" Association="Self.FK__Rating__6754599E">
+      <End Role="REL_Or_Pro" EntitySet="REL_Or_Pro" />
       <End Role="Rating" EntitySet="Rating" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Em_Gr__em_ID__693CA210" Association="Self.FK__REL_Em_Gr__em_ID__693CA210">
+    <AssociationSet Name="FK__Rating__received__693CA210" Association="Self.FK__Rating__received__693CA210">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Rating__sent_cus__68487DD7" Association="Self.FK__Rating__sent_cus__68487DD7">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REL_Em_Gr__em_ID__6B24EA82" Association="Self.FK__REL_Em_Gr__em_ID__6B24EA82">
       <End Role="Employee" EntitySet="Employee" />
       <End Role="REL_Em_Gru" EntitySet="REL_Em_Gru" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Em_Gr__gru_I__68487DD7" Association="Self.FK__REL_Em_Gr__gru_I__68487DD7">
+    <AssociationSet Name="FK__REL_Em_Gr__gru_I__6A30C649" Association="Self.FK__REL_Em_Gr__gru_I__6A30C649">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="REL_Em_Gru" EntitySet="REL_Em_Gru" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Fu_Gr__fu_ID__6B24EA82" Association="Self.FK__REL_Fu_Gr__fu_ID__6B24EA82">
+    <AssociationSet Name="FK__REL_Fu_Gr__fu_ID__6D0D32F4" Association="Self.FK__REL_Fu_Gr__fu_ID__6D0D32F4">
       <End Role="Functions" EntitySet="Functions" />
       <End Role="REL_Fu_Gru" EntitySet="REL_Fu_Gru" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Fu_Gr__gru_I__6A30C649" Association="Self.FK__REL_Fu_Gr__gru_I__6A30C649">
+    <AssociationSet Name="FK__REL_Fu_Gr__gru_I__6C190EBB" Association="Self.FK__REL_Fu_Gr__gru_I__6C190EBB">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="REL_Fu_Gru" EntitySet="REL_Fu_Gru" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Or_Pr__or_ID__6E01572D" Association="Self.FK__REL_Or_Pr__or_ID__6E01572D">
+    <AssociationSet Name="FK__REL_Or_Pr__or_ID__6FE99F9F" Association="Self.FK__REL_Or_Pr__or_ID__6FE99F9F">
       <End Role="Orders" EntitySet="Orders" />
       <End Role="REL_Or_Pro" EntitySet="REL_Or_Pro" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Or_Pr__pro_I__6EF57B66" Association="Self.FK__REL_Or_Pr__pro_I__6EF57B66">
+    <AssociationSet Name="FK__REL_Or_Pr__pro_I__70DDC3D8" Association="Self.FK__REL_Or_Pr__pro_I__70DDC3D8">
       <End Role="Product" EntitySet="Product" />
       <End Role="REL_Or_Pro" EntitySet="REL_Or_Pro" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_A__au_ID__6FE99F9F" Association="Self.FK__REL_Pro_A__au_ID__6FE99F9F">
+    <AssociationSet Name="FK__REL_Pro_A__au_ID__71D1E811" Association="Self.FK__REL_Pro_A__au_ID__71D1E811">
       <End Role="Auction" EntitySet="Auction" />
       <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_A__pro_I__70DDC3D8" Association="Self.FK__REL_Pro_A__pro_I__70DDC3D8">
+    <AssociationSet Name="FK__REL_Pro_A__pro_I__72C60C4A" Association="Self.FK__REL_Pro_A__pro_I__72C60C4A">
       <End Role="Product" EntitySet="Product" />
       <End Role="REL_Pro_Au" EntitySet="REL_Pro_Au" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_C__cat_I__71D1E811" Association="Self.FK__REL_Pro_C__cat_I__71D1E811">
+    <AssociationSet Name="FK__REL_Pro_C__cat_I__73BA3083" Association="Self.FK__REL_Pro_C__cat_I__73BA3083">
       <End Role="Category" EntitySet="Category" />
       <End Role="REL_Pro_Cat" EntitySet="REL_Pro_Cat" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_C__pro_I__72C60C4A" Association="Self.FK__REL_Pro_C__pro_I__72C60C4A">
+    <AssociationSet Name="FK__REL_Pro_C__pro_I__74AE54BC" Association="Self.FK__REL_Pro_C__pro_I__74AE54BC">
       <End Role="Product" EntitySet="Product" />
       <End Role="REL_Pro_Cat" EntitySet="REL_Pro_Cat" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_N__no_ID__6C190EBB" Association="Self.FK__REL_Pro_N__no_ID__6C190EBB">
+    <AssociationSet Name="FK__REL_Pro_N__no_ID__6E01572D" Association="Self.FK__REL_Pro_N__no_ID__6E01572D">
       <End Role="Notifications" EntitySet="Notifications" />
       <End Role="REL_Pro_No" EntitySet="REL_Pro_No" />
     </AssociationSet>
-    <AssociationSet Name="FK__REL_Pro_N__pro_I__6D0D32F4" Association="Self.FK__REL_Pro_N__pro_I__6D0D32F4">
+    <AssociationSet Name="FK__REL_Pro_N__pro_I__6EF57B66" Association="Self.FK__REL_Pro_N__pro_I__6EF57B66">
       <End Role="Product" EntitySet="Product" />
       <End Role="REL_Pro_No" EntitySet="REL_Pro_No" />
     </AssociationSet>
-    <AssociationSet Name="FK__Review__pro_ID__73BA3083" Association="Self.FK__Review__pro_ID__73BA3083">
-      <End Role="Product" EntitySet="Product" />
+    <AssociationSet Name="FK__Review__75A278F5" Association="Self.FK__Review__75A278F5">
+      <End Role="REL_Or_Pro" EntitySet="REL_Or_Pro" />
       <End Role="Review" EntitySet="Review" />
     </AssociationSet>
   </EntityContainer>
