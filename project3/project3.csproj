@@ -213,7 +213,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="User\Controllers\BidsController.cs" />
-    <Compile Include="User\Controllers\Customers1Controller.cs" />
+    <Compile Include="User\Controllers\CustomersController.cs" />
     <Compile Include="User\Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -398,7 +398,7 @@
     <Content Include="Views\User\Home\Index.cshtml" />
     <Content Include="Scripts\lib\owlcarousel\LICENSE" />
     <Content Include="Scripts\mail\contact.php" />
-    <Content Include="Views\User\Products\Create.cshtml" />
+    <Content Include="Views\User\Products\Selling.cshtml" />
     <Content Include="Views\User\Products\Interest.cshtml" />
     <Content Include="Views\User\Products\Details.cshtml" />
     <Content Include="Views\User\Products\Edit.cshtml" />
@@ -408,11 +408,15 @@
     <Content Include="Views\User\Shop\Details.cshtml" />
     <Content Include="Views\User\Shop\Edit.cshtml" />
     <Content Include="Views\User\Shop\Index.cshtml" />
-    <Content Include="Views\User\Customers1\Create.cshtml" />
-    <Content Include="Views\User\Customers1\Delete.cshtml" />
-    <Content Include="Views\User\Customers1\Details.cshtml" />
-    <Content Include="Views\User\Customers1\Edit.cshtml" />
-    <Content Include="Views\User\Customers1\Index.cshtml" />
+    <Content Include="Views\Admin\Category\Create.cshtml" />
+    <Content Include="Views\Admin\Category\Delete.cshtml" />
+    <Content Include="Views\Admin\Category\Edit.cshtml" />
+    <Content Include="Views\Admin\Category\Index.cshtml" />
+    <Content Include="Views\User\Customers\Create.cshtml" />
+    <Content Include="Views\User\Customers\Delete.cshtml" />
+    <Content Include="Views\User\Customers\Details.cshtml" />
+    <Content Include="Views\User\Customers\Edit.cshtml" />
+    <Content Include="Views\User\Customers\Index.cshtml" />
     <Content Include="Views\User\Bids\Create.cshtml" />
     <Content Include="Views\User\Bids\Delete.cshtml" />
     <Content Include="Views\User\Bids\Details.cshtml" />
