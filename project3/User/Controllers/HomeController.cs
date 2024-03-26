@@ -58,7 +58,7 @@ namespace project3.User.Controllers
                         return View("Index", form);
                     }
                 }
-                Session["cus"] = cus;
+                Session["cus"] = cus.cus_ID;
             }
             return RedirectToAction("Index", "Shop");
         }

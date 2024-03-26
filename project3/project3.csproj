@@ -213,7 +213,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="User\Controllers\BidsController.cs" />
-    <Compile Include="User\Controllers\Customers1Controller.cs" />
+    <Compile Include="User\Controllers\CustomersController.cs" />
     <Compile Include="User\Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

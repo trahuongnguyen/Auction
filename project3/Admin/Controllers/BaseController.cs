@@ -12,12 +12,26 @@ namespace project3.Admin.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session["uName"] == null)
+            if (HttpContext.Request.Params["section"].ToString().Equals("Admin"))
             {
-                filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary(new { Controller = "Account", Action="Login" })
-                );
+                if (Session["uName"] == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                        new System.Web.Routing.RouteValueDictionary(new { section = "Admin",  Controller = "Account", Action = "Login" })
+                    );
+                }
             }
+
+            if (HttpContext.Request.Params["section"].ToString().Equals("User"))
+            {
+                if (Session["cus"] == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                        new System.Web.Routing.RouteValueDictionary(new { section = "User", Controller = "Home", Action = "Index" })
+                    );
+                }
+            }
+
             base.OnActionExecuting(filterContext);
         }
     }
