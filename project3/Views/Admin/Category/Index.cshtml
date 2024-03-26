@@ -1,5 +1,5 @@
-﻿
-@model IEnumerable<project3.Models.Category>
+﻿@using PagedList;
+@model IPagedList<project3.Models.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -60,7 +60,7 @@
     }
 
 </table>
-@*<ul class="pagination">
+<ul class="pagination">
     @for (int i = 1; i <= Model.PageCount; i++)
     {
         <li class="@(i == Model.PageNumber?"page-item active":"page-item") me-3">
@@ -68,4 +68,4 @@
         </li>
 
     }
-</ul>*@
+</ul>

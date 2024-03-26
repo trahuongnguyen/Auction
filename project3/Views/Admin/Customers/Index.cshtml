@@ -1,0 +1,61 @@
+﻿@using PagedList
+@model IPagedList<project3.Models.CustomerStar>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            UserName
+        </th>
+        <th>
+            Sex
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            PhoneNumber
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Star
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.cus_ID })
+            </td>
+        </tr>
+    }
+
+</table>

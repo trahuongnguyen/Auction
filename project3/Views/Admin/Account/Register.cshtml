@@ -1,0 +1,90 @@
+﻿@model project3.Models.Employee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/stylelogin.css" rel="stylesheet">
+</head>
+<body>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <section class="form-02-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="_lk_de">
+                            <div class="form-03-main">
+                                <div class="logo">
+                                    <img src="~/Images/Admin/img/userloginadmin.png">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="FirstName" class="form-control _ge_de_ol" placeholder="Enter FirstName" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="LastName" class="form-control _ge_de_ol" placeholder="Enter LastName" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="UserName" class="form-control _ge_de_ol" placeholder="Enter UserName" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="Password" class="form-control _ge_de_ol" placeholder="Enter Password" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="Sex" class="form-control _ge_de_ol" placeholder="Enter Sex" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="Address" class="form-control _ge_de_ol" placeholder="Enter Address" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="Email" class="form-control _ge_de_ol" placeholder="Enter Email" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="PhoneNumber" class="form-control _ge_de_ol" placeholder="Enter Phone" required="" aria-required="true">
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="d-grid gap-2 col-2 mx-auto">
+                                        <input type="submit" value="Register" class="btn btn-outline-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+
+    }
+</body>
+</html>

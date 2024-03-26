@@ -15,32 +15,21 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.cat_ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NameCat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput"
-                       value="@Model.NameCat">
-                <label for="floatingInput">Category Name</label>
-                @Html.ValidationMessageFor(model => model.NameCat, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="NameCat" class="form-control bg-gray border-0" id="floatingInput" value="@Model.NameCat">
+            <label for="floatingInput">Category Name</label>
+            @Html.ValidationMessageFor(model => model.NameCat, "", new { @class = "text-danger" })
         </div>
-
         <div class="form-floating mb-3">
             @Html.DropDownListFor(m => m.Parent_ID, (SelectList)ViewBag.Parent, "selected", new { @class = "form-select bg-gray border-0" })
             <label for="floatingSelect">Choose Parent Category</label>
             @Html.ValidationMessageFor(model => model.Parent_ID, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Characteristic, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingInput" value="@Model.Characteristic"
-                       >
-                <label for="floatingInput">Description</label>
-                @Html.ValidationMessageFor(model => model.Characteristic, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="Characteristic" class="form-control bg-gray border-0" id="floatingInput" value="@Model.Characteristic">
+            <label for="floatingPassword">Description</label>
+            @Html.ValidationMessageFor(model => model.Characteristic, "", new { @class = "text-danger" })
         </div>
-
         <div class="form-floating mb-3">
             <input class="form-control bg-gray border-0" type="file" name="Image">
             <label for="floatingSelect">Image</label>
