@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using PagedList;
 using project3.Models;
 
-namespace project3.User.Controllers.User
+namespace project3.User.Controllers
 {
     public class ProductsController : Controller
     {

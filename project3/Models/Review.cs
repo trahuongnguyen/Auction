@@ -18,7 +18,8 @@ namespace project3.Models
         public int Star { get; set; }
         public string Review1 { get; set; }
         public Nullable<int> pro_ID { get; set; }
+        public Nullable<int> or_ID { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual REL_Or_Pro REL_Or_Pro { get; set; }
     }
 }
