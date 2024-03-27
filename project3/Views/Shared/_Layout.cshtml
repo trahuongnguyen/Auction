@@ -79,9 +79,12 @@
 
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+
+                    @Html.AntiForgeryToken()
                     <div class="input-group">
-                        <input type="text" class="form-control" id="search" placeholder="Search for products">
+                        <input type="text" class="form-control" name="search" id="search" placeholder="Search for products">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -92,15 +95,15 @@
                         <span class="fa fa-search form-control-feedback"></span>
                         <input type="text" class="form-control" placeholder="Search">
                     </div> -->
-                </form>
+                }
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-4 col-6 text-center row">
                 <div class="navbar-nav ml-auto py-0 d-none d-lg-block col-4 mt-2">
-                    <a href="~/User/Home/Interest" class="btn px-0">
-                        <i class="fas fa-heart text-primary"></i>
-                        <span class="badge border border-primary rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
+                    @*<a href="~/User/Home/Interest" class="btn px-0">
+                            <i class="fas fa-heart text-primary"></i>
+                            <span class="badge border border-primary rounded-circle" style="padding-bottom: 2px;">0</span>
+                        </a>*@
                     <a href="~/User/Shop" class="btn px-0 ml-3">
                         <i class="fas fa-shopping-cart text-primary "></i>
                         <span class="badge border border-primary rounded-circle" style="padding-bottom: 2px;">0</span>
@@ -108,15 +111,28 @@
                 </div>
                 <!-- <p class="m-0">Customer Service</p> -->
                 <div class="dropdown m-0 col-8 mt-3">
-                    <a href="" class="dropdown-toggle text-decoration-none" data-toggle="dropdown">
-                        <i class="fa-solid fa-user-large" style="color: #fd7e14;"></i> Account
-                    </a>
-                    <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
-                        <a href="~/User/Customers" class="dropdown-item">My profile</a>
-                        <a href="~/Admin/Home" class="dropdown-item">Login as Administrator</a>
-                        <a class="dropdown-item show-modal">Login</a>
-                        <a class="dropdown-item show-modal">Register</a>
-                    </div>
+
+                    @if (Session["cus"] == null)
+                    {
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown">
+                            <img class="avatar" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="avt"> Account
+                        </a>
+                        <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
+                            <a href="~/Admin/Account/Login" class="dropdown-item">Login as Administrator</a>
+                            <a class="dropdown-item show-modal">Login</a>
+                            <a class="dropdown-item show-modal">Register</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown">
+                            <img class="avatar" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="avt"> Account
+                        </a>
+                        <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
+                            <a href="~/User/Customers" class="dropdown-item">My profile</a>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
@@ -127,7 +143,7 @@
     {
 
         @Html.AntiForgeryToken()
-        <div class="wrapper-login wrapper modal-login" style="position: fixed;">
+        <div class="@(Session["cus"]==null?"wrapper-login wrapper modal-login":"wrapper-login wrapper modal-login hidden")" style="position: fixed;">
             <div class="container-login main-login main">
                 <div class="row-login row">
                     <div class="col-md-6-login col-md-6 side-image-login side-image">
@@ -170,7 +186,7 @@
     <!-- register -->
     @using (Html.BeginForm("Register", "Home", FormMethod.Post))
     {
-        
+
         @Html.AntiForgeryToken()
         <div class="wrapper wrapper-login modal-login hidden" style="position: fixed;">
             <div class="container container-login main main-login">
@@ -253,7 +269,7 @@
         </div>
     }
 
-    <div class="overlay" style="position: fixed;"></div>
+    <div class="@(Session["cus"]==null?"overlay":"overlay hidden")" style="position: fixed;"></div>
 
     <!-- <div class="overlay hidden"></div> -->
     <!-- Topbar End -->
