@@ -435,6 +435,7 @@
     <Content Include="Views\Admin\Home\Index.cshtml" />
     <Content Include="Views\User\Customers\Selling.cshtml" />
     <Content Include="Views\User\Home\Contact.cshtml" />
+    <Content Include="Views\User\Shop\Sell_products_details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

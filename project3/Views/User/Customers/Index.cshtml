@@ -1,4 +1,4 @@
-﻿@model IEnumerable<project3.Models.Customer>
+﻿@model project3.Models.Customer
 
 @{
     ViewBag.Title = "Index";
@@ -6,41 +6,41 @@
 }
 <!-- Profile -->
 <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
 
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
 
-        function showSlides(n) {
-            let i;
-            let slidesName = document.getElementsByClassName("mySlideContent");
-            let content = document.getElementsByClassName("mySlideName");
-            if (n > slidesName.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slidesName.length }
-            for (i = 0; i < slidesName.length; i++) {
-                slidesName[i].style.display = "none";
-            }
-            for (i = 0; i < content.length; i++) {
-                content[i].className = content[i].className.replace(" active", "");
-            }
-            slidesName[slideIndex - 1].style.display = "block";
-            content[slideIndex - 1].className += " active";
+    function showSlides(n) {
+        let i;
+        let slidesName = document.getElementsByClassName("mySlideContent");
+        let content = document.getElementsByClassName("mySlideName");
+        if (n > slidesName.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slidesName.length }
+        for (i = 0; i < slidesName.length; i++) {
+            slidesName[i].style.display = "none";
         }
+        for (i = 0; i < content.length; i++) {
+            content[i].className = content[i].className.replace(" active", "");
+        }
+        slidesName[slideIndex - 1].style.display = "block";
+        content[slideIndex - 1].className += " active";
+    }
 </script>
 <div class="container">
     <div class="container row">
         <div class="col-3">
             <div class="side-content">
                 <div class="profile-img">
-                    <img class="auction-avatar__img mr-4" src="~/Images/img/about.jpg" alt="">
+                    <img class="auction-avatar__img mr-4" src="data:image; base64, @System.Convert.ToBase64String(Model.Images.ElementAt(0).Img)" alt="">
                     <div class="miwGmI">
-                        <div class="mC1Llc">thuhuyen</div>
+                        <div class="mC1Llc">@Model.UserName</div>
                     </div>
                 </div>
             </div>
@@ -59,6 +59,7 @@
                     <div class="Yu7gVR">
                         <a class="FEE-3D tH0d6d" class="mySlidesName"
                            onclick="currentSlide(1)"><span class="qyt-aY">Profile</span></a>
+                        <!-- <a class="FEE-3D" href="#"><span class="qyt-aY" class="mySlidesName" onclick="currentSlide(2)">Ngân hàng</span> -->
                         <a class="FEE-3D" class="mySlidesName" onclick="currentSlide(2)">
                             <span class="qyt-aY">
                                 Change
@@ -109,24 +110,18 @@
                             </div>
                             <div class="RCnc9v">
                                 <div class="HrBg9Q">
-                                    <form>
+                                    @using (Html.BeginForm("UpdateUser", "Customers", FormMethod.Post))
+                                    {
+
+                                        @Html.AntiForgeryToken()
                                         <table class="bQkdAY">
                                             <tr>
                                                 <td class="f1ZOv_"><label>User Name</label></td>
                                                 <td class="o6L4e0">
-                                                    <div class="e_Vt__">
-                                                        <div class="PBfYlq">thuhuyen</div><button class="clo49Q"
-                                                                                                  fdprocessedid="hipnqo"></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="f1ZOv_"><label>Name</label></td>
-                                                <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" placeholder=""
-                                                                   class="kKnR04" value="huyen" fdprocessedid="86i4jw">
+                                                            <input type="text" class="kKnR04" name="username" value="@Model.UserName" fdprocessedid="86i4jw">
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -134,11 +129,10 @@
                                             <tr>
                                                 <td class="f1ZOv_"><label>Email</label></td>
                                                 <td class="o6L4e0">
-                                                   
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" placeholder=""
-                                                                   class="kKnR04" value="th*************gmail.com"
+                                                            <input type="text" name="email"
+                                                                   class="kKnR04" value="@Model.Email"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
                                                     </div>
@@ -146,11 +140,15 @@
                                             </tr>
                                             <tr>
                                                 <td class="f1ZOv_"><label>PhoneNumber</label></td>
-                                                <td class="o6L4e0">                                                  
+                                                <td class="o6L4e0">
+                                                    <!-- <div class="e_Vt__">
+                                                        <div class="PBfYlq">*********</div><button class="clo49Q"
+                                                            fdprocessedid="q47tp9">Thay đổi</button>
+                                                    </div> -->
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" placeholder=""
-                                                                   class="kKnR04" value="*********"
+                                                            <input type="text" name="phone"
+                                                                   class="kKnR04" value="@Model.PhoneNumber"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
                                                     </div>
@@ -161,8 +159,8 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" placeholder=""
-                                                                   class="kKnR04" value="hà nội"
+                                                            <input type="text" name="address"
+                                                                   class="kKnR04" value="@Model.Address"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
                                                     </div>
@@ -171,31 +169,56 @@
                                             <tr>
                                                 <td class="f1ZOv_"><label>Gender</label></td>
                                                 <td class="o6L4e0">
-                                                    <input type="radio" name="sex">Male </input>
-                                                    <input type="radio" name="sex">female </input>
-                                                    <input type="radio" name="sex">Other </input>
+                                                    <input type="radio" name="sex" value="Male" checked>Male
+                                                    <input type="radio" name="sex" value="Female">Female
+                                                    <input type="radio" name="sex" value="Other"> Other
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="f1ZOv_"><label>Day of birth</label></td>
+                                                <td class="f1ZOv_">
+                                                    <label>Day of birth</label>
+                                                </td>
                                                 <td class="o6L4e0">
-                                                    <input type="datetime-local">
+                                                    <input type="datetime-local" value="2020-02-03">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="f1ZOv_"><label></label></td>
                                                 <td class="o6L4e0">
                                                     <button type="button"
-                                                            class="btn btn-solid-primary-profile btn--m btn--inline"
+                                                            class="btn btn-solid-primary-profile btn--m btn--inline show-modal"
                                                             aria-disabled="false" fdprocessedid="jw0kcd">
                                                         Save
                                                     </button>
                                                 </td>
                                             </tr>
                                         </table>
-                                    </form>
+                                        <!-- confirm passs-->
+                                        <div class="wrapper-login wrapper modal-login hidden"
+                                             style="position: fixed; ">
+                                            <div class="car-dealer-wrap">
+                                                <div class="profile-img">
+                                                    <button class="close-modal close-modal-login">&times;</button>                                                    
+                                                    <h3 class="pt-4">
+                                                        Confirm Password
+                                                    </h3>
+                                                </div>
+                                                <div class="m-auto p-auto">
+                                                    <input type="password" name="password" id="password"
+                                                           placeholder="Confirm password">
+                                                </div>
+                                                <div class="m-auto p-auto pt-3">
+                                                    <button type="submit"
+                                                            class="btn btn-solid-primary-profile btn--m btn--inline show-modal"
+                                                            aria-disabled="false" fdprocessedid="jw0kcd">
+                                                        Save
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
-
+                                <div class="overlay hidden" style="position: fixed;"></div>
                             </div>
                         </div>
                         <!-- change Password -->
@@ -206,14 +229,17 @@
                             </div>
                             <div class="RCnc9v">
                                 <div class="HrBg9Q">
-                                    <form>
+                                    @using (Html.BeginForm("ChangePass", "Customers", FormMethod.Post))
+                                    {
+
+                                        @Html.AntiForgeryToken()
                                         <table class="bQkdAY">
                                             <tr>
                                                 <td class="f1ZOv_"><label>Old pasword</label></td>
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text"
+                                                            <input type="text" name="old_pass"
                                                                    placeholder="Enter old password" class="kKnR04"
                                                                    value="" fdprocessedid="86i4jw">
                                                         </div>
@@ -225,7 +251,7 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text"
+                                                            <input type="text" name="new_pass"
                                                                    placeholder="Enter new password" class="kKnR04"
                                                                    value="" fdprocessedid="86i4jw">
                                                         </div>
@@ -237,7 +263,7 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text"
+                                                            <input type="text" name="confirm_pass"
                                                                    placeholder="Enter new password" class="kKnR04"
                                                                    value="" fdprocessedid="86i4jw">
                                                         </div>
@@ -256,7 +282,7 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                    </form>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -273,65 +299,85 @@
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                    <tr>
+                                    <!--<tr>
                                         <td class="align-middle">
-                                            <img src="~/Images/img/product-1.jpg" alt=""
+                                            <img src="img/product-1.jpg" alt=""
                                                  style="width: 50px;"> Product Name
                                         </td>
                                         <td class="align-middle">$150</td>
                                         <td class="align-middle">
                                             2024.03.08 (Fri) 06:20
                                         </td>
-                                        <td class="align-middle">Successfully</td>
-                                    </tr>
-                                    <tr>
                                         <td class="align-middle">
-                                            <img src="~/Images/img/product-2.jpg" alt=""
-                                                 style="width: 50px;"> Product Name
+                                            <div class="input-field input-field-login-rating">-->
+                                    <!-- <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up"> -->
+                                    <!--<a href="#rating?cus_ID=" onclick="currentSlide(5)"
+                                                   class="rating fs-5">Rating Seller</a>
+                                            </div>
                                         </td>
-                                        <td class="align-middle">$150</td>
-                                        <td class="align-middle">
-                                            2024.03.08 (Fri) 06:20
-                                        </td>
-                                        <td class="align-middle">Unsuccessfully</td>
+                                    </tr>-->
+                                    @if (ViewBag.pro_id != null)
+                                    {
+                                        foreach (project3.Models.Product item in ViewBag.pro_id)
+                                        {
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <img src="data:image; base64, @System.Convert.ToBase64String(item.REL_Pro_Au.ElementAt(0).Product.Images.ElementAt(0).Img)" alt=""
+                                                         style="width: 50px;"> @item.REL_Pro_Au.ElementAt(0).Product.NamePro
+                                                    </td>
+                                                    <td class="align-middle">$@item.REL_Pro_Au.ElementAt(0).Bids.ElementAt(item.REL_Pro_Au.ElementAt(0).Bids.Count() - 1).Price</td>
+                                                    <td class="align-middle">
+                                                        @item.REL_Pro_Au.ElementAt(0).Bids.ElementAt(item.REL_Pro_Au.ElementAt(0).Bids.Count() - 1).Time
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <div class="input-field input-field-login-rating">
+                                                            <!-- <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up"> -->
+                                                            <a href="#rating?cus_ID=" onclick="currentSlide(5)"
+                                                               class="rating fs-5">Rating Seller</a>
+                                                        </div>
+                                                    </td>
 
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <img src="~/Images/img/product-3.jpg" alt=""
-                                                 style="width: 50px;"> Product Name
-                                        </td>
-                                        <td class="align-middle">$150</td>
-                                        <td class="align-middle">
-                                            2024.03.08 (Fri) 06:20
-                                        </td>
-                                        <td class="align-middle">Successfully</td>
+                                                </tr>
+                                            }
+                                        }
 
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <img src="~/Images/img/product-4.jpg" alt=""
-                                                 style="width: 50px;"> Product Name
-                                        </td>
-                                        <td class="align-middle">$150</td>
-                                        <td class="align-middle">
-                                            2024.03.08 (Fri) 06:20
-                                        </td>
-                                        <td class="align-middle">Unsuccessfully</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            <img src="~/Images/img/product-1.jpg" alt=""
-                                                 style="width: 50px;"> Product Name
-                                        </td>
-                                        <td class="align-middle">$150</td>
-                                        <td class="align-middle">
-                                            2024.03.08 (Fri) 06:20
-                                        </td>
-                                        <td class="align-middle">Successfully</td>
+                                        @*<tr>
+                                                <td class="align-middle">
+                                                    <img src="img/product-3.jpg" alt=""
+                                                         style="width: 50px;"> Product Name
+                                                </td>
+                                                <td class="align-middle">$150</td>
+                                                <td class="align-middle">
+                                                    2024.03.08 (Fri) 06:20
+                                                </td>
+                                                <td class="align-middle">Successfully</td>
 
-                                    </tr>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <img src="img/product-4.jpg" alt=""
+                                                         style="width: 50px;"> Product Name
+                                                </td>
+                                                <td class="align-middle">$150</td>
+                                                <td class="align-middle">
+                                                    2024.03.08 (Fri) 06:20
+                                                </td>
+                                                <td class="align-middle">Unsuccessfully</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <img src="img/product-1.jpg" alt=""
+                                                         style="width: 50px;"> Product Name
+                                                </td>
+                                                <td class="align-middle">$150</td>
+                                                <td class="align-middle">
+                                                    2024.03.08 (Fri) 06:20
+                                                </td>
+                                                <td class="align-middle">Successfully</td>
+
+                                            </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -341,57 +387,117 @@
                                 <h1 class="BVrKV_">Notification</h1>
                                 <div class="QcW5xy">Manage profile information to secure your account</div>
                             </div>
-                            <div class="d-flex align-items-center border-bottom py-3 ">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="w-100 ml-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
+                            @if (ViewBag.Pid != null)
+                            {
+                                foreach (project3.Models.Product item in ViewBag.Pid)
+                                {
+                                    <div class="d-flex align-items-center border-bottom py-3 ">
+                                        <img class="rounded-circle flex-shrink-0" src="@Model.Img" alt=""
+                                             style="width: 40px; height: 40px;">
+                                        <div class="w-100 ml-3">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-0">@Model.UserName</h6>
+                                                <small>  </small>
+                                            </div>
+                                            <span>@item.Notifications.ElementAt(0).NoDetails</span>
+                                        </div>
                                     </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="w-100 ml-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
+                                }
+                            }
+                            @*<div class="d-flex align-items-center border-bottom py-3 ">
+                                        <img class="rounded-circle flex-shrink-0" src="" alt=""
+                                             style="width: 40px; height: 40px;">
+                                        <div class="w-100 ml-3">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-0"></h6>
+                                                <small>  </small>
+                                            </div>
+                                            <span>Short message goes here...</span>
+                                        </div>
                                     </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="w-100 ml-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
+                                    <div class="d-flex align-items-center border-bottom py-3">
+                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                             style="width: 40px; height: 40px;">
+                                        <div class="w-100 ml-3">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-0">Jhon Doe</h6>
+                                                <small>15 minutes ago</small>
+                                            </div>
+                                            <span>Short message goes here...</span>
+                                        </div>
                                     </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                     style="width: 40px; height: 40px;">
-                                <div class="w-100 ml-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
+                                    <div class="d-flex align-items-center border-bottom py-3">
+                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                             style="width: 40px; height: 40px;">
+                                        <div class="w-100 ml-3">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-0">Jhon Doe</h6>
+                                                <small>15 minutes ago</small>
+                                            </div>
+                                            <span>Short message goes here...</span>
+                                        </div>
                                     </div>
-                                    <span>Short message goes here...</span>
+                                    <div class="d-flex align-items-center pt-3">
+                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
+                                             style="width: 40px; height: 40px;">
+                                        <div class="w-100 ml-3">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-0">Jhon Doe</h6>
+                                                <small>15 minutes ago</small>
+                                            </div>
+                                            <span>Short message goes here...</span>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <!---rating -->
+                            <div id="rating" class=" mySlideContent m-5" style="display: none;">
+                                <h4 class="mb-4">Leave a review</h4>
+                                <small>
+                                    Your email address will not be published. Required fields are marked
+                                    *
+                                </small>
+                                <div class="d-flex my-3">
+                                    <p class="mb-0 mr-2">Your Rating * :</p>
+                                    <div class="text-primary">
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <!-- <i class="rate far fa-star "></i>
+                                        <i class="rate far fa-star"></i>
+                                        <i class="rate far fa-star"></i>
+                                        <i class="rate far fa-star"></i>
+                                        <i class="rate far fa-star"></i> -->
+                                    </div>
                                 </div>
+                                @using (Html.BeginForm("Rating", "Customers", FormMethod.Post))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <label for="message">Your Review *</label>
+                                        <textarea name="message" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Your Name *</label>
+                                        <input type="text" class="form-control" name="name" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Your Email *</label>
+                                        <input type="email" class="form-control" name="email" id="email">
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 
 
