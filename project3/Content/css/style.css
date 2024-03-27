@@ -175,6 +175,10 @@ a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
 }
+.p-auto {
+    display: flex;
+    justify-content: center !important;
+}
 .avatar {
     width: 30px;
     height: 30px;
@@ -2799,7 +2803,7 @@ textarea.form-control {
 }
 
 .btn:hover {
-  color: #6C757D;
+  
   text-decoration: none;
 }
 
