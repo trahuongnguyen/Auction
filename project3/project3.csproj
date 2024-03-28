@@ -249,6 +249,7 @@
     <Content Include="Content\css\bootstrap-reboot.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\rating.css" />
     <Content Include="Content\css\style-aboutus.css" />
     <Content Include="Content\css\style-login.css" />
     <Content Include="Content\css\style.css" />
