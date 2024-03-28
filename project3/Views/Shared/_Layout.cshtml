@@ -79,14 +79,14 @@
 
             </div>
             <div class="col-lg-4 col-6 text-left">
-                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @id = "search" }))
                 {
 
                     @Html.AntiForgeryToken()
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" id="search" placeholder="Search for products">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <span class="input-group-text bg-transparent text-primary" onclick="$('#search').submit()">
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
@@ -115,7 +115,7 @@
                     @if (Session["cus"] == null)
                     {
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown">
-                            <img class="avatar" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="avt"> Account
+                            <i class="fa-solid fa-user-large" style="color: #fd7e14;"></i> Account
                         </a>
                         <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
                             <a href="~/Admin/Account/Login" class="dropdown-item">Login as Administrator</a>
@@ -126,7 +126,11 @@
                     else
                     {
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown">
-                            <img class="avatar" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="avt"> Account
+                            @using (var db = new project3.Models.dbauctionsystemEntities())
+                            {
+                                <img class="avatar" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="avt">
+                                @db.Customers.FirstOrDefault(c => c.cus_ID == Int32.Parse(Session["cus"].ToString())).UserName
+                            }
                         </a>
                         <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
                             <a href="~/User/Customers" class="dropdown-item">My profile</a>
@@ -143,7 +147,7 @@
     {
 
         @Html.AntiForgeryToken()
-        <div class="@(Session["cus"]==null?"wrapper-login wrapper modal-login":"wrapper-login wrapper modal-login hidden")" style="position: fixed;">
+        <div class="@(ViewBag.login!=null?ViewBag.login:"wrapper wrapper-login modal-login")" style="position: fixed;">
             <div class="container-login main-login main">
                 <div class="row-login row">
                     <div class="col-md-6-login col-md-6 side-image-login side-image">
@@ -158,6 +162,7 @@
                             <div class="input-field-login input-field">
                                 <input type="text" class="input-login input" name="UserName" id="Password">
                                 @Html.ValidationMessage("UserName", "", new { @class = "text-danger" })
+
                                 <label for="name">Username</label>
                             </div>
                             <div class="input-field-login input-field">
@@ -168,6 +173,7 @@
                             <div class="input-field-login input-field">
                                 <input type="submit" class="submit-login submit" name="submit" id="submit" value="Submit">
                             </div>
+                            @Html.ValidationMessage("summary", "", new { @class = "text-danger" })
                             <!-- <div class="signup-login signup">
                                 <span>Have an account? <a class="show-modal-link">Sign Up here</a></span>
                             </div> -->
@@ -188,7 +194,7 @@
     {
 
         @Html.AntiForgeryToken()
-        <div class="wrapper wrapper-login modal-login hidden" style="position: fixed;">
+        <div class="@(ViewBag.regist!=null?ViewBag.regist:"wrapper wrapper-login modal-login hidden")" style="position: fixed;">
             <div class="container container-login main main-login">
                 <div class="row row-login">
                     <div class="col-md-6 col-md-6-login side-image side-image-login">
@@ -200,51 +206,32 @@
                             <p class="close-modal close-modal-login">&times;</p>
                             <h1>Register</h1>
                             <div class="input-field input-field-login">
-                                <input type="text" class="input-login input" name="FirstName" id="Password">
-                                @Html.ValidationMessage("FirstName", "", new { @class = "text-danger" })
-                                <label for="name">FirstName</label>
-                                @*@Html.ValidationMessage(cus.FirstName, "", new { @class = "text-danger" })*@
-                            </div>
-                            <div class="input-field input-field-login">
-                                <input type="text" class="input-login input" name="LastName">
-                                @*@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })*@
-                                <label for="name">LastName</label>
-                                @*@Html.ValidationMessage(cus.LastName, "", new { @class = "text-danger" })*@
-
-                            </div>
-                            <div class="input-field input-field-login">
                                 <input type="text" class="input-login input" name="UserName" id="Password">
-                                @*@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })*@
                                 <label for="name">Username</label>
-                                @*@Html.ValidationMessage(cus.UserName, "", new { @class = "text-danger" })*@
+                                @Html.ValidationMessage("UserName", "", new { @class = "text-danger" })
 
                             </div>
                             <div class="input-field input-field-login">
                                 <input type="text" class="input-login input" name="Password" id="Password">
-                                @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
                                 <label for="password">Password</label>
-                                @*@Html.ValidationMessage(cus.Password, "", new { @class = "text-danger" })*@
+                                @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
 
                             </div>
                             <div class="input-field input-field-login">
                                 <input type="email" class="input-login input" name="Email" id="Password">
-                                @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
                                 <label for="email">Email</label>
-                                @*@Html.ValidationMessage(cus.Email, "", new { @class = "text-danger" })*@
+                                @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
 
                             </div>
                             <div class="input-field input-field-login">
                                 <input type="text" class="input-login input" name="PhoneNumber" id="Password">
-                                @*@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })*@
                                 <label for="phone">Phone</label>
-                                @*@Html.ValidationMessage(cus.PhoneNumber, "", new { @class = "text-danger" })*@
-
+                                @Html.ValidationMessage("PhoneNumber", "", new { @class = "text-danger" })
                             </div>
                             <div class="input-field input-field-login">
                                 <input type="text" class="input-login input" name="Address" id="Password">
-                                @*@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })*@
                                 <label for="address">Address</label>
-                                @*@Html.ValidationMessage(cus.Address, "", new { @class = "text-danger" })*@
+                                @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
 
                             </div>
                             <div class="input-field">
@@ -252,13 +239,13 @@
                                 <input type="radio" name="Sex" value="Male"> Male
                                 <input type="radio" name="Sex" value="Female"> Female
                                 <input type="radio" name="Sex" value="Other"> Other
-                                @*@Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })*@
-                                @*@Html.ValidationMessage(cus.Sex, "", new { @class = "text-danger" })*@
+                                @Html.ValidationMessage("Sex", "", new { @class = "text-danger" })
 
                             </div>
                             <div class="input-field input-field-login">
                                 <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up">
                             </div>
+                            @Html.ValidationMessage("summary", "", new { @class = "text-danger" })
                             <!-- <div class="signup signup-login">
                             <span><a class="show-modal-link" >Sign In here</a></span>
                             </div> -->
@@ -269,7 +256,7 @@
         </div>
     }
 
-    <div class="@(Session["cus"]==null?"overlay":"overlay hidden")" style="position: fixed;"></div>
+    <div class="@(ViewBag.overlay!=null?ViewBag.overlay:"overlay")" style="position: fixed;"></div>
 
     <!-- <div class="overlay hidden"></div> -->
     <!-- Topbar End -->
@@ -359,7 +346,7 @@
                             <a href="~/User/Shop" class="nav-item nav-link">Shop</a>
                             <a href="~/User/Customers/History" class="nav-item nav-link">History Auctions</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                     Pages <i class="fa fa-angle-down mt-1"></i>
                                 </a>
                                 <div class="dropdown-menu bg-light rounded-0 border-0 m-0">
@@ -397,10 +384,10 @@
     <div class="container-fluid bg-gray text-secondary mt-5 pt-5">
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+                <h5 class="text-secondary text-uppercase mb-4">About Us</h5>
                 <p class="mb-4">
-                    No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor.
-                    Rebum tempor no vero est magna amet no
+                    Embark on this journey with us, as we navigate the diverse and enriching world of auctions,
+                    where passion meets innovation, and limitless experiences await.
                 </p>
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>

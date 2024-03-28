@@ -18,6 +18,12 @@ namespace project3.User.Controllers
                     new System.Web.Routing.RouteValueDictionary(new { Controller = "Home", Action = "Index" })
                 );
             }
+            else
+            {
+                ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+                ViewBag.login = "wrapper wrapper-login modal-login hidden";
+                ViewBag.overlay = "overlay hidden";
+            }
 
             base.OnActionExecuting(filterContext);
         }
