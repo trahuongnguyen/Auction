@@ -18,6 +18,9 @@
         $(window).resize(toggleNavbarMethod);
     });
 
+    function mybid() {
+        $("#your-price").html($("#price-input").val());
+    }
 
     $(document).ready(function () {
         // Prepare the preview for profile picture

@@ -1,4 +1,5 @@
-﻿using project3.Models;
+﻿using PagedList;
+using project3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +16,32 @@ namespace project3.User.Controllers
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
             ViewBag.Categories = db.Categories.Where(c=>c.Status==1).ToList();
             ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
             ViewBag.Autions = db.Auctions.Where(a=>a.EndTime > DateTime.Now).ToList();
-
-            /*Product product = new Product();
-            product.Images.ElementAt(0);*/
-            //ViewData["Categories"]
-            /* Auction auction = new Auction();
-             foreach (var item in auction.REL_Pro_Au) 
-             { 
-                 var img = item.Product.Images.ElementAt(0).Img;
-             }*/
+            List<Product> products;
+            if(!string.IsNullOrEmpty(search))
+            {
+                string[] keys = search.Split(' ');
+                foreach(string key in keys)
+                {
+                    products = db.Products.Where(p=>p.NamePro.Contains(key) && p.sta_ID == 4).ToList();
+                    return RedirectToAction("Index", "Shop", products);
+                }
+            }
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(FormCollection form)
         {
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login";
+            ViewBag.overlay = "overlay";
             ViewBag.Categories = db.Categories.ToList();
             ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
             ViewBag.Autions = db.Auctions.ToList();
@@ -53,14 +59,22 @@ namespace project3.User.Controllers
                 {
                     if(!Crypto.VerifyHashedPassword(cus.Password, password))
                     {
-                        ModelState.AddModelError("password", "Password is incorrect");
+                        ModelState.AddModelError("Password", "Password is incorrect");
 
                         return View("Index", form);
                     }
                 }
                 Session["cus"] = cus.cus_ID;
             }
-            return RedirectToAction("Index", "Shop");
+            else
+            {
+                ModelState.AddModelError("summary", "Please enter full of information");
+                return View("Index", form);
+            }
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login hidden";
+            ViewBag.overlay = "overlay hidden";
+            return RedirectToAction("Index");
         }
         /*[HttpGet]
         public ActionResult Register()
@@ -71,12 +85,15 @@ namespace project3.User.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(FormCollection form)
         {
+            ViewBag.regist = "wrapper wrapper-login modal-login";
+            ViewBag.login = "wrapper wrapper-login modal-login hidden";
+            ViewBag.overlay = "overlay";
             ViewBag.Categories = db.Categories.ToList();
             ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
             ViewBag.Autions = db.Auctions.ToList();
             if (string.IsNullOrEmpty(form["FirstName"].ToString()) || string.IsNullOrEmpty(form["LastName"].ToString()) || string.IsNullOrEmpty(form["UserName"].ToString()) || string.IsNullOrEmpty(form["Password"].ToString()) || string.IsNullOrEmpty(form["Email"].ToString()) || string.IsNullOrEmpty(form["PhoneNumber"].ToString()) || string.IsNullOrEmpty(form["Address"].ToString()) || string.IsNullOrEmpty(form["Sex"].ToString()))
             {
-                ModelState.AddModelError("", "Please enter full of information");
+                ModelState.AddModelError("summary", "Please enter full of information");
                 return View("Index", form);
             }
             if (!ModelState.IsValid)
@@ -104,7 +121,10 @@ namespace project3.User.Controllers
             customer.Password = PassHash(form["Password"].ToString());
             db.Customers.Add(customer);
             db.SaveChanges();
-            return RedirectToAction("Index", "Shop");
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login hidden";
+            ViewBag.overlay = "overlay hidden";
+            return RedirectToAction("Index");
         }
         private bool DupplicatedEmail(string str)
         {
@@ -132,6 +152,11 @@ namespace project3.User.Controllers
             return Crypto.HashPassword(password);
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Contact(FormCollection form)
@@ -155,9 +180,11 @@ namespace project3.User.Controllers
             Message message = new Message();
             message.Message1 = form["Message1"].ToString();
             mess.Time = DateTime.Now;
+            mess.Name = form["name"].ToString();
+            mess.Email = form["email"].ToString();
             db.Messages.Add(message);
             db.SaveChanges();
-            return RedirectToAction("Index", "Shop");
+            return RedirectToAction("Contact");
         }
 
     }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using project3.Models;
 
 namespace project3.User.Controllers
@@ -26,14 +27,11 @@ namespace project3.User.Controllers
             return View(db.Bids.Where(b=>b.cus_ID == Int32.Parse(Session["cus"].ToString())));
         }
 
-        public ActionResult Your_buying()
+        public ActionResult Your_buying(int?pi)
         {
-            return View(db.Products.Where(p=>p.cus_ID == Int32.Parse(Session["cus"].ToString())));
-        }
-
-        public ActionResult Reviews()
-        {
-            return View();
+            int pageNumber = pi ?? 1;
+            int pageSize = 12;
+            return View(db.Products.Where(p=>p.cus_ID == Int32.Parse(Session["cus"].ToString())).ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Customers/Create
@@ -50,6 +48,7 @@ namespace project3.User.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Selling([Bind(Include = "pro_ID,NamePro,StartingPrice,StepPrice,StartTime,EndTime,ReceivedDate,Description,cus_ID,MoreInformation,sta_ID")] Product product, IEnumerable<HttpPostedFileBase> Images, List<int> cat_IDs)
         {
+            ViewBag.cat_ID = new SelectList(db.Categories, "cat_ID", "NameCat", product.Categories);
             if (ModelState.IsValid)
             {
                 if (Images != null)
@@ -77,29 +76,31 @@ namespace project3.User.Controllers
                     Product product1 = db.Products.FirstOrDefault(p => p.pro_ID == db.Products.Max(pro => pro.pro_ID));
                     foreach (var item in Images)
                     {
-                        try
+                        if(item != null && item.ContentLength > 0)
                         {
-                            using (var binaryReader = new BinaryReader(item.InputStream))
+                            try
                             {
-                                Image imgs = new Image();
-                                imgs.Img = binaryReader.ReadBytes(item.ContentLength);
-                                imgs.pro_ID = product1.pro_ID;
-                                db.Images.Add(imgs);
-                                db.SaveChanges();
+                                using (var binaryReader = new BinaryReader(item.InputStream))
+                                {
+                                    Image imgs = new Image();
+                                    imgs.Img = binaryReader.ReadBytes(item.ContentLength);
+                                    imgs.pro_ID = product1.pro_ID;
+                                    db.Images.Add(imgs);
+                                    db.SaveChanges();
+                                }
                             }
-                        }
-                        catch (Exception)
-                        {
+                            catch (Exception)
+                            {
 
-                            throw;
+                                throw;
+                            }
                         }
                     }
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Sell_products", "Shop");
             }
 
-            ViewBag.cat_ID = new SelectList(db.Categories, "cat_ID", "NameCat", product.Categories);
             return View(product);
         }
 
