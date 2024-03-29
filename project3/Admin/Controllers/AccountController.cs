@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using project3.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using project3.Models;
-using BCrypt.Net;
 namespace project3.Admin.Controllers
 {
     public class AccountController : Controller
@@ -33,7 +30,7 @@ namespace project3.Admin.Controllers
                     Session["id"] = employee.em_ID;
                     var employees = db.Employees.Where(e => e.Status == 1).ToList();
                     TempData["EmList"] = employees;
-                    var products = db.Products.Include(p=>p.Status).Where(p => p.sta_ID == 1).ToList();
+                    var products = db.Products.Where(p => p.sta_ID == 1).ToList();
                     TempData["ProList"] = products;
                     return RedirectToAction("Index", "/Home");
                 }
@@ -83,7 +80,7 @@ namespace project3.Admin.Controllers
 
             return View();
         }
-       
+
         public ActionResult Logout()
         {
             Session.Remove("uName");
@@ -96,17 +93,17 @@ namespace project3.Admin.Controllers
         // GET: Logins/Edit/5
         public ActionResult ChangePassword()
         {
-            if(Session != null && Session["uName"] != null )
+            if (Session != null && Session["uName"] != null)
             {
                 var value = Session["uName"].ToString();
                 Employee employee = db.Employees.Where(e => e.UserName == value).FirstOrDefault();
-                return View(employee);         
+                return View(employee);
             }
             else
             {
                 return RedirectToAction("Login");
             }
-            
+
 
         }
 

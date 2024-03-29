@@ -14,12 +14,6 @@ namespace project3.Models
     
     public partial class Notification
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Notification()
-        {
-            this.Products = new HashSet<Product>();
-        }
-    
         public int no_ID { get; set; }
         public string NameNo { get; set; }
         public System.DateTime Time { get; set; }
@@ -28,7 +22,8 @@ namespace project3.Models
         public Nullable<int> SellCus { get; set; }
         public Nullable<int> BuyCus { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

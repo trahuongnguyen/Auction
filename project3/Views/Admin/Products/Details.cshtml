@@ -5,14 +5,12 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Product</h4>
+    <h2 class="text-center p-4s">Product</h2>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="m-5">
         <dt>
-            @Html.DisplayNameFor(model => model.NamePro)
+            @Html.DisplayNameFor(model => model.NamePro) :
         </dt>
 
         <dd>
@@ -20,15 +18,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StartingPrice)
+            @Html.DisplayNameFor(model => model.StartingPrice) :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.StartingPrice)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StepPrice)
+        <dt> 
+            @Html.DisplayNameFor(model => model.StepPrice) :
         </dt>
 
         <dd>
@@ -36,15 +34,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.DisplayNameFor(model => model.StartTime) :
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StartTime)
+            @Html.DisplayFor(model => model.StartTime) 
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.DisplayNameFor(model => model.EndTime) :
         </dt>
 
         <dd>
@@ -52,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ReceivedDate)
+            @Html.DisplayNameFor(model => model.ReceivedDate) :
         </dt>
 
         <dd>
@@ -60,7 +58,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Description) :
         </dt>
 
         <dd>
@@ -68,7 +66,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MoreInformation)
+            @Html.DisplayNameFor(model => model.MoreInformation) :
         </dt>
 
         <dd>
@@ -76,15 +74,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Customer.FirstName)
+            @Html.DisplayNameFor(model => model.Customer.UserName) :
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Customer.FirstName)
+            @Html.DisplayFor(model => model.Customer.UserName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status.StatusDetails)
+            @Html.DisplayNameFor(model => model.Status.StatusDetails) :
         </dt>
 
         <dd>
@@ -93,6 +91,6 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Back to Product", "Index")
+<p class="text-center text-primary">
+    @Html.ActionLink("Back to Product", "Index");
 </p>

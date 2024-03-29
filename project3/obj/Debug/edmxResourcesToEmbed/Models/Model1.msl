@@ -4,226 +4,218 @@
     <EntitySetMapping Name="Auctions">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Auction">
         <MappingFragment StoreEntitySet="Auction">
-          <ScalarProperty Name="au_ID" ColumnName="au_ID" />
-          <ScalarProperty Name="NameAu" ColumnName="NameAu" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="Stastus" ColumnName="Stastus" />
           <ScalarProperty Name="em_ID" ColumnName="em_ID" />
+          <ScalarProperty Name="Stastus" ColumnName="Stastus" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="NameAu" ColumnName="NameAu" />
+          <ScalarProperty Name="au_ID" ColumnName="au_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Bids">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Bid">
         <MappingFragment StoreEntitySet="Bids">
-          <ScalarProperty Name="bid_ID" ColumnName="bid_ID" />
-          <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
           <ScalarProperty Name="au_ID" ColumnName="au_ID" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="bid_ID" ColumnName="bid_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="cat_ID" ColumnName="cat_ID" />
-          <ScalarProperty Name="NameCat" ColumnName="NameCat" />
-          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
-          <ScalarProperty Name="Characteristic" ColumnName="Characteristic" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Characteristic" ColumnName="Characteristic" />
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="NameCat" ColumnName="NameCat" />
+          <ScalarProperty Name="cat_ID" ColumnName="cat_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Customers">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Customer">
         <MappingFragment StoreEntitySet="Customer">
-          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
-          <ScalarProperty Name="Img" ColumnName="Img" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Sex" ColumnName="Sex" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Surplus" ColumnName="Surplus" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Surplus" ColumnName="Surplus" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
-          <ScalarProperty Name="em_ID" ColumnName="em_ID" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Sex" ColumnName="Sex" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="em_ID" ColumnName="em_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Functions">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Function">
         <MappingFragment StoreEntitySet="Functions">
-          <ScalarProperty Name="fu_ID" ColumnName="fu_ID" />
-          <ScalarProperty Name="NameFu" ColumnName="NameFu" />
           <ScalarProperty Name="FunctionDetails" ColumnName="FunctionDetails" />
+          <ScalarProperty Name="NameFu" ColumnName="NameFu" />
+          <ScalarProperty Name="fu_ID" ColumnName="fu_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Groups">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Group">
         <MappingFragment StoreEntitySet="Groups">
-          <ScalarProperty Name="gru_ID" ColumnName="gru_ID" />
-          <ScalarProperty Name="NameGr" ColumnName="NameGr" />
           <ScalarProperty Name="GroupDetails" ColumnName="GroupDetails" />
+          <ScalarProperty Name="NameGr" ColumnName="NameGr" />
+          <ScalarProperty Name="gru_ID" ColumnName="gru_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Images">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Image">
         <MappingFragment StoreEntitySet="Images">
-          <ScalarProperty Name="im_ID" ColumnName="im_ID" />
-          <ScalarProperty Name="Img" ColumnName="Img" />
           <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="im_ID" ColumnName="im_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Messages">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Message">
         <MappingFragment StoreEntitySet="Messages">
-          <ScalarProperty Name="me_ID" ColumnName="me_ID" />
-          <ScalarProperty Name="Message1" ColumnName="Message" />
-          <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Message1" ColumnName="Message" />
+          <ScalarProperty Name="me_ID" ColumnName="me_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Notifications">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Notification">
         <MappingFragment StoreEntitySet="Notifications">
-          <ScalarProperty Name="no_ID" ColumnName="no_ID" />
-          <ScalarProperty Name="NameNo" ColumnName="NameNo" />
-          <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="NoDetails" ColumnName="NoDetails" />
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
-          <ScalarProperty Name="SellCus" ColumnName="SellCus" />
           <ScalarProperty Name="BuyCus" ColumnName="BuyCus" />
+          <ScalarProperty Name="SellCus" ColumnName="SellCus" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="NoDetails" ColumnName="NoDetails" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="NameNo" ColumnName="NameNo" />
+          <ScalarProperty Name="no_ID" ColumnName="no_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Order">
         <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
-          <ScalarProperty Name="MoreInformation" ColumnName="MoreInformation" />
           <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
+          <ScalarProperty Name="MoreInformation" ColumnName="MoreInformation" />
+          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Product">
         <MappingFragment StoreEntitySet="Product">
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
-          <ScalarProperty Name="NamePro" ColumnName="NamePro" />
-          <ScalarProperty Name="StartingPrice" ColumnName="StartingPrice" />
-          <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
-          <ScalarProperty Name="MoreInformation" ColumnName="MoreInformation" />
           <ScalarProperty Name="sta_ID" ColumnName="sta_ID" />
+          <ScalarProperty Name="MoreInformation" ColumnName="MoreInformation" />
+          <ScalarProperty Name="cus_ID" ColumnName="cus_ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
+          <ScalarProperty Name="StartingPrice" ColumnName="StartingPrice" />
+          <ScalarProperty Name="NamePro" ColumnName="NamePro" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Ratings">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Rating">
         <MappingFragment StoreEntitySet="Rating">
-          <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
-          <ScalarProperty Name="Star" ColumnName="Star" />
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
-          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
-          <ScalarProperty Name="sent_cus" ColumnName="sent_cus" />
           <ScalarProperty Name="received_cus" ColumnName="received_cus" />
+          <ScalarProperty Name="sent_cus" ColumnName="sent_cus" />
+          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+          <ScalarProperty Name="ra_ID" ColumnName="ra_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="REL_Or_Pro">
       <EntityTypeMapping TypeName="dbauctionsystemModel.REL_Or_Pro">
         <MappingFragment StoreEntitySet="REL_Or_Pro">
-          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
           <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="or_ID" ColumnName="or_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="REL_Pro_Au">
       <EntityTypeMapping TypeName="dbauctionsystemModel.REL_Pro_Au">
         <MappingFragment StoreEntitySet="REL_Pro_Au">
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
           <ScalarProperty Name="au_ID" ColumnName="au_ID" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Reviews">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Review">
         <MappingFragment StoreEntitySet="Review">
-          <ScalarProperty Name="re_ID" ColumnName="re_ID" />
-          <ScalarProperty Name="Star" ColumnName="Star" />
-          <ScalarProperty Name="Review1" ColumnName="Review" />
-          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
           <ScalarProperty Name="or_ID" ColumnName="or_ID" />
+          <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+          <ScalarProperty Name="Review1" ColumnName="Review" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+          <ScalarProperty Name="re_ID" ColumnName="re_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Status">
       <EntityTypeMapping TypeName="dbauctionsystemModel.Status">
         <MappingFragment StoreEntitySet="Status">
-          <ScalarProperty Name="sta_ID" ColumnName="sta_ID" />
-          <ScalarProperty Name="StatusDetails" ColumnName="StatusDetails" />
           <ScalarProperty Name="NameSta" ColumnName="NameSta" />
+          <ScalarProperty Name="StatusDetails" ColumnName="StatusDetails" />
+          <ScalarProperty Name="sta_ID" ColumnName="sta_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="REL_Em_Gru" TypeName="dbauctionsystemModel.REL_Em_Gru" StoreEntitySet="REL_Em_Gru">
+      <EndProperty Name="Group">
+        <ScalarProperty Name="gru_ID" ColumnName="gru_ID" />
+      </EndProperty>
       <EndProperty Name="Employee">
         <ScalarProperty Name="em_ID" ColumnName="em_ID" />
       </EndProperty>
-      <EndProperty Name="Groups">
-        <ScalarProperty Name="gru_ID" ColumnName="gru_ID" />
-      </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="REL_Fu_Gru" TypeName="dbauctionsystemModel.REL_Fu_Gru" StoreEntitySet="REL_Fu_Gru">
-      <EndProperty Name="Functions">
-        <ScalarProperty Name="fu_ID" ColumnName="fu_ID" />
-      </EndProperty>
-      <EndProperty Name="Groups">
+      <EndProperty Name="Group">
         <ScalarProperty Name="gru_ID" ColumnName="gru_ID" />
+      </EndProperty>
+      <EndProperty Name="Function">
+        <ScalarProperty Name="fu_ID" ColumnName="fu_ID" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="REL_Pro_Cat" TypeName="dbauctionsystemModel.REL_Pro_Cat" StoreEntitySet="REL_Pro_Cat">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
+      </EndProperty>
       <EndProperty Name="Category">
         <ScalarProperty Name="cat_ID" ColumnName="cat_ID" />
-      </EndProperty>
-      <EndProperty Name="Product">
-        <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="REL_Pro_No" TypeName="dbauctionsystemModel.REL_Pro_No" StoreEntitySet="REL_Pro_No">
-      <EndProperty Name="Notifications">
-        <ScalarProperty Name="no_ID" ColumnName="no_ID" />
-      </EndProperty>
-      <EndProperty Name="Product">
-        <ScalarProperty Name="pro_ID" ColumnName="pro_ID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

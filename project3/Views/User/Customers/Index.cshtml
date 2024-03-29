@@ -19,18 +19,18 @@
 
     function showSlides(n) {
         let i;
-        let slidesName = document.getElementsByClassName("mySlideContent");
-        let content = document.getElementsByClassName("mySlideName");
-        if (n > slidesName.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slidesName.length }
-        for (i = 0; i < slidesName.length; i++) {
-            slidesName[i].style.display = "none";
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
         }
-        for (i = 0; i < content.length; i++) {
-            content[i].className = content[i].className.replace(" active", "");
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
         }
-        slidesName[slideIndex - 1].style.display = "block";
-        content[slideIndex - 1].className += " active";
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
     }
 </script>
 <div class="container">
@@ -38,7 +38,15 @@
         <div class="col-3">
             <div class="side-content">
                 <div class="profile-img">
-                    <img class="auction-avatar__img mr-4" src="data:image; base64, @System.Convert.ToBase64String(Model.Img)" alt="">
+                    @if (Model.Img != null && Model.Img.Length > 0)
+                    {
+                        <img class="auction-avatar__img mr-4" src="data:image; base64, @System.Convert.ToBase64String(Model.Img)" alt="">
+
+                    }
+                    else
+                    {
+                        <img class="auction-avatar__img mr-4" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt="">
+                    }
                     <div class="miwGmI">
                         <div class="mC1Llc">@Model.UserName</div>
                     </div>
@@ -120,7 +128,7 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" class="kKnR04" name="username" value="@Model.UserName" fdprocessedid="86i4jw">
+                                                            <input type="text" class="kKnR04" name="usernameUpdate" value="@Model.UserName" fdprocessedid="86i4jw">
 
                                                         </div>
                                                     </div>
@@ -131,7 +139,7 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" name="email"
+                                                            <input type="text" disabled name="emailUpdate"
                                                                    class="kKnR04" value="@Model.Email"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
@@ -147,7 +155,7 @@
                                                     </div> -->
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" name="phone"
+                                                            <input type="text" name="phoneUpdate"
                                                                    class="kKnR04" value="@Model.PhoneNumber"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
@@ -159,7 +167,7 @@
                                                 <td class="o6L4e0">
                                                     <div>
                                                         <div class="NGoa5Z">
-                                                            <input type="text" name="address"
+                                                            <input type="text" name="addressUpdate"
                                                                    class="kKnR04" value="@Model.Address"
                                                                    fdprocessedid="86i4jw">
                                                         </div>
@@ -169,27 +177,27 @@
                                             <tr>
                                                 <td class="f1ZOv_"><label>Gender</label></td>
                                                 <td class="o6L4e0">
-                                                    <input type="radio" name="sex" value="Male" checked>Male
-                                                    <input type="radio" name="sex" value="Female">Female
-                                                    <input type="radio" name="sex" value="Other"> Other
+                                                    <input type="radio" name="sexUpdate" value="@Model.Sex" checked hidden />
+                                                    <input type="radio" name="sexUpdate" value="Male">Male
+                                                    <input type="radio" name="sexUpdate" value="Female">Female
+                                                    <input type="radio" name="sexUpdate" value="Other"> Other
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="f1ZOv_">
-                                                    <label>Day of birth</label>
-                                                </td>
-                                                <td class="o6L4e0">
-                                                    <input type="datetime-local" value="2020-02-03">
-                                                </td>
-                                            </tr>
+                                            @*<tr>
+                                                    <td class="f1ZOv_">
+                                                        <label>Day of birth</label>
+                                                    </td>
+                                                    <td class="o6L4e0">
+                                                        <input type="datetime-local" value="2020-02-03">
+                                                    </td>
+                                                </tr>*@
                                             <tr>
                                                 <td class="f1ZOv_"><label></label></td>
                                                 <td class="o6L4e0">
-                                                    <button type="button"
-                                                            class="btn btn-solid-primary-profile btn--m btn--inline show-modal"
-                                                            aria-disabled="false" fdprocessedid="jw0kcd">
+                                                    <p class="btn btn-solid-primary-profile btn--m btn--inline show-modal"
+                                                       aria-disabled="false" fdprocessedid="jw0kcd">
                                                         Save
-                                                    </button>
+                                                    </p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -198,7 +206,7 @@
                                              style="position: fixed; ">
                                             <div class="car-dealer-wrap">
                                                 <div class="profile-img">
-                                                    <button class="close-modal close-modal-login">&times;</button>
+                                                    <p class="close-modal close-modal-login">&times;</p>
                                                     <h3 class="pt-4">
                                                         Confirm Password
                                                     </h3>
@@ -221,6 +229,9 @@
                                 <div class="overlay hidden" style="position: fixed;"></div>
                             </div>
                         </div>
+                        <script>
+
+                        </script>
                         <!-- change Password -->
                         <div class="utB99K mySlideContent" style="display: none;">
                             <div class="SFztPl">
@@ -299,26 +310,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                    <!--<tr>
-                                        <td class="align-middle">
-                                            <img src="img/product-1.jpg" alt=""
-                                                 style="width: 50px;"> Product Name
-                                        </td>
-                                        <td class="align-middle">$150</td>
-                                        <td class="align-middle">
-                                            2024.03.08 (Fri) 06:20
-                                        </td>
-                                        <td class="align-middle">
-                                            <div class="input-field input-field-login-rating">-->
-                                    <!-- <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up"> -->
-                                    <!--<a href="#rating?cus_ID=" onclick="currentSlide(5)"
-                                                   class="rating fs-5">Rating Seller</a>
-                                            </div>
-                                        </td>
-                                    </tr>-->
-                                    @if (ViewBag.pro_id != null)
+                                    @if (ViewBag.Products_Buying != null)
                                     {
-                                        foreach (project3.Models.Product item in ViewBag.pro_id)
+                                        foreach (project3.Models.Product item in ViewBag.Products_Buying)
                                         {
                                             <tr>
                                                 <td class="align-middle">
@@ -332,7 +326,7 @@
                                                     <td class="align-middle">
                                                         <div class="input-field input-field-login-rating">
                                                             <!-- <input type="submit" class="submit submit-login" name="submit" id="submit" value="Sign Up"> -->
-                                                            <a href="#rating?cus_ID=" onclick="currentSlide(5)"
+                                                            <a href="@Url.Action("Details", "Shop", new { id=item.pro_ID})"
                                                                class="rating fs-5">Rating Seller</a>
                                                         </div>
                                                     </td>
@@ -340,44 +334,6 @@
                                                 </tr>
                                             }
                                         }
-
-
-                                        @*<tr>
-                                                <td class="align-middle">
-                                                    <img src="img/product-3.jpg" alt=""
-                                                         style="width: 50px;"> Product Name
-                                                </td>
-                                                <td class="align-middle">$150</td>
-                                                <td class="align-middle">
-                                                    2024.03.08 (Fri) 06:20
-                                                </td>
-                                                <td class="align-middle">Successfully</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <img src="img/product-4.jpg" alt=""
-                                                         style="width: 50px;"> Product Name
-                                                </td>
-                                                <td class="align-middle">$150</td>
-                                                <td class="align-middle">
-                                                    2024.03.08 (Fri) 06:20
-                                                </td>
-                                                <td class="align-middle">Unsuccessfully</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <img src="img/product-1.jpg" alt=""
-                                                         style="width: 50px;"> Product Name
-                                                </td>
-                                                <td class="align-middle">$150</td>
-                                                <td class="align-middle">
-                                                    2024.03.08 (Fri) 06:20
-                                                </td>
-                                                <td class="align-middle">Successfully</td>
-
-                                            </tr>*@
                                 </tbody>
                             </table>
                         </div>
@@ -387,111 +343,56 @@
                                 <h1 class="BVrKV_">Notification</h1>
                                 <div class="QcW5xy">Manage profile information to secure your account</div>
                             </div>
-                            @if (ViewBag.Pid != null)
+                            @if (ViewBag.Products_No != null)
                             {
-                                foreach (project3.Models.Product item in ViewBag.Pid)
+                                foreach (project3.Models.Notification item in ViewBag.Products_No)
                                 {
                                     <div class="d-flex align-items-center border-bottom py-3 ">
-                                        <img class="rounded-circle flex-shrink-0" src="@Model.Img" alt=""
-                                             style="width: 40px; height: 40px;">
-                                        <div class="w-100 ml-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">@Model.UserName</h6>
-                                                <small>  </small>
+                                        @if (item.SellCus == Model.cus_ID)
+                                        {
+                                            if (item.Customer.Img != null && item.Customer.Img.Length > 0)
+                                            {
+                                                <img class="rounded-circle flex-shrink-0" src="data:image; base64, @System.Convert.ToBase64String(item.Customer.Img)" alt=""
+                                                     style="width: 40px; height: 40px;">
+                                            }
+                                            else
+                                            {
+                                                <img class="rounded-circle flex-shrink-0" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt=""
+                                                     style="width: 40px; height: 40px;">
+                                            }
+
+                                            <div class="w-100 ml-3">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-0">@item.Customer.UserName</h6>
+                                                    <small>  </small>
+                                                </div>
+                                                <span>@item.NoDetails</span>
                                             </div>
-                                            <span>@item.Notifications.ElementAt(0).NoDetails</span>
-                                        </div>
+                                        }
+                                        @if (item.BuyCus == Model.cus_ID)
+                                        {
+                                            if (item.Customer.Img != null && item.Customer.Img.Length > 0)
+                                            {
+                                                <img class="rounded-circle flex-shrink-0" src="data:image; base64, @System.Convert.ToBase64String(item.Customer1.Img)" alt=""
+                                                     style="width: 40px; height: 40px;">
+                                            }
+                                            else
+                                            {
+                                                <img class="rounded-circle flex-shrink-0" src="https://anhdephd.vn/wp-content/uploads/2022/04/avatar-trang-1.jpg" alt=""
+                                                     style="width: 40px; height: 40px;">
+                                            }
+                                            <div class="w-100 ml-3">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-0">@item.Customer1.UserName</h6>
+                                                    <small>  </small>
+                                                </div>
+                                                <span>@item.NoDetails</span>
+                                            </div>
+                                        }
+
                                     </div>
                                 }
                             }
-                            @*<div class="d-flex align-items-center border-bottom py-3 ">
-                                        <img class="rounded-circle flex-shrink-0" src="" alt=""
-                                             style="width: 40px; height: 40px;">
-                                        <div class="w-100 ml-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0"></h6>
-                                                <small>  </small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                             style="width: 40px; height: 40px;">
-                                        <div class="w-100 ml-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                             style="width: 40px; height: 40px;">
-                                        <div class="w-100 ml-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center pt-3">
-                                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                                             style="width: 40px; height: 40px;">
-                                        <div class="w-100 ml-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">Jhon Doe</h6>
-                                                <small>15 minutes ago</small>
-                                            </div>
-                                            <span>Short message goes here...</span>
-                                        </div>
-                                    </div>
-                                </div>*@
-                            <!---rating -->
-                            <div id="rating" class=" mySlideContent m-5" style="display: none;">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>
-                                    Your email address will not be published. Required fields are marked
-                                    *
-                                </small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <!-- <i class="rate far fa-star "></i>
-                                        <i class="rate far fa-star"></i>
-                                        <i class="rate far fa-star"></i>
-                                        <i class="rate far fa-star"></i>
-                                        <i class="rate far fa-star"></i> -->
-                                    </div>
-                                </div>
-                                @using (Html.BeginForm("Rating", "Customers", FormMethod.Post))
-                                {
-
-                                    @Html.AntiForgeryToken()
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea name="message" id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" name="name" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" name="email" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                }
-                            </div>
                         </div>
                     </div>
                 </div>

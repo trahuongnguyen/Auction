@@ -50,7 +50,7 @@
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5 slideshow-container">
-    @using (Html.BeginForm("Selling", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Selling", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         <div class="row px-xl-5">
@@ -104,7 +104,6 @@
             <div class="col-lg-7 h-auto mb-30">
                 <div class="contact-form bg-light p-30">
                     <div id="success"></div>
-                    @*<form name="sentMessage" id="contactForm" novalidate="novalidate">*@
                     <div class="control-group">
                         <input type="text" name="NamePro" class="form-control" id="name" placeholder="Product Name"
                                required="required" data-validation-required-message="Please enter product name">
@@ -114,19 +113,6 @@
                     <div class="sell-form mb-3">
                         <div class="sell-label">Categories</div>
                         @Html.DropDownList("cat_IDs", (SelectList)ViewBag.cat_ID, new { @class = "form-select-sell", @multiple = "multiple", @id = "prepend-text-multiple-field" } )
-                        @* <select class="form-select-sell" data-placeholder="Choose anything"
-                    id="prepend-text-multiple-field" multiple>
-                <option>Dresses</option>
-                <option>Watches</option>
-                <option>Computers</option>
-                <option>Electronics, AV & Camera</option>
-                <option>Automobiles</option>
-                <option>Antiques</option>
-                <option>Real Estate</option>
-                <option>Toys & Games</option>
-                <option>Musical instrument</option>
-                <option>Books & Magazines</option>
-            </select>*@
                     </div>
                     <script>
                         $('#prepend-text-multiple-field').select2({
@@ -171,7 +157,6 @@
                             Save
                         </button>
                     </div>
-                    @*</form>*@
                 </div>
             </div>
         </div>
@@ -179,10 +164,7 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <!-- <a class="nav-item nav-link text-dark active" data-toggle="tab"
-                            href="#tab-pane-1">Description</a> -->
                         <a class="nav-item nav-link text-dark show active " data-toggle="tab" href="#tab-pane-2">Information</a>
-                        <!-- <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a> -->
                     </div>
                     <div class="tab-content">
 

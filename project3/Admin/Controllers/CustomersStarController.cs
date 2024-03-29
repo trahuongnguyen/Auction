@@ -6,12 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using project3.Models;
 using PagedList;
+using project3.Models;
 
 namespace project3.Admin.Controllers
 {
-    public class CustomersController : BaseController
+    public class CustomersStarController : BaseController
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
         private DAOController dataAccess = new DAOController();
@@ -19,7 +19,7 @@ namespace project3.Admin.Controllers
         public ActionResult Index(int? pi)
         {
             List<CustomerStar> cus = new List<CustomerStar>();
-            string selectQuery = "select Customer.cus_ID,Customer.UserName,Customer.Sex,Customer.Email,Customer.PhoneNumber,AVG(Rating.Star) as Star from Customer left join Orders on Orders.cus_ID = Customer.cus_ID join REL_Or_Pro on REL_Or_Pro.or_ID = Orders.or_ID join Rating on Rating.or_ID = REL_Or_Pro.or_ID group by Customer.cus_ID, Customer.UserName,Customer.Address,Customer.Email,Customer.PhoneNumber, Customer.Sex";
+            string selectQuery = "select Customer.cus_ID,Customer.Img,Customer.UserName,Customer.Address,Customer.PhoneNumber,Customer.Email,AVG(Rating.Star) as Star from Customer left join Rating on Customer.cus_ID = Rating.received_cus where Customer.Status = 1 group by Customer.cus_ID,Customer.Img,Customer.UserName,Customer.Address,Customer.PhoneNumber,Customer.Email";
             DataTable result = dataAccess.ExecuteQuery(selectQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -32,14 +32,14 @@ namespace project3.Admin.Controllers
                 customerStar.Email = row["Email"].ToString();
                 customerStar.PhoneNumber = row["PhoneNumber"].ToString();
                 customerStar.Star = Convert.ToDouble(row["Star"]);
-                cus.Add(customerStar); 
+                cus.Add(customerStar);
             }
 
             int PageNumber = pi ?? 1;
             int PageSize = 5;
             return View(cus.ToPagedList(PageNumber, PageSize));
         }
-        public ActionResult Delete(int? id)
+        public ActionResult Block(int? id)
         {
             if (id == null)
             {
@@ -54,23 +54,15 @@ namespace project3.Admin.Controllers
         }
 
         // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Block")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            customer.Status = 0;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

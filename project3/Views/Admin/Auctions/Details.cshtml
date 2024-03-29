@@ -4,10 +4,9 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<h2>Details</h2>
 
 <div>
-    <h4>Auction</h4>
+    <h4 class="text-center">Auction</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -56,32 +55,37 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (project3.Models.Product item in ViewBag.rel)
+                @if (ViewBag.rel != null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NamePro)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartingPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StepPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                    </tr>
 
+
+                    foreach (project3.Models.REL_Pro_Au item in ViewBag.rel)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.NamePro)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.StartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.EndTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.StartingPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.StepPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Description)
+                            </td>
+                            
+                            
+                            
+                        </tr>
+
+                    }
                 }
             </tbody>
         </table>
