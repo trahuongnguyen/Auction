@@ -18,10 +18,10 @@ namespace project3.Models
         public Product()
         {
             this.Images = new HashSet<Image>();
+            this.Notifications = new HashSet<Notification>();
             this.REL_Or_Pro = new HashSet<REL_Or_Pro>();
             this.REL_Pro_Au = new HashSet<REL_Pro_Au>();
             this.Categories = new HashSet<Category>();
-            this.Notifications = new HashSet<Notification>();
         }
     
         public int pro_ID { get; set; }
@@ -39,6 +39,8 @@ namespace project3.Models
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Images { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REL_Or_Pro> REL_Or_Pro { get; set; }
@@ -46,7 +48,5 @@ namespace project3.Models
         public virtual ICollection<REL_Pro_Au> REL_Pro_Au { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Categories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

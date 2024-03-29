@@ -1,6 +1,7 @@
 ﻿@model project3.Models.Product
+
 @{
-    ViewBag.Title = "Sell_products_details";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -45,7 +46,17 @@
         dots[slideIndex - 1].className += " active";
     }
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $("[data-countdown]").each(function () {
+        var $this = $(this), finalDate = $(this).data('countdown');
+        $this.countdown(finalDate, function (event) {
+            $this.html(event.strftime('%D days %H:%M:%S'))
+        }).on('finish.countdown', function () {
+            $this.html("Finish");
+        });
+    });
+</script>
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5 slideshow-container">
     <div class="row px-xl-5">
@@ -109,6 +120,7 @@
         <div class="col-lg-7 h-auto mb-30">
             @using (Html.BeginForm("Bid", "Shop", FormMethod.Post, new { @id = "bid-form" }))
             {
+                @Html.AntiForgeryToken()
                 <div class="h-100 bg-light p-30">
                     <h3>@Model.NamePro</h3>
                     <div class="product_detail_box mb-3 mt-3">
@@ -122,7 +134,7 @@
                                 <div class="col-6">
                                     <div class="product_detail__box_price mb-3">
                                         <strong class="font_size_24 color_price_main fw-semibold"
-                                                data-refresh-price="">@Model.REL_Pro_Au.ElementAt(0).Bids.ElementAt(Model.REL_Pro_Au.ElementAt(0).Bids.Count() - 1).Price &nbsp;$</strong>
+                                                data-refresh-price="">@*@Model.REL_Pro_Au.ElementAt(0).Bids.Count()<=0?@Model.StartingPrice:@Model.REL_Pro_Au.ElementAt(0).Bids.ElementAt(Model.REL_Pro_Au.ElementAt(0).Bids.Count() - 1).Price*@ &nbsp;$</strong>
                                                 <br>
                                             </div>
                                             <div>
@@ -166,8 +178,9 @@
                                     </strong>
                                 </div>
                                 <div class="mt-4 ml-4">
-                                    <strong class="color_note" id="countdown">
-                                        <span class="color_text_primary"> | @Model.REL_Pro_Au.ElementAt(0).Bids.Count() Auctions</span>
+                                    <strong class="color_note">
+                                        <span class="color_text_primary" id="countdown" data-countdown="@Model.EndTime"></span>
+                                        <span class="color_text_primary"> | @(Model.REL_Pro_Au!=null?Model.REL_Pro_Au.ElementAt(0).Bids.Count) Bids</span>
                                     </strong>
                                 </div>
                                 <div class="product_detail_box_body mt-4 ml-4 ">
@@ -234,11 +247,11 @@
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
-                    @if (Model.EndTime <= DateTime.Now && (Model.cus_ID == Int32.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == Int32.Parse(Session["cus"].ToString())))
+                    @if (Model.EndTime <= DateTime.Now && (Model.cus_ID == int.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == int.Parse(Session["cus"].ToString())))
                     {
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (@Model.REL_Pro_Au.ElementAt(0).Bids.Count)</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews @*(@Model.REL_Pro_Au.ElementAt(0).Bids.Count)*@</a>
                     }
-                    @if (Model.EndTime <= DateTime.Now && Model.cus_ID == Int32.Parse(Session["cus"].ToString()))
+                    @if (Model.EndTime <= DateTime.Now && (Model.cus_ID == int.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == int.Parse(Session["cus"].ToString())))
                     {
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-4">Rating</a>
                     }
@@ -251,119 +264,126 @@
                                 @Model.MoreInformation
                             </p>
                         </div>
-                        @if (Model.EndTime <= DateTime.Now && (Model.cus_ID == Int32.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == Int32.Parse(Session["cus"].ToString())))
+                        @if (Model.EndTime <= DateTime.Now && (Model.cus_ID == int.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == int.Parse(Session["cus"].ToString())))
                         {
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        @foreach (var item in Model.REL_Or_Pro.ElementAt(0).Reviews)
+                                        @if (Model.REL_Or_Pro != null && Model.REL_Or_Pro.ElementAt(0).Reviews != null)
                                         {
-                                            <h4 class="mb-4">1 review for "@Model.NamePro"</h4>
-                                            <div class="media mb-4">
-                                                <img src="@Model.Customer.Img" alt="Image" class="img-fluid mr-3 mt-1"
-                                                     style="width: 45px;">
-                                                <div class="media-body">
-                                                    <h6>@Model.Customer.UserName</h6>
-                                                    <div class="text-primary mb-2">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
-                                                    <p>
-
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                    <div class="col-md-6">
-                                        @if (Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == Int32.Parse(Session["cus"].ToString()))
-                                        {
-                                            using (Html.BeginForm("Review", "Shop", FormMethod.Post))
+                                            foreach (var item in Model.REL_Or_Pro.ElementAt(0).Reviews.ToList())
                                             {
-                                                @Html.AntiForgeryToken()
-                                                <h4 class="mb-4">Leave a review</h4>
-                                                <small>
-                                                    Your email address will not be published. Required fields are marked
-                                                    *
-                                                </small>
-                                                <div class="d-flex my-3">
-                                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                                    <div class="text-primary">
-                                                        <div id="full-stars-example-two">
-                                                            <div class="rating-group">
-                                                                <input disabled checked class="rating__input rating__input--none" name="review-star" id="rating3-none" value="0" type="radio">
-                                                                <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                                <input class="rating__input" name="review-star" id="rating3-1" value="1" type="radio">
-                                                                <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                                <input class="rating__input" name="review-star" id="rating3-2" value="2" type="radio">
-                                                                <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                                <input class="rating__input" name="review-star" id="rating3-3" value="3" type="radio">
-                                                                <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                                <input class="rating__input" name="review-star" id="rating3-4" value="4" type="radio">
-                                                                <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                                <input class="rating__input" name="review-star" id="rating3-5" value="5" type="radio">
-                                                            </div>
+                                                <h4 class="mb-4">1 review for "@Model.NamePro"</h4>
+                                                <div class="media mb-4">
+                                                    <img src="@Model.Customer.Img" alt="Image" class="img-fluid mr-3 mt-1"
+                                                         style="width: 45px;">
+                                                    <div class="media-body">
+                                                        <h6>@Model.Customer.UserName</h6>
+                                                        <div class="text-primary mb-2">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star-half-alt"></i>
+                                                            <i class="far fa-star"></i>
                                                         </div>
+                                                        <p>
+
+                                                        </p>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="message">Your Review *</label>
-                                                    <textarea name="review" id="message" cols="30" rows="5" class="form-control"></textarea>
-                                                </div>
-                                                <div class="form-group mb-0">
-                                                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                                 </div>
                                             }
                                         }
-
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (Model.REL_Or_Pro != null)
+                                        {
+                                            if (Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == int.Parse(Session["cus"].ToString()))
+                                            {
+                                                using (Html.BeginForm("Review", "Shop", FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <h4 class="mb-4">Leave a review</h4>
+                                                    <small>
+                                                        Your email address will not be published. Required fields are marked
+                                                        *
+                                                    </small>
+                                                    <div class="d-flex my-3">
+                                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                                        <div class="text-primary">
+                                                            <div id="full-stars-example-two">
+                                                                <div class="rating-group">
+                                                                    <input disabled checked class="rating__input rating__input--none" name="review-star" id="rating3-none" value="0" type="radio">
+                                                                    <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                                    <input class="rating__input" name="review-star" id="rating3-1" value="1" type="radio">
+                                                                    <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                                    <input class="rating__input" name="review-star" id="rating3-2" value="2" type="radio">
+                                                                    <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                                    <input class="rating__input" name="review-star" id="rating3-3" value="3" type="radio">
+                                                                    <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                                    <input class="rating__input" name="review-star" id="rating3-4" value="4" type="radio">
+                                                                    <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                                    <input class="rating__input" name="review-star" id="rating3-5" value="5" type="radio">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message">Your Review *</label>
+                                                        <textarea name="review" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                                    </div>
+                                                }
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
                         }
-
-                        @if (Model.EndTime <= DateTime.Now && Model.cus_ID == Int32.Parse(Session["cus"].ToString()))
+                        @if (Model.REL_Or_Pro != null)
                         {
-                            <div class="tab-pane fade" id="tab-pane-4">
-                                <div class="col-md-8">
-                                    @using (Html.BeginForm("RatingBuyer", "Shop", FormMethod.Post))
-                                    {
+                            if (Model.EndTime <= DateTime.Now && (Model.cus_ID == int.Parse(Session["cus"].ToString()) || Model.REL_Or_Pro.ElementAt(0).Order.cus_ID == int.Parse(Session["cus"].ToString())))
+                            {
+                                <div class="tab-pane fade" id="tab-pane-4">
+                                    <div class="col-md-8">
+                                        @using (Html.BeginForm("RatingCustom", "Shop", FormMethod.Post))
+                                        {
 
-                                        @Html.AntiForgeryToken()
-                                        <h4 class="mb-4">Rating Buyer</h4>
-                                        <small>
-                                            Your email address will not be published. Required fields are marked
-                                            *
-                                        </small>
-                                        <div class="d-flex my-3">
-                                            <p class="mb-0 mr-2">Your Rating * :</p>
-                                            <div class="text-primary">
-                                                <div id="full-stars-example-two">
-                                                    <div class="rating-group">
-                                                        <input disabled checked class="rating__input rating__input--none" name="rating_star" id="rating3-none" value="0" type="radio">
-                                                        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating_star" id="rating3-1" value="1" type="radio">
-                                                        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating_star" id="rating3-2" value="2" type="radio">
-                                                        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating_star" id="rating3-3" value="3" type="radio">
-                                                        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating_star" id="rating3-4" value="4" type="radio">
-                                                        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                                        <input class="rating__input" name="rating_star" id="rating3-5" value="5" type="radio">
+                                            @Html.AntiForgeryToken()
+                                            <h4 class="mb-4">Rating Buyer</h4>
+                                            <small>
+                                                Your email address will not be published. Required fields are marked
+                                                *
+                                            </small>
+                                            <div class="d-flex my-3">
+                                                <p class="mb-0 mr-2">Your Rating * :</p>
+                                                <div class="text-primary">
+                                                    <div id="full-stars-example-two">
+                                                        <div class="rating-group">
+                                                            <input disabled checked class="rating__input rating__input--none" name="rating_star" id="rating3-none" value="0" type="radio">
+                                                            <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating_star" id="rating3-1" value="1" type="radio">
+                                                            <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating_star" id="rating3-2" value="2" type="radio">
+                                                            <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating_star" id="rating3-3" value="3" type="radio">
+                                                            <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating_star" id="rating3-4" value="4" type="radio">
+                                                            <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating_star" id="rating3-5" value="5" type="radio">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <input type="submit" value="Rating" class="btn btn-primary px-3">
-                                        </div>
-                                    }
+                                            <div class="form-group mb-0">
+                                                <input type="submit" value="Rating" class="btn btn-primary px-3">
+                                            </div>
+                                        }
 
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                     @{
@@ -473,5 +493,50 @@
     }
 
 </div>
-@*<div class="overlay hidden" style="position: fixed;"></div>*@
+<div class="overlay hidden" style="position: fixed;"></div>
 <!-- Shop Detail End -->
+<!-- Products Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">
+            You May
+            Also Like
+        </span>
+    </h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel related-carousel">
+                @if (Model.REL_Pro_Au != null)
+                {
+                    foreach (var item in Model.REL_Pro_Au.ElementAt(0).Auction.REL_Pro_Au)
+                    {
+                        <div class="product-item bg-light">
+                            <div class="product-img position-relative overflow-hidden">
+
+                                <img class="img-fluid w-100" src="data:image; base64, @System.Convert.ToBase64String(item.Product.Images.ElementAt(0).Img)" />
+
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="~/User/Shop/Details/@item.pro_ID"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="@Url.Action("Index", "Shop", new {search = item.Product.NamePro})"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href=""> <h4>@item.Product.NamePro</h4></a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>$@item.Product.StartingPrice</h5>
+                                    <h6 class="text-muted ml-2"><del>$@item.Product.StepPrice</del></h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1 countdown" id="countdown" data-countdown="@item.EndTime">
+
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->

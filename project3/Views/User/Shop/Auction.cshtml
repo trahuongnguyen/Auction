@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Auction";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    project3.Models.dbauctionsystemEntities db = new project3.Models.dbauctionsystemEntities();
+    List<project3.Models.Auction> auctions = db.Auctions.ToList();
 }
 
 <!-- Breadcrumb Start -->
@@ -28,80 +30,35 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $("[data-countdown]").each(function () {
+        var $this = $(this), finalDate = $(this).data('countdown');
+        $this.countdown(finalDate, function (event) {
+            $this.html(event.strftime('%D days %H:%M:%S'))
+        }).on('finish.countdown', function () {
+            $this.html("Finish");
+        });
+    });
+</script>
 <!-- Breadcrumb End -->
 <div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5 ">
         <div class="col owl-carousel related-carousel-auction ">
-            @*<div class="product-offer mb-30" style="height: 300px; ">
-                    <img class="img-fluid" src="img/product-1.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="shop.html" class="btn btn-primary">Go to auction</a>
-                    </div>
-                </div>*@
             @if (Model != null)
             {
                 foreach (project3.Models.Auction item in Model)
                 {
-                    <script>
-                         $(document).ready(function () {
-                             var targetDateTime = new Date("@item.EndTime.ToString()");
-
-                             var timer = setInterval(function () {
-                                 var currentDate = new Date();
-                                 var difference = targetDateTime - currentDate;
-
-
-                                 var days = Math.floor(difference % (1000 * 60 * 60 * 24 *30) / (1000 * 60 * 60 * 24));
-                                 var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                 var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                                 var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                                 $("#countdown").html(days + "d " + hours + "h " + minutes + "m " + seconds + "s");
-                                 $("#now").html(currentDate);
-
-                                 if (difference < 0) {
-                                     clearInterval(timer);
-                                     $("#countdown").html("Countdown finished");
-                                 }
-                             }, 1000);
-                         });
-                    </script>
                     <div class="product-offer mb-30" style="height: 300px;">
                         <img class="img-fluid" src="data:image; base64, @System.Convert.ToBase64String(@item.REL_Pro_Au.ElementAt(0).Product.Images.ElementAt(0).Img)" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase" id="countdown"></h6>
+                            <h6 class="text-white text-uppercase countdown" id="countdown" data-countdown="@item.EndTime"></h6>
                             <h3 class="text-white mb-3">@item.NameAu</h3>
-                            <a href="" class="btn btn-primary">Go to auction</a>
+                            <a href="~/User/Shop/Index?au_ID=@item.au_ID" id="disabled" class="btn btn-primary timeout">Go to auction</a>
                         </div>
                     </div>
                 }
             }
-            @*<div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="img/product-2.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Bid Now</a>
-                    </div>
-                </div>
-                <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="img/offer-3.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Bid Now</a>
-                    </div>
-                </div>
-                <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="img/offer-4.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Bid Now</a>
-                    </div>
-                </div>*@
         </div>
 
 
@@ -121,79 +78,23 @@
 <div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5 ">
         <div class="col owl-carousel related-carousel-auction ">
+
             @if (ViewBag.Auctions != null)
             {
                 foreach (project3.Models.Auction item in ViewBag.Auctions)
                 {
-                    <script>
-              $(document).ready(function () {
-                  var targetDateTime = new Date("@item.EndTime.ToString()");
 
-                  var timer = setInterval(function () {
-                      var currentDate = new Date();
-                      var difference = targetDateTime - currentDate;
-
-
-                      var days = Math.floor(difference % (1000 * 60 * 60 * 24 *30) / (1000 * 60 * 60 * 24));
-                      var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                      var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                      var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                      $("#countdown").html(days + "d " + hours + "h " + minutes + "m " + seconds + "s");
-                      $("#now").html(currentDate);
-
-                      if (difference < 0) {
-                          clearInterval(timer);
-                          $("#countdown").html("Countdown finished");
-                      }
-                  }, 1000);
-              });
-                    </script>
                     <div class="product-offer mb-30" style="height: 300px;">
                         <img class="img-fluid" src="data:image; base64, @System.Convert.ToBase64String(@item.REL_Pro_Au.ElementAt(0).Product.Images.ElementAt(0).Img)" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase" id="countdown"></h6>
+                            <h6 class="text-white text-uppercase countdown" id="countdown"  data-countdown="@item.EndTime"></h6>
                             <h3 class="text-white mb-3">@item.NameAu</h3>
-                            <a href="" class="btn btn-primary">Go to auction</a>
+                            <a href="~/User/Shop/Index?au_ID=@item.au_ID" aria-disabled="true" id="disabled" class="btn btn-primary upcoming">Go to auction</a>
                         </div>
                     </div>
                 }
             }
-            <div class="product-offer mb-30" style="height: 300px; ">
-                <img class="img-fluid" src="img/product-1.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="shop.html" class="btn btn-primary">Go to auction</a>
-                </div>
-            </div>
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="img/product-2.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Bid Now</a>
-                </div>
-            </div>
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="img/offer-3.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Bid Now</a>
-                </div>
-            </div>
-            <div class="product-offer mb-30" style="height: 300px;">
-                <img class="img-fluid" src="img/offer-4.jpg" alt="">
-                <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save 20%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="" class="btn btn-primary">Bid Now</a>
-                </div>
-            </div>
         </div>
-
-
     </div>
+    <!-- Offer End -->
 </div>
-<!-- Offer End -->

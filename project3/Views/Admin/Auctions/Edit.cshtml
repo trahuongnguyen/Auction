@@ -17,7 +17,7 @@
         <div class="form-group m-4">
             @Html.LabelFor(model => model.NameAu, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.NameAu, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="NameAu" class="form-control bg-gray border-0" id="floatingInput" value="@Model.Stastus"/>
                 @Html.ValidationMessageFor(model => model.NameAu, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +25,8 @@
         <div class="form-group m-4">
             @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="datetime-local" name="StartTime" class="form-control bg-gray border-0" value="@Model.StartTime" required="required"
+                       data-validation-required-message="Please enter start time">
                 @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +34,8 @@
         <div class="form-group m-4">
             @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="datetime-local" name="EndTime" value="@Model.EndTime" class="form-control bg-gray border-0" required="required"
+                       data-validation-required-message="Please enter start time">
                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +62,7 @@
                                     @Html.DisplayFor(modelItem => item.NamePro)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Category)
+                                    
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.StartTime)
@@ -81,11 +83,12 @@
                                         bool isChecked = false;
                                         if (ViewBag.ListProAu != null)
                                         {
-                                            foreach (project3.Models.Product pro in ViewBag.ListProAu)
+                                            foreach (project3.Models.REL_Pro_Au pro in ViewBag.ListProAu)
                                             {
                                                 if (pro.pro_ID == item.pro_ID)
                                                 {
                                                     isChecked = true;
+                                                    break;
                                                 }
                                             }
                                         }

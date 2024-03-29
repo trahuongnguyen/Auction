@@ -10,9 +10,9 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                <span class="breadcrumb-item active">Shopping Cart</span>
+                <a class="breadcrumb-item text-dark" href="~/">Home</a>
+                <a class="breadcrumb-item text-dark" href="~/User/Shop">Shop</a>
+                <span class="breadcrumb-item active">History Bid</span>
             </nav>
         </div>
     </div>
@@ -32,80 +32,41 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    @*  <tr>
-                            <td class="align-middle"><img src="~/Images/img/product-1.jpg" alt="" style="width: 50px;"> Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                2024.03.08 (Fri) 06:20
-                            </td>
-                            <td class="align-middle">Successfully</td>
-                        </tr>*@
-                    @{
-
+                    @if (Model != null)
+                    {
                         foreach (project3.Models.Bid item in Model)
                         {
-                                        <tr>
-                                            <td class="align-middle"><img src="data:image; base64, @System.Convert.ToBase64String(item.REL_Pro_Au.Product.Images.ElementAt(0).Img)" alt="" style="width: 50px;">@item.REL_Pro_Au.Product.NamePro</td>
-                                            <td class="align-middle">$@item.Price</td>
-                                            <td class="align-middle">
-                                                @item.Time
-                                            </td>
+                            <tr>
+                                <td class="align-middle">
+                                    @if (item.REL_Pro_Au != null)
+                                    {
+                                        if (item.REL_Pro_Au.Product.Images.ElementAt(0).Img != null && item.REL_Pro_Au.Product.Images.ElementAt(0).Img.Length > 0)
+                                        {
+                                            <img src="data:image; base64, @System.Convert.ToBase64String(item.REL_Pro_Au.Product.Images.ElementAt(0).Img)" alt="" style="width: 50px;">
+                                            @item.REL_Pro_Au.Product.NamePro
+                                        }
+                                    }
+                                </td>
+                                <td class="align-middle">$@item.Price</td>
+                                <td class="align-middle">
+                                    @item.Time
+                                </td>
 
-                                            @foreach (var item1 in item.REL_Pro_Au.Bids)
-                                            {
-                                                if (item.bid_ID == item1.bid_ID)
-                                                {
-                                                    <td class="align-middle">Successfully</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="align-middle">Unsuccessfully</td>
-                                                }
-                                            }
-                                        </tr>
+                                @if (item.cus_ID == item.REL_Pro_Au.Product.REL_Or_Pro.ElementAt(0).Order.cus_ID)
+                                {
+                                    <td class="align-middle">Successfully</td>
+                                }
+                                else
+                                {
+                                    <td class="align-middle">Unsuccessfully</td>
+                                }
+                            </tr>
                         }
                     }
-
-                    @*<tr>
-                            <td class="align-middle"><img src="~/Images/img/product-2.jpg" alt="" style="width: 50px;"> Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                2024.03.08 (Fri) 06:20
-                            </td>
-                            <td class="align-middle">Unsuccessfully</td>
-
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="~/Images/img/product-3.jpg" alt="" style="width: 50px;"> Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                2024.03.08 (Fri) 06:20
-                            </td>
-                            <td class="align-middle">Successfully</td>
-
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="~/Images/img/product-4.jpg" alt="" style="width: 50px;"> Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                2024.03.08 (Fri) 06:20
-                            </td>
-                            <td class="align-middle">Unsuccessfully</td>
-
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="~/Images/img/product-1.jpg" alt="" style="width: 50px;"> Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                2024.03.08 (Fri) 06:20
-                            </td>
-                            <td class="align-middle">Successfully</td>
-
-                        </tr>*@
                 </tbody>
             </table>
         </div>
-        
+
     </div>
 </div>
 <!-- Cart End -->

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<project3.Models.Auction>
+﻿
+@using PagedList;
+@model IPagedList<project3.Models.Auction>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout1.cshtml";
@@ -12,13 +14,13 @@
 <table class="table text-start align-middle table-hover mb-0 table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NameAu)
+            NameAu
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            StartTime
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            EndTime
         </th>
         <th>
             Employee
@@ -50,3 +52,13 @@
     }
 
 </table>
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.PageNumber?"page-item active":"page-item") me-3">
+            <a class="page-link" href="@Url.Action("Index", new{pi = i})">@i</a>
+        </li>
+
+    }
+</ul>
+

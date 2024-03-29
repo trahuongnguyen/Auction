@@ -16,24 +16,29 @@ namespace project3.User.Controllers
     {
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
         // GET: Home
-        public ActionResult Index(string search)
+        public ActionResult Index()
         {
-            ViewBag.Categories = db.Categories.Where(c=>c.Status==1).ToList();
-            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
-            ViewBag.Autions = db.Auctions.Where(a=>a.EndTime > DateTime.Now).ToList();
-            List<Product> products;
-            if(!string.IsNullOrEmpty(search))
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login";
+            ViewBag.overlay = "overlay";
+            if (Session["cus"] != null)
             {
-                string[] keys = search.Split(' ');
-                foreach(string key in keys)
-                {
-                    products = db.Products.Where(p=>p.NamePro.Contains(key) && p.sta_ID == 4).ToList();
-                    return RedirectToAction("Index", "Shop", products);
-                }
+                ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+                ViewBag.login = "wrapper wrapper-login modal-login hidden";
+                ViewBag.overlay = "overlay hidden";
             }
+            ViewBag.Categories = db.Categories.Where(c => c.Status == 1).ToList();
+            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).Take(8).ToList();
+            ViewBag.Auctions = db.Auctions.Where(a => a.EndTime >= DateTime.Now && a.StartTime<= DateTime.Now).Take(8).ToList();
             return View();
         }
 
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -42,24 +47,24 @@ namespace project3.User.Controllers
             ViewBag.regist = "wrapper wrapper-login modal-login hidden";
             ViewBag.login = "wrapper wrapper-login modal-login";
             ViewBag.overlay = "overlay";
-            ViewBag.Categories = db.Categories.ToList();
-            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
-            ViewBag.Autions = db.Auctions.ToList();
-            if (!string.IsNullOrEmpty(form["UserName"].ToString()) && !string.IsNullOrEmpty(form["Password"].ToString()))
+            ViewBag.Categories = db.Categories.Where(c => c.Status == 1).ToList();
+            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).Take(8).ToList();
+            ViewBag.Auctions = db.Auctions.Where(a => a.EndTime > DateTime.Now).Take(8).ToList();
+            if (!string.IsNullOrEmpty(form["UnameLogin"].ToString()) && !string.IsNullOrEmpty(form["PwordLogin"].ToString()))
             {
-                string username = form["UserName"].ToString();
-                string password = form["Password"].ToString();
+                string username = form["UnameLogin"].ToString();
+                string password = form["PwordLogin"].ToString();
                 var cus = db.Customers.FirstOrDefault(c => c.UserName.Equals(username));
                 if (cus == null)
                 {
-                    ModelState.AddModelError("UserName", "UserName is not exist");
+                    ModelState.AddModelError("UnameLogin", "UserName is not exist");
                     return View("Index", form);
-                } 
-                if(password.Length > 0)
+                }
+                if (password.Length > 0)
                 {
-                    if(!Crypto.VerifyHashedPassword(cus.Password, password))
+                    if (!Crypto.VerifyHashedPassword(cus.Password, password))
                     {
-                        ModelState.AddModelError("Password", "Password is incorrect");
+                        ModelState.AddModelError("PwordLogin", "Password is incorrect");
 
                         return View("Index", form);
                     }
@@ -68,7 +73,7 @@ namespace project3.User.Controllers
             }
             else
             {
-                ModelState.AddModelError("summary", "Please enter full of information");
+                ModelState.AddModelError("summaryLogin", "Please enter full of information");
                 return View("Index", form);
             }
             ViewBag.regist = "wrapper wrapper-login modal-login hidden";
@@ -88,10 +93,10 @@ namespace project3.User.Controllers
             ViewBag.regist = "wrapper wrapper-login modal-login";
             ViewBag.login = "wrapper wrapper-login modal-login hidden";
             ViewBag.overlay = "overlay";
-            ViewBag.Categories = db.Categories.ToList();
-            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).ToList();
-            ViewBag.Autions = db.Auctions.ToList();
-            if (string.IsNullOrEmpty(form["FirstName"].ToString()) || string.IsNullOrEmpty(form["LastName"].ToString()) || string.IsNullOrEmpty(form["UserName"].ToString()) || string.IsNullOrEmpty(form["Password"].ToString()) || string.IsNullOrEmpty(form["Email"].ToString()) || string.IsNullOrEmpty(form["PhoneNumber"].ToString()) || string.IsNullOrEmpty(form["Address"].ToString()) || string.IsNullOrEmpty(form["Sex"].ToString()))
+            ViewBag.Categories = db.Categories.Where(c => c.Status == 1).ToList();
+            ViewBag.Products = db.Products.Where(p => p.sta_ID == 4).Take(8).ToList();
+            ViewBag.Auctions = db.Auctions.Where(a => a.EndTime > DateTime.Now).Take(8).ToList();
+            if (string.IsNullOrEmpty(form["UserName"].ToString()) || string.IsNullOrEmpty(form["Password"].ToString()) || string.IsNullOrEmpty(form["Email"].ToString()) || string.IsNullOrEmpty(form["PhoneNumber"].ToString()) || string.IsNullOrEmpty(form["Address"].ToString()) || string.IsNullOrEmpty(form["Sex"].ToString()))
             {
                 ModelState.AddModelError("summary", "Please enter full of information");
                 return View("Index", form);
@@ -135,7 +140,7 @@ namespace project3.User.Controllers
                 Flag = true;
             }
             return Flag;
-        } 
+        }
 
         private bool DupplicatedUsername(string str)
         {
@@ -154,6 +159,9 @@ namespace project3.User.Controllers
 
         public ActionResult Contact()
         {
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login hidden";
+            ViewBag.overlay = "overlay hidden";
             return View();
         }
 
@@ -161,14 +169,17 @@ namespace project3.User.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Contact(FormCollection form)
         {
+            ViewBag.regist = "wrapper wrapper-login modal-login hidden";
+            ViewBag.login = "wrapper wrapper-login modal-login hidden";
+            ViewBag.overlay = "overlay hidden";
             if (string.IsNullOrEmpty(form["name"].ToString()) || string.IsNullOrEmpty(form["email"].ToString()) || string.IsNullOrEmpty(form["subject"].ToString()) || string.IsNullOrEmpty(form["Message1"].ToString()))
             {
-                ModelState.AddModelError("", "Please enter full of information");
+                ModelState.AddModelError("summaryAbout", "Please enter full of information");
                 return View("Contact", form);
             }
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Please enter full of information");
+                ModelState.AddModelError("summaryAbout", "Please enter correctly information");
                 return View("Contact", form);
             }
             Message mess = db.Messages.FirstOrDefault(m => m.Message1.Equals(form["Message1"], StringComparison.OrdinalIgnoreCase));

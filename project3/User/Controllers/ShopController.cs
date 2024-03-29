@@ -18,11 +18,15 @@ namespace project3.User.Controllers
 
         // GET: Shop
         //[Route("[section]/[contronller]/[action]/{cat_ID}")]
-        public ActionResult Index(int? pi, List<Product> products)
+        public ActionResult Index(int? pi, int? pz, int? price, int? evented)
         {
+
             int PageNumber = pi ?? 1;
-            int PageSize = 12;
-            products = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.sta_ID == 4).ToList();
+            int PageSize = pz??12;
+            int Price = price ?? 0;
+            int Even = evented ?? 1;
+            List<Product> products;
+            products = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.sta_ID > 2).ToList();
             if (HttpContext.Request.Params != null)
             {
                 if (Request.Params["cat_ID"] != null)
@@ -54,7 +58,35 @@ namespace project3.User.Controllers
                         }
                     }
                 }
+                if (Request.Params["search"] != null)
+                {
+                    string[] keys = Request.Params["search"].ToString().Split(' ');
+                    foreach (string key in keys)
+                    {
+                        products = products.Where(p => p.NamePro.Contains(key) && p.sta_ID == 4).ToList();
+                    }
+                    ViewBag.search = Request.Params["search"].ToString();
+                }
             }
+            if(Price > 0)
+            {
+                products = products.Where(p=>p.StartingPrice < Price && p.StartingPrice > Price-100).ToList();
+            }
+            switch (Even)
+            {
+                case 2: 
+                    products = products.Where(p=>p.StartTime > DateTime.Now).ToList();
+                    break;
+                case 3:
+                    products = products.Where(p => p.StartTime <= DateTime.Now && p.EndTime >= DateTime.Now).ToList();
+                    break;
+                case 4:
+                    products = products.Where(p => p.EndTime < DateTime.Now).ToList();
+                    break;
+                default:
+                    break;
+            }
+            ViewBag.Shop = products.ToList();
             return View(products.ToPagedList(PageNumber, PageSize));
         }
 
@@ -62,7 +94,9 @@ namespace project3.User.Controllers
         {
             int PageNumber = pi ?? 1;
             int PageSize = 12;
-            var products = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.cus_ID == Int32.Parse(Session["cus"].ToString()));
+            int cus_id = int.Parse(Session["cus"].ToString());
+            var products = db.Products.Where(p => p.cus_ID == cus_id);
+            ViewBag.Shop = products;
             return View(products.ToPagedList(PageNumber, PageSize));
         }
 
@@ -73,7 +107,7 @@ namespace project3.User.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product pro = db.Products.Where(p => p.pro_ID == id).FirstOrDefault();
+            Product pro = db.Products.Find(id);
             if (pro == null)
             {
                 return HttpNotFound();
@@ -204,7 +238,7 @@ namespace project3.User.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RatingBuyer(Product pro, int rating_star)
+        public ActionResult RatingCustom(Product pro, int rating_star)
         {
             int your_Id = Int32.Parse(Session["cus"].ToString());
             Rating rate = db.Ratings.FirstOrDefault(r=>r.REL_Or_Pro.pro_ID == pro.pro_ID && r.sent_cus == your_Id);
@@ -215,7 +249,7 @@ namespace project3.User.Controllers
                 myRate.pro_ID = pro.pro_ID;
                 myRate.or_ID = pro.REL_Or_Pro.ElementAt(0).or_ID;
                 myRate.sent_cus = your_Id;
-                myRate.received_cus = your_Id==pro.pro_ID?pro.REL_Or_Pro.ElementAt(0).Order.cus_ID:pro.cus_ID;
+                myRate.received_cus = your_Id==pro.cus_ID?pro.REL_Or_Pro.ElementAt(0).Order.cus_ID:pro.cus_ID;
                 db.Ratings.Add(myRate);
                 db.SaveChanges();
                 return RedirectToAction("Details", pro.pro_ID);

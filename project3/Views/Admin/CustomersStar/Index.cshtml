@@ -50,12 +50,21 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                
+                @Html.DisplayFor(modelItem => item.Star)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.cus_ID })
+                @Html.ActionLink("Block", "Block", new { id = item.cus_ID })
             </td>
         </tr>
     }
 
 </table>
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <li class="@(i == Model.PageNumber?"page-item active":"page-item") me-3">
+            <a class="page-link" href="@Url.Action("Index", new{pi = i})">@i</a>
+        </li>
+
+    }
+</ul>

@@ -139,15 +139,15 @@
     <Compile Include="Admin\Controllers\AuctionsController.cs" />
     <Compile Include="Admin\Controllers\BaseController.cs" />
     <Compile Include="Admin\Controllers\CategoryController.cs" />
-    <Compile Include="Admin\Controllers\CustomersController.cs" />
+    <Compile Include="Admin\Controllers\CustomersStarController.cs" />
     <Compile Include="Admin\Controllers\DAOController.cs" />
     <Compile Include="Admin\Controllers\EmployeesController.cs" />
+    <Compile Include="Admin\Controllers\HomeController.cs" />
     <Compile Include="Admin\Controllers\ProductsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Admin\Controllers\HomeController.cs" />
     <Compile Include="Models\Auction.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -203,6 +203,7 @@
     <Compile Include="Models\Rating.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\relGr.cs" />
     <Compile Include="Models\REL_Or_Pro.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -404,13 +405,13 @@
     <Content Include="Views\User\Shop\Sell_products.cshtml" />
     <Content Include="Views\User\Shop\Details.cshtml" />
     <Content Include="Views\User\Shop\Index.cshtml" />
-    <Content Include="Views\Admin\Category\Create.cshtml" />
-    <Content Include="Views\Admin\Category\Delete.cshtml" />
-    <Content Include="Views\Admin\Category\Edit.cshtml" />
-    <Content Include="Views\Admin\Category\Index.cshtml" />
     <Content Include="Views\User\Customers\Your_buying.cshtml" />
     <Content Include="Views\User\Customers\Index.cshtml" />
     <Content Include="Views\User\Customers\History.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\User\Customers\Selling.cshtml" />
+    <Content Include="Views\User\Home\Contact.cshtml" />
+    <Content Include="Views\User\Shop\Auction.cshtml" />
     <Content Include="Views\Admin\Account\ChangePassword.cshtml" />
     <Content Include="Views\Admin\Account\Details.cshtml" />
     <Content Include="Views\Admin\Account\Login.cshtml" />
@@ -424,17 +425,14 @@
     <Content Include="Views\Admin\Category\Delete.cshtml" />
     <Content Include="Views\Admin\Category\Edit.cshtml" />
     <Content Include="Views\Admin\Category\Index.cshtml" />
-    <Content Include="Views\Admin\Customers\Delete.cshtml" />
-    <Content Include="Views\Admin\Customers\Index.cshtml" />
+    <Content Include="Views\Admin\CustomersStar\Block.cshtml" />
+    <Content Include="Views\Admin\CustomersStar\Index.cshtml" />
+    <Content Include="Views\Admin\Employees\Decentralization.cshtml" />
     <Content Include="Views\Admin\Employees\Delete.cshtml" />
     <Content Include="Views\Admin\Employees\Index.cshtml" />
+    <Content Include="Views\Admin\Home\Index.cshtml" />
     <Content Include="Views\Admin\Products\Details.cshtml" />
     <Content Include="Views\Admin\Products\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Admin\Home\Index.cshtml" />
-    <Content Include="Views\User\Customers\Selling.cshtml" />
-    <Content Include="Views\User\Home\Contact.cshtml" />
-    <Content Include="Views\User\Shop\Auction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

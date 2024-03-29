@@ -8,6 +8,7 @@ namespace project3.Models
     public class CustomerStar
     {
         public int cus_ID { get; set; }
+        public byte[] Img { get; set; }
         public string UserName { get; set; }
         public string Sex { get; set; }
         public string Address { get; set; }

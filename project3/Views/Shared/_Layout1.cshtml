@@ -27,6 +27,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="~/Content/Admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Admin/css/pagnizatiom.css" rel="stylesheet">
     <link rel="shortcut icon" href="~/Images/img/logo-1.png">
 
     <!-- Template Stylesheet -->
@@ -90,9 +91,7 @@
                         </div>
                     </div>
                     <a href="~/Admin/Products" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Product</a>
-                    <a href="~/Admin/Customers" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Customers</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <a href="~/Admin/CustomersStar" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Customers</a>
                 </div>
             </nav>
         </div>
@@ -145,7 +144,7 @@
                             {
                                 foreach (var item in TempData["ProList"] as List<project3.Models.Product>)
                                 {
-                                    <a href="#" class="dropdown-item">
+                                    <a href="~/Admin/Products" class="dropdown-item">
                                         <h6 class="fw-normal mb-0">New Productc @item.NamePro</h6>
                                         <small>@item.Status.StatusDetails</small>
                                     </a>

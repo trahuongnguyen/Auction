@@ -11,6 +11,7 @@ using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
 using project3.Models;
 using WebGrease.Css.Extensions;
+using PagedList;
 
 namespace project3.Admin.Controllers
 {
@@ -19,10 +20,13 @@ namespace project3.Admin.Controllers
         private dbauctionsystemEntities db = new dbauctionsystemEntities();
 
         // GET: Auctions
-        public ActionResult Index()
+        public ActionResult Index(int? pi)
         {
-            var auction = db.Auctions.Include(a => a.Employee);
-            return View(auction.ToList());
+            var auction = db.Auctions.Include(a => a.Employee).ToList();
+            
+            int PageNumber = pi ?? 1;
+            int PageSize = 5;
+            return View(auction.ToPagedList(PageNumber, PageSize));
         }
 
         // GET: Auctions/Details/5
@@ -33,7 +37,7 @@ namespace project3.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Auction auction = db.Auctions.Find(id);
-            ViewBag.rel = db.REL_Pro_Au.Where(r => r.au_ID == auction.au_ID).Include(r => r.Product).ToList();
+            ViewBag.rel = db.REL_Pro_Au.Where(r => r.au_ID == auction.au_ID).ToList();
             if (auction == null)
             {
                 return HttpNotFound();
@@ -58,20 +62,23 @@ namespace project3.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                REL_Pro_Au rEL_Pro_Au = new REL_Pro_Au();
+                db.Auctions.Add(auction);
+                db.SaveChanges();     
                 if (proID != null)
                 {
                     foreach (var value in proID.ToList())
                     {
+                        REL_Pro_Au rEL_Pro_Au = new REL_Pro_Au();
                         rEL_Pro_Au.pro_ID = value;
-                        rEL_Pro_Au.au_ID = auction.au_ID;
-                        proID.Remove(value);
+                        rEL_Pro_Au.au_ID = auction.au_ID;   
                         db.REL_Pro_Au.Add(rEL_Pro_Au);
+                        var product = db.Products.Where(p => p.pro_ID == value).FirstOrDefault();
+                        product.sta_ID = 4;
+                        db.Entry(product).State = EntityState.Modified;
                         db.SaveChanges();
                     }
                 }
-                db.Auctions.Add(auction);
-                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             ViewBag.em_ID = new SelectList(db.Employees, "em_ID", "FirstName", auction.em_ID);
@@ -87,12 +94,13 @@ namespace project3.Admin.Controllers
             }
             Auction auction = db.Auctions.Find(id);
             List<REL_Pro_Au> rEL_Pro_Au = db.REL_Pro_Au.Where(r => r.au_ID == auction.au_ID).ToList();
+            /*List<Product> products = new List<Product>();
             foreach (REL_Pro_Au rEL_Pro_ in rEL_Pro_Au)
             {
-                ViewBag.ListProAu.Add(db.Products.Include(P => P.Categories).Include(p => p.Status).Where(p => p.pro_ID == rEL_Pro_.pro_ID).ToList());
-            }
-            ViewBag.ListPro = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.sta_ID == 2).ToList();
-
+                products.Add(db.Products.Where(p => p.pro_ID == rEL_Pro_.pro_ID).FirstOrDefault());
+            }*/
+            ViewBag.ListPro = db.Products.Include(p => p.Customer).Include(p => p.Status).Where(p => p.sta_ID != 1 && p.sta_ID != 5).ToList();
+            ViewBag.ListProAu = rEL_Pro_Au;
             if (auction == null)
             {
                 return HttpNotFound();
@@ -109,19 +117,27 @@ namespace project3.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                REL_Pro_Au rEL_Pro_ = new REL_Pro_Au();
                 List<REL_Pro_Au> rEL_Pro_Au = db.REL_Pro_Au.Where(r => r.au_ID == auction.au_ID).ToList();
                 if (proID != null)
                 {
                     foreach(var r in rEL_Pro_Au)
                     {
                         db.REL_Pro_Au.Remove(r);
+                        Product pro = db.Products.FirstOrDefault(p=>p.pro_ID==r.pro_ID);
+                        pro.sta_ID = 2;
+                        db.Entry(pro).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
-                    foreach(int p in proID)
+                    foreach (var value in proID.ToList())
                     {
-                        rEL_Pro_.pro_ID = p;
-                        rEL_Pro_.au_ID = auction.au_ID;
-                        db.REL_Pro_Au.Add(rEL_Pro_);
+                        REL_Pro_Au rel = new REL_Pro_Au();
+                        rel.pro_ID = value;
+                        rel.au_ID = auction.au_ID;
+                        db.REL_Pro_Au.Add(rel);
+                        var product = db.Products.Where(p => p.pro_ID == value).FirstOrDefault();
+                        product.sta_ID = 4;
+                        db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
                 }
                 db.Entry(auction).State = EntityState.Modified;
@@ -153,7 +169,8 @@ namespace project3.Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Auction auction = db.Auctions.Find(id);
-            db.Auctions.Remove(auction);
+            auction.Stastus = 0;
+            db.Entry(auction).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

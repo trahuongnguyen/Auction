@@ -23,7 +23,6 @@
                     @Html.LabelFor(model => model.NameAu, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         <input type="text" name="NameAu" class="form-control bg-gray border-0" id="floatingInput" />
-
                         @Html.ValidationMessageFor(model => model.NameAu, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -31,7 +30,8 @@
                 <div class="form-group m-4">
                     @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="text" name="StartTime" class="form-control bg-gray border-0" id="floatingInput" />
+                        <input type="datetime-local" name="StartTime" class="form-control bg-gray border-0" required="required"
+                               data-validation-required-message="Please enter start time">
                         @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -39,7 +39,8 @@
                 <div class="form-group m-4">
                     @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="text" name="EndTime" class="form-control bg-gray border-0" id="floatingInput" />
+                        <input type="datetime-local" name="EndTime" class="form-control bg-gray border-0" required="required"
+                               data-validation-required-message="Please enter start time">
                         @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -75,7 +76,7 @@
                                     @Html.DisplayFor(modelItem => item.NamePro)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Category)
+                                    
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.StartTime)
